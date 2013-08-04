@@ -174,11 +174,6 @@ function loadFeedData(id,pos,start) {
         //Browsers like to set an implicit height on iframes (Chrome: 150px)
         //So set it to 0. Upon loading the content, it will automatically scale up again :)
         ifr.height(0);
-        ifr.load(function() {
-          var dd=this.contentDocument||this.contentWindow.document;
-          dd.body.innerHTML=e.fulltext;
-          
-        });
         var sc="<scr"+"ipt type=\"text/javascript\">\n";
         sc+="var theId="+e.id+";";
         sc+=$("#inject-height").html();
