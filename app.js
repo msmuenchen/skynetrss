@@ -64,14 +64,22 @@ function loadFeedList() {
 
 //open a feed item in the list (pos: db id of the item)
 function openFeedItem(pos) {
+  //clean up the old item(s) so that the DOM resources are free'd
+  $(".feedline iframe").remove();
+  var ifr=$("<iframe>");
+  ifr.attr("src","about:blank");
+  //Browsers like to set an implicit height on iframes (Chrome: 150px)
+  //So set it to 0. Upon loading the content, it will automatically scale up again :)
+  ifr.height(0);
+  ifr.appendTo($("#fl-"+pos+" .fullText"));
   $(".feedline.open").removeClass("open");
   $("#fl-"+pos).addClass("open");
   if($("#fl-"+pos).length>0)
       $("#feedentries").scrollTo($("#fl-"+pos));
   //actually populate the iframe we created earlier!
-  $("#fl-"+pos+" iframe").attr("src","data:text/html;charset=utf-8,"+$("#fl-"+pos).data("html"));
+  ifr.attr("src","data:text/html;charset=utf-8,"+$("#fl-"+pos).data("html"));
 }
-
+ 
 //load a new feed, or open an item of the current feed
 function loadFeed(id,pos) {
   pos=pos||0;
@@ -167,19 +175,13 @@ function loadFeedData(id,pos,start) {
         double scrollbars.
         The content is supplied as a data-URL... which sets the source frame URL/protocol to NULL and so
         provides the SOP protection. Also, it protects "our" DOM from being polluted with not properly closed tags and other bullsh*t.
-        The iframe content is set at opening-time above in the code.
+        The iframe is created and the content is set at opening-time above in the code.
         */
-        var ifr=$("<iframe>");
-        ifr.attr("src","about:blank");
-        //Browsers like to set an implicit height on iframes (Chrome: 150px)
-        //So set it to 0. Upon loading the content, it will automatically scale up again :)
-        ifr.height(0);
         var sc="<scr"+"ipt type=\"text/javascript\">\n";
         sc+="var theId="+e.id+";";
         sc+=$("#inject-height").html();
         sc+="</scr"+"ipt>\n";
         e.fulltext+=sc;
-        ifr.appendTo($("#fl-"+e.id+" .fullText"));
         $("#fl-"+e.id).data("html",encodeURIComponent(e.fulltext));
         /* Evil hack ends here */
         
