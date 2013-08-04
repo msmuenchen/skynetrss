@@ -1,0 +1,135 @@
+* {
+padding:0;
+margin:0;
+}
+html, body {
+  height:100%;
+  width:100%;
+  min-width:1000px;
+}
+body {
+  font-family:Arial;
+}
+#menu {
+float: left;
+width: 300px;
+border-right: 2px solid blueviolet;
+padding: 20px 30px;
+height:calc(100% - 2 * 20px);
+overflow-y:scroll;
+}
+#menu a {
+  text-decoration:none;
+  color:black;
+}
+#menu a:visited {
+  text-decoration:none;
+  color:black;
+}
+#content {
+float:left;
+padding:40px;
+height:calc(100% - 2 * 40px);
+width:calc(100% - 300px - 2 * 30px - 2 * 40px - 2px);
+}
+.view {
+  display:none;
+  height:100%;
+  width:100%;
+/*  overflow-y:scroll;*/
+}
+#feedentries {
+height:100%;
+overflow-y:scroll;
+}
+#index {
+  display:block;
+}
+#feedentries .fullLink {
+  font-style:italic;
+}
+.feedline,#feedmore {
+border:1px solid grey;
+display:block;
+border-radius:4px;
+padding:2px 5px;
+}
+#feedentries h2 {
+  clear:both;
+  cursor:pointer;
+}
+#grcounter {
+display:none;
+}
+.feedline.open .feedDetails {
+  display:block;
+}
+.feedline .feedDetails {
+  display:none;
+}
+.feedline .title.unread {
+font-weight:bold;
+}
+.feedline .date {
+text-align:right;
+}
+.feedline table {
+  width:100%;
+  cursor:pointer;
+}
+.feedDetails:before,
+.feedDetails:after {
+  content: '';
+  display: table;
+}
+.feedDetails:after {
+  clear: both;
+}
+#feedmore span {
+  display:none;
+  cursor:pointer;
+}
+#feedmore.more .more, #feedmore.loading .loading, #feedmore.nomore .nomore {
+display:block;
+}
+.feed.hasunread {
+  font-weight:bold;
+}
+.feedDetails .author {
+  color:#444;
+  font-style:italic;
+  font-size:90%;
+}
+.feedDetails .author:empty {
+  display:none;
+}
+.feedline .bottomRow {
+  font-size:90%;
+  border-top:1px solid #ccc;
+  display:none;
+}
+.feedline.open .bottomRow {
+  display:block;
+}
+.feedline .topRow {
+  border-bottom:1px solid #ccc;
+}
+.feedline .bottomRow td {
+  border:1px solid #00c;
+  border-radius:3px;
+  background-color:#0ff;
+}
+.feed.hasicon {
+  list-style-type:none;
+  position:relative;
+}
+.feed .icon {
+  max-height:20px;
+  max-width:20px;
+  position:absolute;
+  left:-25px;
+}
+.fullText iframe {
+  width:100%;
+  border:none;
+}
