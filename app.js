@@ -167,7 +167,7 @@ function loadFeedData(id,pos,start) {
           obj.titleclass="";
         
         var el=$($("#tpl-feedline").jqote(obj));
-        $(".title",el).click(function(){
+        $(".topRow",el).click(function(){
             location.hash="feed/"+id+"/"+e.id;
         });
         
