@@ -77,6 +77,7 @@ window.onkeypress=function(a) {
 }
     </script>
     <script type="text/javascript" src="app.js"></script>
+    
   </head>
   <body>
   <div id="menu">
@@ -88,6 +89,10 @@ window.onkeypress=function(a) {
     <hr />
     <ul id="feedlist">
       <li class="feed">Lade...</li>
+    </ul>
+    <hr />
+    <ul id="debug_extra">
+      <li id="flts"></li>
     </ul>
   </div>
   <div id="content">

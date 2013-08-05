@@ -6,3 +6,4 @@ while($r=$q->fetch()) {
 
   $ret["items"][]=$r;
 }
+$ret["ts"]=time();

@@ -59,6 +59,10 @@ function loadFeedList() {
       var el=$($("#tpl-feedlist").jqote(obj));
       el.appendTo($("#feedlist"));
     });
+    var d=new Date(data.ts*1000);
+    var ds=dateFormat(d,"dd.mm.yyyy HH:MM:ss");
+    
+    $("#flts").html(ds);
   });
 }
 
