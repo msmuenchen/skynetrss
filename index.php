@@ -55,7 +55,7 @@
 // It tells the parent its inner height so that the iframe can be exactly fit
 // and also tells the parent key presses to allow space-scrolling.
 // This is not possible from outside because of same-origin policy.
-window.onload=function() {
+function seth() {
   //tell parent our height
   window.parent.postMessage({
     type:"seth",
@@ -63,6 +63,10 @@ window.onload=function() {
     myId:theId,
   },'*');
 }
+//Fire on onLoad as well as on DOMReady, so that the text can be read, even if not all images are loaded
+//This is especially needed on mobile and other slow links
+window.onload=seth;
+document.addEventListener('DOMContentLoaded',seth);
 
 window.onkeypress=function(a) {
   //tell parent that a key was pressed (relay SPACE for scrolling)
