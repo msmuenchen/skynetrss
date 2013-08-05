@@ -308,6 +308,9 @@ jQuery(document).ready(function($){
   $("#feed_update").click(function() {
     updateFeed(appstate.feed);
   });
+  
+  //reload the feedlist (and with it, the readcounts) every 10 minutes
+  setInterval(loadFeedList,1000*60*10);
 });
 
 //import a google reader takeout OPML file
