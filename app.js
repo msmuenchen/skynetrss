@@ -24,6 +24,7 @@ console.log("msg");
     var ve=jQuery.Event("keypress");
     ve.keyCode=event.data.ev.keyCode;
     ve.metaKey=event.data.ev.metaKey;
+    ve.relayed=true;
     $(window).trigger(ve);
   }
 },false);
@@ -386,12 +387,11 @@ function importgrfile() {
 $(window).keypress(function(e) {
   console.log("keypress");
   console.log(e);
-  if(e.keyCode==32 && e.metaKey==false) { //space = next element
+  if(e.keyCode==32 && e.metaKey==false && e.relayed) { //space = next element
     if(appstate.view!="feed")
       return;
     console.log("got a space at "+appstate.pos);
     if(appstate.pos!=0 && !$("#fl-"+appstate.pos).length) {
-      console.log("warning, current pos not visible");
       return;
     } else if(appstate.pos==0) {
       var n=$(".feedline").first();
@@ -399,9 +399,7 @@ $(window).keypress(function(e) {
       var n=$("#fl-"+appstate.pos).next();
       //check if we have to scroll, or to go next element
       var top=$("#fl-"+appstate.pos).position().top-$("#feedentries").position().top;
-      console.log("top:" +top);
       var bottom=top+$("#fl-"+appstate.pos).outerHeight();
-      console.log("bottom: "+bottom);
       if(bottom>$("#feedentries").height()-$("#feedmore").outerHeight()) {
         $("#feedentries").scrollTop($("#feedentries").scrollTop()+$("#feedentries").height()/4);
         return;
@@ -410,15 +408,32 @@ $(window).keypress(function(e) {
     var nId=n.attr("id");
     e.preventDefault();
     if(nId=="feedmore") {
-      console.log("arrived at last element");
       if(!$("#feedmore").hasClass("more"))
         return;
       $("#feedmore").click();
     } else {
       var r=/fl-([0-9]*)/.exec(nId);
-      console.log("going to "+r[1]);
       location.hash="feed/"+appstate.feed+"/"+r[1];
-      
     }
+  } else if((e.keyCode==40||e.keyCode==34) && e.relayed) { //arrowkeys, if relayed then accept it
+    var delta=$("#feedentries").height()/4;
+    if(e.keyCode==34)
+      delta*=2; //pgdn doubles scrollheight
+    var current=$("#feedentries").scrollTop();
+    var max=$("#feedentries")[0].scrollHeight-$("#feedentries").height();
+    var n=current+delta;
+    if(n>max)
+      n=max;
+    $("#feedentries").scrollTop(n);
+  } else if((e.keyCode==38||e.keyCode==33) && e.relayed) { //arrowkeys, if relayed then accept it
+    var delta=$("#feedentries").height()/4;
+    if(e.keyCode==33)
+      delta*=2; //pgdn doubles scrollheight
+    var current=$("#feedentries").scrollTop();
+    var n=current-delta;
+    if(n<0)
+        n=0;
+    $("#feedentries").scrollTop(n);
   }
+  
 });
