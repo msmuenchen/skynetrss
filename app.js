@@ -1,6 +1,18 @@
+//http://stackoverflow.com/a/2723677
+$.fn.extend({
+        disableSelection : function() {
+                this.each(function() {
+                        this.onselectstart = function() { return false; };
+                        this.unselectable = "on";
+                        $(this).css('-moz-user-select', 'none');
+                        $(this).css('-webkit-user-select', 'none');
+                });
+        }
+});
 
 //event listener for messages from the feeditem-iframes
 window.addEventListener('message', function(event) {
+console.log("msg");
   //check if it's a mesage from us
   if(!event.data.type)
     return;
@@ -315,6 +327,9 @@ jQuery(document).ready(function($){
   
   //reload the feedlist (and with it, the readcounts) every 10 minutes
   setInterval(loadFeedList,1000*60*10);
+  
+  //prevent selections
+  $("body").disableSelection();
 });
 
 //import a google reader takeout OPML file
