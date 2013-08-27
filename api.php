@@ -34,6 +34,9 @@ try {
     case "setreadstate":
       require("api.setreadstate.php");
     break;
+    case "markallasread":
+      require("api.markallasread.php");
+    break;
     default:
       throw new Exception("Ungültige Aktion angegeben");
   }

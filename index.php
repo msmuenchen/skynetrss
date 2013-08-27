@@ -137,6 +137,7 @@ window.onkeydown=function(e) {
           <td><span id="feed_shown"></span>/<span id="feed_total"></span> Einträge</td>
           <td><button id="feed_reload">Neu laden</button></td>
           <td><button id="feed_update">Von Server laden</button></td>
+          <td><button id="feed_allread">Alle als gelesen markieren</button></td>
           <td>
             <select>
               <option>Neueste zuerst</option>

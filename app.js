@@ -331,7 +331,24 @@ jQuery(document).ready(function($){
   
   //prevent selections
   $("body").disableSelection();
+  
+  //mark all as read
+  $("#feed_allread").click(markallasread);
 });
+
+//mark all as read
+function markallasread() {
+  $.getJSON("api.php?action=markallasread&feed="+appstate.feed,function(data) {
+    if(data.status!="ok") {
+      alert("Fehler in markAllAsRead(): "+data.message);
+      return;
+    }
+    console.log("marked all in "+appstate.feed+" as read");
+    $(".feedline .title").removeClass("unread");
+    $("#fi-"+appstate.feed+" .unread_count").html("0");
+    $("#fi-"+appstate.feed).removeClass("hasunread");
+  });
+}
 
 //import a google reader takeout OPML file
 function importgrfile() {
