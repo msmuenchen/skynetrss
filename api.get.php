@@ -16,13 +16,20 @@ if(isset($_GET["len"])) {
   $len=(int)$_GET["len"];
 }
 
+
 $q=new DB_Query("select * from feeds where id=?",$feed);
 if($q->numRows!=1)
   throw new Exception("Feed ID invalid");
 
 $fdata=$q->fetch();
 $ret["feed"]=$fdata;
-$q=new DB_Query("select fi.*,fr.timestamp FROM `feed_items` as fi left join feed_read as fr on fr.feed_id=fi.feed_id and fr.item_id=fi.id where fi.feed_id=? order by time $order limit $start,$len",$feed);
+
+$sql="select fi.*,fr.timestamp FROM `feed_items` as fi left join feed_read as fr on fr.feed_id=fi.feed_id and fr.item_id=fi.id where fi.feed_id=? ";
+if(isset($_GET["noshowread"]))
+  $sql.="and fr.timestamp is null ";
+$sql.="order by time $order limit $start,$len;";
+$ret["msg"]=$sql;
+$q=new DB_Query($sql,$feed);
 $ret["items"]=array();
 while($r=$q->fetch()) {
   $ret["items"][]=$r;

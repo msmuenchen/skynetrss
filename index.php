@@ -143,6 +143,9 @@ window.onkeydown=function(e) {
               <option>Neueste zuerst</option>
             </select>
           </td>
+          <td>
+            <input id="feed_showread" checked="checked" type="checkbox"/> <label for="feed_showread">Gelesene Elemente anzeigen</label>
+          </td>
         </tr>
         </table>
       </div>

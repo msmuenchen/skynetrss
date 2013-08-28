@@ -146,7 +146,10 @@ function markAsRead(fid,pid,read) {
 //get the items of a feed
 function loadFeedData(id,pos,start) {
   start=start||0;
-   $.getJSON("api.php?action=get&start="+start+"&feed="+id,function(data) {
+  var url="api.php?action=get&start="+start+"&feed="+id;
+  if(!$("#feed_showread").is(":checked"))
+    url+="&noshowread";
+   $.getJSON(url,function(data) {
       if(data.status!="ok") {
         alert("Fehler in getFeed("+id+"): "+data.message);
         return;
@@ -334,6 +337,12 @@ jQuery(document).ready(function($){
   
   //mark all as read
   $("#feed_allread").click(markallasread);
+  
+  //display read items change
+  $("#feed_showread").change(function() {
+    appstate.feed=0; //force the feedhandler to reload the feed from the hash-supplied value. evil.
+    $(window).hashchange();
+  });
 });
 
 //mark all as read
