@@ -35,7 +35,7 @@ while($r=$q->fetch()) {
   $ret["items"][]=$r;
 }
 
-$q=new DB_Query("select count(id) as c from feed_items where feed_id=? order by time $order",$feed);
+$q=new DB_Query("select count(id) as c from feed_items where feed_id=?",$feed);
 $r=$q->fetch();
 $total=$r["c"];
 $ret["total"]=$total;
