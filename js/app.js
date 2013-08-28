@@ -70,23 +70,6 @@ function doAPIRequest(target,params,success,fail,always) {
       }
     });
 }
-//event listener for messages from the feeditem-iframes
-window.addEventListener('message', function(event) {
-  //check if it's a mesage from us
-  if(!event.data.type)
-    return;
-  if(event.data.type=="seth") {
-    var pid=event.data.myId;
-    var h=event.data.scrollHeight;
-    $("#fl-"+pid+" iframe").height(h);
-  } else if(event.data.type=="keypress") {
-    var ve=jQuery.Event("keypress");
-    ve.keyCode=event.data.ev.keyCode;
-    ve.metaKey=event.data.ev.metaKey;
-    ve.relayed=true;
-    $(window).trigger(ve);
-  }
-},false);
 
 //tell server to reload a specific feed from upstream server
 //when the update is done, tell the app to reload the feed
@@ -468,6 +451,25 @@ function importgrfile() {
   reader.readAsText(file, 'UTF-8');
   reader.onload = shipOff;
 }
+
+//event listener for messages from the feeditem-iframes
+window.addEventListener('message', function(event) {
+  //check if it's a mesage from us
+  if(!event.data.type)
+    return;
+  if(event.data.type=="seth") {
+    var pid=event.data.myId;
+    var h=event.data.scrollHeight;
+    $("#fl-"+pid+" iframe").height(h);
+  } else if(event.data.type=="keypress") {
+    var ve=jQuery.Event("keypress");
+    ve.keyCode=event.data.ev.keyCode;
+    ve.metaKey=event.data.ev.metaKey;
+    ve.relayed=true;
+    $(window).trigger(ve);
+  }
+},false);
+
 
 //handle key presses. for now, we're just interested in the space key
 $(window).keypress(function(e) {
