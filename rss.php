@@ -54,7 +54,7 @@ class Feed {
     libxml_use_internal_errors(true);
     $tree=simplexml_load_string($content,"SimpleXMLElement",LIBXML_NOCDATA);
     if($tree===false) {
-      $estr="XML-Fehler im Feed $feed:<br /><pre>";
+      $estr="XML-Fehler im Feed $url:<br /><pre>";
       foreach (libxml_get_errors() as $error) {
         $estr.=print_r($error,true);
       }
@@ -89,8 +89,8 @@ class AtomFeed extends Feed {
     if(!property_exists($tree,"id"))
       throw new MalformedFeedException("Atom-Fehler: Kein ID-Element im CHANNEL");
     
-    if($channel->title=="")
-      $channel->title=$url;
+    if($tree->title=="")
+      $tree->title=$url;
     
     if(property_exists($tree,"subtitle"))
       $this->desc=(string)$tree->subtitle;
