@@ -17,25 +17,25 @@ try {
   $action=$_GET["action"];
   switch($action) {
     case "add": //add new feed to DB
-      require("api.add.php");
+      require("api/api.add.php");
     break;
     case "update": //force update/DB load
-      require("api.update.php");
+      require("api/api.update.php");
     break;
     case "get":
-      require("api.get.php");
+      require("api/api.get.php");
     break;
     case "getfeeds":
-      require("api.getfeeds.php");
+      require("api/api.getfeeds.php");
     break;
     case "importgr":
-      require("api.importgr.php");
+      require("api/api.importgr.php");
     break;
     case "setreadstate":
-      require("api.setreadstate.php");
+      require("api/api.setreadstate.php");
     break;
     case "markallasread":
-      require("api.markallasread.php");
+      require("api/api.markallasread.php");
     break;
     default:
       throw new Exception("Ungültige Aktion angegeben");
