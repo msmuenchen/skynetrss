@@ -10,6 +10,7 @@ var appstate={
 //Config (TODO: generate in PHP, export I18n here...)
 var appconfig= {
   feedicon:"assets/feed-icon-28x28.png",
+  apiurl:"api.php",
 }
 
 //http://stackoverflow.com/a/2723677
@@ -386,7 +387,7 @@ function importgrfile() {
     var result = event.target.result;
     var fileName = $("#grfile").get(0).files[0].name;
     $("#importgrfile").attr("disabled","disabled");
-    $.post('api.php?action=importgr&feed=0', { data: result, name: fileName }, function(data) {
+    $.post(appconfig.apiurl+'?action=importgr&feed=0', { data: result, name: fileName }, function(data) {
       if(data.status!="ok") {
         $("#grresult").html($("#grresult").html()+"Fehler in importGR(): "+data.message);
         $("#importgrfile").removeAttr("disabled");
