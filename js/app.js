@@ -7,6 +7,11 @@ var appstate={
   requestCounter:0, /* keep track of AJAX requests */
 }
 
+//Config (TODO: generate in PHP, export I18n here...)
+var appconfig= {
+  feedicon:"assets/feed-icon-28x28.png",
+}
+
 //http://stackoverflow.com/a/2723677
 $.fn.extend({
         disableSelection : function() {
@@ -63,7 +68,7 @@ function loadFeedList() {
     $("#feedlist .feed").remove();
     data.items.forEach(function(e){
       if(e.icon=="")
-        e.icon="feed-icon-28x28.png";
+        e.icon=appconfig.feedicon;
       var obj={
         id:e.id,
         unread:e.total-e.read,
