@@ -1,3 +1,12 @@
+//Application state
+var appstate={
+  view:"index", /* the current view */
+  feed:0, /* current feed id */
+  pos:0, /* current feed item id */
+  nextstart:0,
+  requestCounter:0, /* keep track of AJAX requests */
+}
+
 //http://stackoverflow.com/a/2723677
 $.fn.extend({
         disableSelection : function() {
@@ -251,13 +260,6 @@ function addFeed() {
   
 }
 
-//Application state
-var appstate={
-  view:"index", /* the current view */
-  feed:0, /* current feed id */
-  pos:0, /* current feed item id */
-  nextstart:0,
-}
 
 jQuery(document).ready(function($){
   //Event handler for the "Read more" in feedlist view
