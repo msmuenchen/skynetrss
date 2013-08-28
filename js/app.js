@@ -189,6 +189,9 @@ function loadFeedData(id,pos,start) {
         });
         
         $("#feedmore").before(el);
+        //Inject a "base" tag to allow for relative links, if we have a link
+        if(data.feed.link!="")
+          e.fulltext='<base href="'+data.feed.link+'" />\n'+e.fulltext;
         /*
         Evil hack. To provide XSS protection, create an iframe node.
         Then, inject a script which posts a message to our window (lol, this is not covered by same-origin-policy)
