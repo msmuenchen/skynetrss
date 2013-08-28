@@ -12,6 +12,7 @@
     <script type="text/javascript" src="js/date.format.js"></script>
     <script type="text/javascript" src="js/jquery.scrollTo-min.js"></script>
     <script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
+    <script type="text/javascript" src="js/api.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/sprintf.js/src/sprintf.js"></script>
     
