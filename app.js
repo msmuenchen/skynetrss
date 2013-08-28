@@ -149,6 +149,7 @@ function loadFeedData(id,pos,start) {
   var url="api.php?action=get&start="+start+"&feed="+id;
   if(!$("#feed_showread").is(":checked"))
     url+="&noshowread";
+  url+="&order="+$("#feed_sort").val();
    $.getJSON(url,function(data) {
       if(data.status!="ok") {
         alert("Fehler in getFeed("+id+"): "+data.message);
@@ -340,6 +341,11 @@ jQuery(document).ready(function($){
   
   //display read items change
   $("#feed_showread").change(function() {
+    appstate.feed=0; //force the feedhandler to reload the feed from the hash-supplied value. evil.
+    $(window).hashchange();
+  });
+  
+  $("#feed_sort").change(function() {
     appstate.feed=0; //force the feedhandler to reload the feed from the hash-supplied value. evil.
     $(window).hashchange();
   });

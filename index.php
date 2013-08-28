@@ -139,8 +139,9 @@ window.onkeydown=function(e) {
           <td><button id="feed_update">Von Server laden</button></td>
           <td><button id="feed_allread">Alle als gelesen markieren</button></td>
           <td>
-            <select>
-              <option>Neueste zuerst</option>
+            <select id="feed_sort">
+              <option value="desc">Neueste zuerst</option>
+              <option value="asc">Älteste zuerst</option>
             </select>
           </td>
           <td>
