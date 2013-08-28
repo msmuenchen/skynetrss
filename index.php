@@ -8,6 +8,7 @@
     
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/jquery.ba-hashchange.min.js"></script>
+    <script type="text/javascript" src="js/jquery.disableSelection.js"></script>
     <script type="text/javascript" src="js/date.format.js"></script>
     <script type="text/javascript" src="js/jquery.scrollTo-min.js"></script>
     <script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
