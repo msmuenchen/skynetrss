@@ -60,6 +60,7 @@ function loadFeedList() {
         unread:e.total-e.read,
         title:e.title,
         icon:e.icon,
+        desc:e.desc,
       };
       if(e.read!=e.total)
         obj.liclass="hasunread ";
