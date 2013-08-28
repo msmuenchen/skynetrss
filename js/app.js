@@ -419,7 +419,7 @@ function importgrfile() {
 $(window).keypress(function(e) {
   console.log("keypress");
   console.log(e);
-  if(e.keyCode==32 && e.metaKey==false && e.relayed) { //space = next element
+  if(e.keyCode==32 && e.metaKey==false) { //space = next element
     if(appstate.view!="feed")
       return;
     console.log("got a space at "+appstate.pos);
