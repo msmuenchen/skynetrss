@@ -343,11 +343,13 @@ jQuery(document).ready(function($){
   $("#feed_showread").change(function() {
     appstate.feed=0; //force the feedhandler to reload the feed from the hash-supplied value. evil.
     $(window).hashchange();
+    $("#feed_showread").trigger('blur');
   });
   
   $("#feed_sort").change(function() {
     appstate.feed=0; //force the feedhandler to reload the feed from the hash-supplied value. evil.
     $(window).hashchange();
+    $("#feed_sort").trigger('blur');
   });
 });
 
@@ -424,8 +426,10 @@ $(window).keypress(function(e) {
       return;
     console.log("got a space at "+appstate.pos);
     if(appstate.pos!=0 && !$("#fl-"+appstate.pos).length) {
-      return;
-    } else if(appstate.pos==0) {
+      //this happens when the current element is not present (e.g. on the next page)
+      appstate.pos=0;
+    }
+    if(appstate.pos==0) {
       var n=$(".feedline").first();
     } else {
       var n=$("#fl-"+appstate.pos).next();
