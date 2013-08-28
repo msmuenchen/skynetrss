@@ -81,7 +81,6 @@ function doAPIRequest(target,params,success,fail,always) {
 }
 //event listener for messages from the feeditem-iframes
 window.addEventListener('message', function(event) {
-console.log("msg");
   //check if it's a mesage from us
   if(!event.data.type)
     return;
@@ -98,28 +97,24 @@ console.log("msg");
   }
 },false);
 
-//tell server to reload all feeds from origin
+//tell server to reload a specific feed from upstream server
+//when the update is done, tell the app to reload the feed
 function updateFeed(id) {
   $("#feed_update").attr("disabled","disabled");
-  $.getJSON("api.php?action=update&feed="+id,function(data) {
-    if(data.status!="ok") {
-      alert("Fehler in update(): "+data.message);
-      $("#feed_update").removeAttr("disabled");
-      return;
-    }
+  doAPIRequest("update",{feed:id},function(data) { //success
     appstate.feed=0;
     $(window).hashchange();
+  },
+  null, //fail
+  function() { //always
     $("#feed_update").removeAttr("disabled");
   });
 }
 
 //load a list of all feeds from server
 function loadFeedList() {
-  $.getJSON("api.php?action=getfeeds&feed=0",function(data) {
-    if(data.status!="ok") {
-      alert("Fehler in getfeeds(): "+data.message);
-      return;
-    }
+  doAPIRequest("getfeeds",{feed:0},function(data) { //success
+    //remove all old feed items
     $("#feedlist .feed").remove();
     data.items.forEach(function(e){
       if(e.icon=="")
@@ -139,12 +134,14 @@ function loadFeedList() {
       if(e.icon!="")
         obj.liclass+="hasicon ";
       
+      //create the DOM objects for the feedlist entry  out of the template
       var el=$($("#tpl-feedlist").jqote(obj));
       el.appendTo($("#feedlist"));
     });
+    
+    //update last-fetch timestamp
     var d=new Date(data.ts*1000);
     var ds=dateFormat(d,"dd.mm.yyyy HH:MM:ss");
-    
     $("#flts").html(ds);
   });
 }
@@ -192,11 +189,7 @@ function markAsRead(fid,pid,read) {
     var state="unread";
   if(pid==0)
     return;
-  $.getJSON("api.php?action=setreadstate&feed="+fid+"&item="+pid+"&state="+state,function(data) {
-    if(data.status!="ok") {
-      alert("Fehler in markAsRead(): "+data.message);
-      return;
-    }
+  doAPIRequest("setreadstate",{feed:fid,item:pid,state:state},function(data) {
     console.log("updated readstate of "+fid+"/"+pid+" to "+state);
     if(appstate.feed==fid)
       $("#fl-"+pid+" .title").removeClass("unread");
@@ -216,15 +209,10 @@ function markAsRead(fid,pid,read) {
 //get the items of a feed
 function loadFeedData(id,pos,start) {
   start=start||0;
-  var url="api.php?action=get&start="+start+"&feed="+id;
+  var params={start:start,feed:id,order:$("#feed_sort").val()};
   if(!$("#feed_showread").is(":checked"))
-    url+="&noshowread";
-  url+="&order="+$("#feed_sort").val();
-   $.getJSON(url,function(data) {
-      if(data.status!="ok") {
-        alert("Fehler in getFeed("+id+"): "+data.message);
-        return;
-      }
+    params.noshowread="";
+  doAPIRequest("get",params,function(data) {
       $("#feed_title").html(data.feed.title);
       if(data.feed.link!="")
         $("#feed_href").attr("href",data.feed.link);
@@ -304,20 +292,17 @@ function addFeed() {
   $("#addnewfeed").attr("disabled","disabled");
   var url=$("#newfeedurl").val();
   console.log("loading feed "+url);
-  console.log(("api.php?action=add&feed="+encodeURIComponent(url)));
-  $.getJSON("api.php?action=add&feed="+encodeURIComponent(url),function(data) {
-    if(data.status!="ok") {
-      $("#addnewfeed").removeAttr("disabled");
-      alert("Fehler in addFeed("+id+"): "+data.message);
-    }
+  doAPIRequest("add",{feed:url},function(data) { //success
     console.log("added feed");
     console.log(data);
     location.hash="feed/"+data.id;
     updateFeed(data.id);
     loadFeedList();
+  },
+  null, //fail
+  function() { //always
     $("#addnewfeed").removeAttr("disabled");
   });
-  
 }
 
 
@@ -421,11 +406,7 @@ jQuery(document).ready(function($){
 
 //mark all as read
 function markallasread() {
-  $.getJSON("api.php?action=markallasread&feed="+appstate.feed,function(data) {
-    if(data.status!="ok") {
-      alert("Fehler in markAllAsRead(): "+data.message);
-      return;
-    }
+  doAPIRequest("markallasread",{feed:appstate.feed},function(data) { //success
     console.log("marked all in "+appstate.feed+" as read");
     $(".feedline .title").removeClass("unread");
     $("#fi-"+appstate.feed+" .unread_count").html("0");
@@ -459,7 +440,7 @@ function importgrfile() {
       $("#grcounter_cur").html(remaining);
       $("#grresult").html($("#grresult").html()+total+" Feeds in OPML gefunden\n");
       data.feeds.forEach(function(e) {
-        $.getJSON("api.php?action=add&feed="+encodeURIComponent(e),function(data2) {
+        doAPIRequest("add",{feed:e},function(data2) {
           remaining--;
           $("#grcounter_cur").html(total-remaining);
           if(remaining<=0)
