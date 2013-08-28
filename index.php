@@ -86,6 +86,8 @@ window.onkeydown=function(e) {
     case 40:
     case 33:
     case 34:
+    case 35:
+    case 36:
 //    default:
       window.parent.postMessage({
       type:"keypress",

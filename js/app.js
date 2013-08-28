@@ -466,6 +466,10 @@ $(window).keypress(function(e) {
     if(n<0)
         n=0;
     $("#feedentries").scrollTop(n);
+  } else if(e.keyCode==36 && e.relayed) { //pos1, scroll to top
+    $("#feedentries").scrollTop(0);
+  } else if(e.keyCode==35 && e.relayed) { //end, scroll to bottom
+    var max=$("#feedentries")[0].scrollHeight-$("#feedentries").height();
+    $("#feedentries").scrollTop(max);
   }
-  
 });
