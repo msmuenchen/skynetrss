@@ -6,11 +6,12 @@
     <title>SKYRSS Reader</title>
     <link rel="stylesheet" href="app.css" type="text/css" media="all" />
     
-    <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="jquery.ba-hashchange.min.js"></script>
-    <script type="text/javascript" src="date.format.js"></script>
-    <script type="text/javascript" src="jquery.scrollTo-min.js"></script>
-    <script type="text/javascript" src="jquery.jqote2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ba-hashchange.min.js"></script>
+    <script type="text/javascript" src="js/date.format.js"></script>
+    <script type="text/javascript" src="js/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
     
     <!-- jqote template for a feed item line -->
     <script type="text/html" id="tpl-feedline">
@@ -97,8 +98,6 @@ window.onkeydown=function(e) {
   return true;
 }
     </script>
-    <script type="text/javascript" src="app.js"></script>
-    
   </head>
   <body>
   <div id="menu">
