@@ -11,6 +11,9 @@ var appstate={
 var appconfig= {
   feedicon:"assets/feed-icon-28x28.png",
   apiurl:"api.php",
+  i18n: {
+    apierror_confirm:"API-Anfrage %s fehlgeschlagen, erneut versuchen?",
+  },
 }
 
 //http://stackoverflow.com/a/2723677
@@ -46,7 +49,7 @@ function doAPIRequest(target,params,success,fail,always) {
           data.message="";
         console.error("Request #"+reqId+" to API "+target+" ("+logstr+") returned error on API level: '"+data.message+"'");
         //See if the user wants to retry, don't fail silently
-        if(confirm("API-Anfrage "+target+" fehlgeschlagen, erneut versuchen?"))
+        if(confirm(sprintf(appconfig.i18n.apierror_confirm,target)))
           doAPIRequest(target,params,success,fail,always);
         else {
           if(typeof(fail)=="function") {
@@ -63,7 +66,7 @@ function doAPIRequest(target,params,success,fail,always) {
     }).
     fail(function() {
       console.error("Request #"+reqId+" to API "+target+" ("+logstr+") failed on network level");
-      if(confirm("API-Anfrage "+target+" fehlgeschlagen, erneut versuchen?")) {
+      if(confirm(sprintf(appconfig.i18n.apierror_confirm,target))) {
         doAPIRequest(target,params,success,fail,always);
         return; //the request may succeed on retry, so return and do not fire the supplied fail-handler
       }

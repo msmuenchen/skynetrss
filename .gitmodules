@@ -1,0 +1,3 @@
+[submodule "js/sprintf.js"]
+	path = js/sprintf.js
+	url = https://github.com/jakobwesthoff/sprintf.js.git

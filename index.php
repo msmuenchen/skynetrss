@@ -12,6 +12,7 @@
     <script type="text/javascript" src="js/jquery.scrollTo-min.js"></script>
     <script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/sprintf.js/src/sprintf.js"></script>
     
     <!-- jqote template for a feed item line -->
     <script type="text/html" id="tpl-feedline">
