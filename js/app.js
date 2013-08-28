@@ -153,6 +153,7 @@ function openFeedItem(pos) {
       $("#feedentries").scrollTo($("#fl-"+pos));
   //actually populate the iframe we created earlier!
   ifr.attr("src","data:text/html;charset=utf-8,"+$("#fl-"+pos).data("html"));
+  $("#fl-"+pos+" .itemRead").attr("checked",false).change();
 }
  
 //load a new feed, or open an item of the current feed
@@ -166,7 +167,6 @@ function loadFeed(id,pos) {
   } else {
     console.log("appstate fid=id="+id);
     openFeedItem(pos);
-    markAsRead(id,pos,true);
     appstate.pos=pos;
   }
 }
@@ -197,7 +197,7 @@ function markAsRead(fid,pid,read) {
   });
 }
 
-//get the items of a feed
+//get the items of a feed and create the list entries
 function loadFeedData(id,pos,start) {
   start=start||0;
   var params={start:start,feed:id,order:$("#feed_sort").val()};
@@ -237,7 +237,21 @@ function loadFeedData(id,pos,start) {
             location.hash="feed/"+id+"/"+e.id;
         });
         
+        //Set the initial state of the checkbox
+        if(e.timestamp===null)
+          $(".itemRead",el).attr("checked",true);
+        else
+          $(".itemRead",el).attr("checked",false);
+
+        $(".itemRead",el).data("id",e.id).change(function() {
+          var itemid=$(this).data("id");
+          var v=$(this).is(":checked");
+          markAsRead(appstate.feed,itemid,!v);
+        });
+        
+        //Insert the element before the "Read more..." list entry
         $("#feedmore").before(el);
+        
         //Inject a "base" tag to allow for relative links, if we have a link
         if(data.feed.link!="")
           e.fulltext='<base href="'+data.feed.link+'" />\n'+e.fulltext;
@@ -258,9 +272,6 @@ function loadFeedData(id,pos,start) {
         $("#fl-"+e.id).data("html",encodeURIComponent(e.fulltext));
         /* Evil hack ends here */
         
-        if(e.timestamp===null)
-          $("#itemread-"+e.id).attr("checked","true");
-        
         $("#feed_shown").html($(".feedline").length);
         
       });
@@ -274,7 +285,6 @@ function loadFeedData(id,pos,start) {
         $("#feedmore").removeClass().addClass("nomore");
       }
       openFeedItem(pos);
-      markAsRead(id,pos,true);
     });
 }
 
