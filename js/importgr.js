@@ -26,7 +26,7 @@ function importgrfile() {
       $("#grcounter_cur").html(remaining);
       $("#grresult").html($("#grresult").html()+total+" Feeds in OPML gefunden\n");
       data.feeds.forEach(function(e) {
-        doAPIRequest("add",{feed:e},function(data2) {
+        doAPIRequest("add",{feed:e,ignoreAPIException:true},function(data2) {
           remaining--;
           $("#grcounter_cur").html(total-remaining);
           if(remaining<=0)
