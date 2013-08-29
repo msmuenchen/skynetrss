@@ -424,6 +424,7 @@ function updateFeed($id) {
       if($db["title"]!=$item->title || $db["link"]!=$item->link || $db["fulltext"]!=$item->text || $db["author"]!=$item->author) {
         $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$row["id"],$db["id"]);
         $log.="\tItem updated in DB, ID ".$db["id"]."\n";
+        $q=new DB_Query("DELETE FROM feed_read WHERE feed_id=? and item_id=?",$row["id"],$db["id"]);
       } else {
         $log.="\tItem current in DB, ID ".$db["id"]."\n";
       }
