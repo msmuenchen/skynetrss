@@ -421,7 +421,7 @@ function updateFeed($id) {
       $log.="\tItem added to DB, ID ".$q->insertId."\n";
     } elseif($q->numRows==1) {
       $db=$q->fetch();
-      if($db["title"]!=$item->title || $db["time"]!=$item->time || $db["link"]!=$item->link || $db["fulltext"]!=$item->text || $db["author"]!=$item->author) {
+      if($db["title"]!=$item->title || $db["link"]!=$item->link || $db["fulltext"]!=$item->text || $db["author"]!=$item->author) {
         $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$row["id"],$db["id"]);
         $log.="\tItem updated in DB, ID ".$db["id"]."\n";
       } else {
