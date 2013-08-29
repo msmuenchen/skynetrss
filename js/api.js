@@ -14,7 +14,7 @@ function doAPIRequest(target,params,success,fail,always) {
     done(function(data) {
       console.log("Request #"+reqId+" to API "+target+" ("+logstr+") returned OK on network level, data object is:");
       console.log(data);
-      if(!data.status || data.status!="ok") {
+      if(!data.status || (data.status!="ok" && !params.ignoreAPIException)) {
         if(!data.message)
           data.message="";
         console.error("Request #"+reqId+" to API "+target+" ("+logstr+") returned error on API level: '"+data.message+"'");
