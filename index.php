@@ -23,13 +23,13 @@
 <li id="fl-<%= this.id %>" class="feedline">
   <table class="topRow">
   <tr>
-    <td class="title <%= this.titleclass %>"><%= this.title %></td>
+    <td class="title <%= this.titleclass %>"><%! this.title %></td>
     <td class="date"><%= this.date %></td>
   </tr>
   </table>
   <div class="feedDetails" id="data-<%= this.id %>">
-    <div><a class="fullLink" target="_blank" href="<%= this.href %>">Seite öffnen</a></div>
-    <div class="author"><%= this.author %></div>
+    <div><a class="fullLink" target="_blank" href="<%! this.href %>">Seite öffnen</a></div>
+    <div class="author"><%! this.author %></div>
     <div class="fullText"></div>
   </div>
   <table class="bottomRow">
@@ -47,9 +47,9 @@
 <![CDATA[
 <li class="feed <%= this.liclass %>" id="fi-<%= this.id %>">
 <% if(this.icon!="") { %>
-  <img src="<%= this.icon %>" class="icon" />
+  <img src="<%! this.icon %>" class="icon" />
 <% } %>
-  <a href="#feed/<%= this.id %>/" title="<%= this.desc %>"><%= this.title %> (<span class="unread_count"><%= this.unread %></span>)</a>
+  <a href="#feed/<%= this.id %>/" title="<%! this.desc %>"><%! this.title %> (<span class="unread_count"><%= this.unread %></span>)</a>
 </li>
 ]]>    
     </script>
