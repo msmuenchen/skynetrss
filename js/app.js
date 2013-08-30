@@ -96,6 +96,7 @@ function loadFeed(id,pos) {
     console.log("appstate fid=id="+id);
     openFeedItem(pos);
     appstate.pos=pos;
+    $("#feed_reload").removeAttr("disabled");
   }
 }
 
@@ -136,6 +137,7 @@ function loadFeedData(id,pos,start) {
   if(!$("#feed_showread").is(":checked"))
     params.noshowread="";
   doAPIRequest("get",params,function(data) {
+      $("#feed_reload").removeAttr("disabled");
       $("#feed_title").html(data.feed.title);
       if(data.feed.link!="")
         $("#feed_href").attr("href",data.feed.link);
@@ -305,6 +307,7 @@ jQuery(document).ready(function($){
   //load the feed list
   loadFeedList();
   $("#feed_reload").click(function() {
+    $(this).attr("disabled","disabled");
     appstate.feed=0; //force the feedhandler to reload the feed from the hash-supplied value. evil.
     $(window).hashchange();
   });
@@ -339,11 +342,16 @@ jQuery(document).ready(function($){
 
 //mark all as read
 function markallasread() {
+  $("#feed_allread").attr("disabled","disabled");
   doAPIRequest("markallasread",{feed:appstate.feed},function(data) { //success
     console.log("marked all in "+appstate.feed+" as read");
     $(".feedline .title").removeClass("unread");
     $("#fi-"+appstate.feed+" .unread_count").html("0");
     $("#fi-"+appstate.feed).removeClass("hasunread");
+  },
+  null, //fail
+  function() { //always
+    $("#feed_allread").removeAttr("disabled");
   });
 }
 
