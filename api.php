@@ -15,30 +15,54 @@ try {
     throw new Exception("Keine Aktion angegeben");
   $feed=$_GET["feed"];
   $action=$_GET["action"];
-  switch($action) {
-    case "add": //add new feed to DB
-      require("api/api.add.php");
-    break;
-    case "update": //force update/DB load
-      require("api/api.update.php");
-    break;
-    case "get":
-      require("api/api.get.php");
-    break;
-    case "getfeeds":
-      require("api/api.getfeeds.php");
-    break;
-    case "importgr":
-      require("api/api.importgr.php");
-    break;
-    case "setreadstate":
-      require("api/api.setreadstate.php");
-    break;
-    case "markallasread":
-      require("api/api.markallasread.php");
-    break;
-    default:
-      throw new Exception("Ungültige Aktion angegeben");
+  if(!$config["demomode"]) {
+    switch($action) {
+      case "add": //add new feed to DB
+        require("api/api.add.php");
+      break;
+      case "update": //force update/DB load
+        require("api/api.update.php");
+      break;
+      case "get":
+        require("api/api.get.php");
+      break;
+      case "getfeeds":
+        require("api/api.getfeeds.php");
+      break;
+      case "importgr":
+        require("api/api.importgr.php");
+      break;
+      case "setreadstate":
+        require("api/api.setreadstate.php");
+      break;
+      case "markallasread":
+        require("api/api.markallasread.php");
+      break;
+      default:
+        throw new Exception("Ungültige Aktion angegeben");
+    }
+  } else {
+    switch($action) {
+      case "add": //add new feed to DB
+      break;
+      case "update": //force update/DB load
+        require("api/api.update.php");
+      break;
+      case "get":
+        require("api/api.get.php");
+      break;
+      case "getfeeds":
+        require("api/api.getfeeds.php");
+      break;
+      case "importgr":
+      break;
+      case "setreadstate":
+      break;
+      case "markallasread":
+      break;
+      default:
+        throw new Exception("Ungültige Aktion angegeben");
+    }
   }
   $ret["status"]="ok";
   $ret["message"]=$log;
