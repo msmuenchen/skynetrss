@@ -325,7 +325,7 @@ class RSSFeed extends Feed {
       $itemObj=new FeedItem();
       
       //Try to get a GUID. If there was none supplied, hash the title, and then hash the description.
-      if(property_exists($item,"guid")) {
+      if(property_exists($item,"guid") && $item->guid!="") {
         $guid=$item->guid;
       } elseif(property_exists($item,"title")) {
         $guid=md5($item->title);
