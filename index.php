@@ -70,7 +70,15 @@ function seth() {
 }
 //Fire on onLoad as well as on DOMReady, so that the text can be read, even if not all images are loaded
 //This is especially needed on mobile and other slow links
-window.onload=seth;
+window.onload=function() {
+  seth();
+  var links=document.getElementsByTagName("a");
+  for(var i=0;i<links.length;i++) {
+    var link=links[i];
+    if(link.href)
+      link.target="_new";
+  }
+};
 document.addEventListener('DOMContentLoaded',seth);
 
 window.onkeypress=function(a) {
