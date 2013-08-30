@@ -143,25 +143,23 @@ window.onkeydown=function(e) {
     </div>
     <div class="view" id="feed">
       <div id="feedbar">
-        <table style="width:100%">
-        <tr>
-          <td><a id="feed_href" target="_blank"><h1 id="feed_title"></h1></a></td>
-          <td>Stand: <span id="feed_ts"></span></td>
-          <td><span id="feed_shown"></span>/<span id="feed_total"></span> Einträge</td>
-          <td><button id="feed_reload">Neu laden</button></td>
-          <td><button id="feed_update">Von Server laden</button></td>
-          <td><button id="feed_allread">Alle als gelesen markieren</button></td>
-          <td>
+        <a id="feed_href" target="_blank"><h1 id="feed_title"></h1></a>
+        <div id="feedmenu">
+          <span class="item">Stand: <span id="feed_ts"></span></span>
+          <span class="item"><span id="feed_shown"></span>/<span id="feed_total"></span> Einträge</span>
+          <span class="item"><button id="feed_reload">Neu laden</button></span>
+          <span class="item"><button id="feed_update">Von Server laden</button></span>
+          <span class="item"><button id="feed_allread">Alle als gelesen markieren</button></span>
+          <span class="item">
             <select id="feed_sort">
               <option value="desc">Neueste zuerst</option>
               <option value="asc">Älteste zuerst</option>
             </select>
-          </td>
-          <td>
+          </span>
+          <span class="item">
             <input id="feed_showread" checked="checked" type="checkbox"/> <label for="feed_showread">Gelesene Elemente anzeigen</label>
-          </td>
-        </tr>
-        </table>
+          </span>
+        </div>
       </div>
       <ul id="feedentries">
         <li id="feedmore">
