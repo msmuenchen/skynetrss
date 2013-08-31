@@ -6,15 +6,27 @@ require("rss.php");
 require("DB.php");
 require("DB_Query.php");
 
+class APIWrongCallException extends Exception {
+}
+
 $ret=array();
 $log="";
 try {
-  if(!isset($_GET["feed"]) || $_GET["feed"]=="")
-    throw new Exception("Kein Feed angegeben");
   if(!isset($_GET["action"]) || $_GET["action"]=="")
-    throw new Exception("Keine Aktion angegeben");
-  $feed=$_GET["feed"];
+    throw new APIMissingParameterException("Keine Aktion angegeben");
   $action=$_GET["action"];
+  switch($action) { //check for certain actions if the parameter "feed" was supplied
+    case "add":
+    case "update":
+    case "get":
+    case "setreadstate":
+    case "markallasread":
+      if(!isset($_GET["feed"]) || $_GET["feed"]=="")
+        throw new APIWrongCallException("Kein Feed angegeben");
+      $feed=$_GET["feed"];
+    break;
+  }
+  
   if(!$config["demomode"]) {
     switch($action) {
       case "add": //add new feed to DB
@@ -39,12 +51,10 @@ try {
         require("api/api.markallasread.php");
       break;
       default:
-        throw new Exception("Ungültige Aktion angegeben");
+        throw new APIWrongCallException("Ungültige Aktion angegeben");
     }
   } else {
     switch($action) {
-      case "add": //add new feed to DB
-      break;
       case "update": //force update/DB load
         require("api/api.update.php");
       break;
@@ -54,14 +64,18 @@ try {
       case "getfeeds":
         require("api/api.getfeeds.php");
       break;
+      case "login":
+        require("api/api.login.php");
+      break;
+      case "logout":
+        require("api/api.logout.php");
+      break;
+      case "add": //add new feed to DB
       case "importgr":
-      break;
       case "setreadstate":
-      break;
       case "markallasread":
-      break;
       default:
-        throw new Exception("Ungültige Aktion angegeben");
+        throw new APIWrongCallException("Ungültige Aktion angegeben");
     }
   }
   $ret["status"]="ok";
