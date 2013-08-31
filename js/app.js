@@ -32,9 +32,14 @@ function updateFeed(id) {
 
 //load a list of all feeds from server
 function loadFeedList() {
+  //remove all old feed items
+  $("#feedlist .feed").remove();
+  $("#feedlist li").hide();
+  $("#feedlist .loading").show();
   doAPIRequest("getfeeds",{feed:0},function(data) { //success
-    //remove all old feed items
-    $("#feedlist .feed").remove();
+    $("#feedlist .loading").hide();
+    if(data.items.length==0)
+      $("#feedlist .nofeeds").show();
     data.items.forEach(function(e){
       if(e.icon=="")
         e.icon=appconfig.feedicon;

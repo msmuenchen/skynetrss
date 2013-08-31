@@ -125,7 +125,8 @@ window.onkeydown=function(e) {
     </ul>
     <hr />
     <ul id="feedlist">
-      <li class="feed">Lade...</li>
+      <li class="loading">Lade...</li>
+      <li class="nofeeds">Keine Feeds vorhanden</li>
     </ul>
     <hr />
     <ul id="debug_extra">
