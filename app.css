@@ -95,7 +95,9 @@ text-align:right;
 }
 .feedline table {
   width:100%;
-  cursor:pointer;
+}
+.feedline .topRow,.feedline .bottomRow td {
+	cursor:pointer;
 }
 .feedDetails:before,
 .feedDetails:after {
@@ -138,6 +140,7 @@ display:block;
   border:1px solid #00c;
   border-radius:3px;
   background-color:#0ff;
+padding: 1px 4px;
 }
 .feed.hasicon {
   list-style-type:none;
