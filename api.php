@@ -80,6 +80,7 @@ try {
       case "importgr":
       case "setreadstate":
       case "markallasread":
+      break;
       default:
         throw new APIWrongCallException("Ungültige Aktion angegeben");
     }
