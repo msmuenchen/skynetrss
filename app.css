@@ -83,6 +83,10 @@ display:none;
 .feedline .feedDetails {
   display:none;
 }
+.feedline .title {
+	font-size:16px;
+	line-height:16px;
+}
 .feedline .title.unread {
 font-weight:bold;
 }
