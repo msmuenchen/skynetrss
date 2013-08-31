@@ -119,6 +119,9 @@ window.onkeydown=function(e) {
       <li><a href="#index">Startseite</a></li>
       <li><a href="#op/addnew">Neuen Feed hinzufügen</a></li>
       <li><a href="#op/addgr">GoogleReader Import</a></li>
+      <li id="login"><a href="#op/login">Anmelden</a></li>
+      <li id="logout"><a href="#op/logout">Abmelden</a></li>
+      <li id="settings"><a href="#op/settings">Einstellungen für <span id="username"></span></a></li>
     </ul>
     <hr />
     <ul id="feedlist">
@@ -130,6 +133,12 @@ window.onkeydown=function(e) {
     </ul>
   </div>
   <div id="content">
+    <div class="view" id="oplogin">
+    </div>
+    <div class="view" id="oplogout">
+    </div>
+    <div class="view" id="opsettings">
+    </div>
     <div class="view" id="opaddnew">
       <input id="newfeedurl" size="90" type="url" /> <button id="addnewfeed">Feed hinzufügen</button>
     </div>

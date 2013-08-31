@@ -178,3 +178,6 @@ line-height:24px;
 #feedmenu {
 height:20px;
 }
+#menu #login, #menu #logout, #menu #settings, #feedlist .loading, #feedlist .nofeeds {
+	display:none;
+}
