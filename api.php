@@ -50,6 +50,12 @@ try {
       case "markallasread":
         require("api/api.markallasread.php");
       break;
+      case "login":
+        require("api/api.login.php");
+      break;
+      case "logout":
+        require("api/api.logout.php");
+      break;
       default:
         throw new APIWrongCallException("Ungültige Aktion angegeben");
     }
