@@ -149,7 +149,7 @@ function loadFeedData(id,pos,start) {
         if(data.type=="PermissionDeniedException") {
           alert(appconfig.i18n.apierror_permissiondenied);
         } else {
-          alert(appconfig.i18n.apierror_other);
+          alert(sprintf(appconfig.i18n.apierror_other,"get"));
         }
         return;
       }
