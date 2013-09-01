@@ -32,7 +32,7 @@ CREATE TABLE `feed_read` (
   `feed_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `timestamp` int(11) NOT NULL,
-  PRIMARY KEY (`feed_id`,`item_id`)
+  PRIMARY KEY (`feed_id`,`item_id`,`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `feed_runs`;
@@ -61,7 +61,7 @@ CREATE TABLE `feeds` (
   `lastread` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_getfeedsquery` (`id`,`title`)
-) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_feeds`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -83,7 +83,7 @@ CREATE TABLE `users` (
   `source` varchar(30) NOT NULL,
   `type` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
