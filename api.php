@@ -56,6 +56,9 @@ try {
       case "logout":
         require("api/api.logout.php");
       break;
+      case "getsession":
+        require("api/api.getsession.php");
+      break;
       default:
         throw new APIWrongCallException("Ungültige Aktion angegeben");
     }
@@ -75,6 +78,9 @@ try {
       break;
       case "logout":
         require("api/api.logout.php");
+      break;
+      case "getsession":
+        require("api/api.getsession.php");
       break;
       case "add": //add new feed to DB
       case "importgr":
