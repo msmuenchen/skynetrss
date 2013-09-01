@@ -387,11 +387,19 @@ function initLogin() {
     APIRequestPool.forEach(function(e) {
       e.abort();
     });
+    //remove feed items
+    $("#feedentries li.feedline").remove();
+    //remove potentially compromising information out of appstate
+    appstate.feed=0;
+    appstate.pos=0;
+    appstate.nextstart=0;
     doAPIRequest("logout",{},function(data) {
       $("#menu #logout,#menu #settings").hide();
       $("#menu #login").show();
       location.hash="op/login";
       $(window).hashchange();
+      loadFeedList();
+      
     },
     null, //fail
     function() { //always
