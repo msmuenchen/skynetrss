@@ -68,6 +68,9 @@ try {
       case "unsubscribe":
         require("api/api.unsubscribe.php");
       break;
+      case "changepwd":
+        require("api/api.changepwd.php");
+      break;
       default:
         throw new APIWrongCallException("Ungültige Aktion angegeben");
     }
@@ -96,6 +99,7 @@ try {
       case "setreadstate":
       case "markallasread":
       case "unsubscribe":
+      case "changepwd":
       break;
       default:
         throw new APIWrongCallException("Ungültige Aktion angegeben");
