@@ -53,13 +53,14 @@ DROP TABLE IF EXISTS `feeds`;
 CREATE TABLE `feeds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` text NOT NULL,
-  `title` text NOT NULL,
+  `title` varchar(255) NOT NULL,
   `desc` text NOT NULL,
   `link` text NOT NULL,
   `icon` text NOT NULL,
   `ttl` int(11) NOT NULL,
   `lastread` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `idx_getfeedsquery` (`id`,`title`)
 ) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_feeds`;
