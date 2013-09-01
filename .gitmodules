@@ -1,3 +1,6 @@
 [submodule "js/sprintf.js"]
 	path = js/sprintf.js
 	url = https://github.com/jakobwesthoff/sprintf.js.git
+[submodule "lib/twitteroauth"]
+	path = lib/twitteroauth
+	url = https://github.com/abraham/twitteroauth.git
