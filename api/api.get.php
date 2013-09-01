@@ -1,4 +1,10 @@
 <?
+session_start();
+if(!isset($_SESSION["user"]))
+  $uid=0;
+else
+  $uid=$_SESSION["user"]["id"];
+
 if(isset($_GET["order"])) {
   if($_GET["order"]=="asc")
     $order="asc";
@@ -16,15 +22,21 @@ if(isset($_GET["len"])) {
   $len=(int)$_GET["len"];
 }
 
-
 $q=new DB_Query("select * from feeds where id=?",$feed);
 if($q->numRows!=1)
   throw new Exception("Feed ID invalid");
-
 $fdata=$q->fetch();
+
+$q=new DB_Query("select * from user_feeds where user_id=? and feed_id=?",$uid,$feed);
+if($q->numRows!=1)
+  throw new PermissionDeniedException();
+
+
 $ret["feed"]=$fdata;
 
-$sql="select fi.*,fr.timestamp FROM `feed_items` as fi left join feed_read as fr on fr.feed_id=fi.feed_id and fr.item_id=fi.id where fi.feed_id=? ";
+$sql="select fi.*,fr.timestamp
+    FROM `feed_items` as fi
+    left join feed_read as fr on fr.feed_id=fi.feed_id and fr.item_id=fi.id where fi.feed_id=? ";
 if(isset($_GET["noshowread"]))
   $sql.="and fr.timestamp is null ";
 $sql.="order by time $order limit $start,$len;";

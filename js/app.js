@@ -13,6 +13,8 @@ var appconfig= {
   apiurl:"api.php",
   i18n: {
     apierror_confirm:"API-Anfrage %s fehlgeschlagen, erneut versuchen?",
+    apierror_permissiondenied:"Zugriff auf Feed verweigert!",
+    apierror_other:"API-Anfrage %s fehlgeschlagen!",
   },
 }
 
@@ -138,11 +140,19 @@ function markAsRead(fid,pid,read) {
 //get the items of a feed and create the list entries
 function loadFeedData(id,pos,start) {
   start=start||0;
-  var params={start:start,feed:id,order:$("#feed_sort").val()};
+  var params={start:start,feed:id,order:$("#feed_sort").val(),ignoreAPIException:true};
   if(!$("#feed_showread").is(":checked"))
     params.noshowread="";
   doAPIRequest("get",params,function(data) {
-      $("#feed_reload").removeAttr("disabled");
+      
+      if(data.status!="ok") {
+        if(data.type=="PermissionDeniedException") {
+          alert(appconfig.i18n.apierror_permissiondenied);
+        } else {
+          alert(appconfig.i18n.apierror_other);
+        }
+        return;
+      }
       $("#feed_title").html(data.feed.title);
       if(data.feed.link!="")
         $("#feed_href").attr("href",data.feed.link);
@@ -224,6 +234,10 @@ function loadFeedData(id,pos,start) {
         $("#feedmore").removeClass().addClass("nomore");
       }
       openFeedItem(pos);
+    },
+    null, //fail
+    function() { //always
+      $("#feed_reload").removeAttr("disabled");
     });
 }
 
