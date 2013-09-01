@@ -20,9 +20,12 @@ if($q->numRows==0) {
   if($q->insertId==0)
     throw new Exception("SQL-Fehler: INSERT fehlgeschlagen");
   $ret["id"]=$q->insertId;
+  $q=new DB_Query("select * from feeds where id=?",$q->insertId);
+  $ret["feed"]=$q->fetch();
 } elseif($q->numRows==1) {
   $r=$q->fetch();
   $ret["id"]=$r["id"];
+  $ret["feed"]=$r;
   //OK
 } else {
   throw new Exception("SQL-Fehler: Feed mehrfach vorhanden!");
