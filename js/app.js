@@ -443,11 +443,11 @@ window.addEventListener('message', function(event) {
 
 //handle key presses. for now, we're just interested in the space key
 $(window).keypress(function(e) {
+  if(appstate.view!="feed")
+      return;
   console.log("window got a keypress event:");
   console.log(e);
   if(e.keyCode==32 && e.metaKey==false) { //space = next element
-    if(appstate.view!="feed")
-      return;
     console.log("got a space at "+appstate.pos);
     if(appstate.pos!=0 && !$("#fl-"+appstate.pos).length) {
       //this happens when the current element is not present (e.g. on the next page)
