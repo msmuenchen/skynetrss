@@ -1,5 +1,7 @@
 //Provide API requests with centralized error handling to simplify code
 //and support retrying of requests
+var APIRequestPool=[];
+
 function doAPIRequest(target,params,success,fail,always) {
   var logstr="";
   var queryUrl=appconfig.apiurl+"?action="+target;
@@ -10,7 +12,7 @@ function doAPIRequest(target,params,success,fail,always) {
   }
   logstr=logstr.substring(0,logstr.length-1);
   console.log("Submitting request to API "+target+" ("+logstr+") with ID "+reqId+", raw query is "+queryUrl);
-  $.getJSON(queryUrl).
+  var request=$.getJSON(queryUrl).
     done(function(data) {
       console.log("Request #"+reqId+" to API "+target+" ("+logstr+") returned OK on network level, data object is:");
       console.log(data);
@@ -45,10 +47,15 @@ function doAPIRequest(target,params,success,fail,always) {
         fail();
       }
     }).
-    always(function() {
+    always(function(a,b,c) {
       if(typeof(always)=="function") {
         console.log("Calling the 'always' handler of API request #"+reqId);
         always();
       }
+      APIRequestPool.splice(c._poolIdx,1);
+      $("#poollen").html(APIRequestPool.length);
     });
+  request._poolIdx=APIRequestPool.length;
+  APIRequestPool.push(request);
+  $("#poollen").html(APIRequestPool.length);
 }

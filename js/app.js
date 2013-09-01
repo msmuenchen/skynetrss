@@ -312,6 +312,15 @@ jQuery(document).ready(function($){
       case "addgr":
         $("#opaddgr").show();
         break;
+      case "login":
+        $("#oplogin").show();
+        break;
+      case "logout":
+        $("#oplogout").show();
+        break;
+      case "settings":
+        $("#opsettings").show();
+        break;
     }
     appstate.view=op[1];
   });
