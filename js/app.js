@@ -357,7 +357,22 @@ jQuery(document).ready(function($){
     $(window).hashchange();
     $("#feed_sort").trigger('blur');
   });
+  
+  initLogin();
 });
+
+function initLogin() {
+  doAPIRequest("getsession",{},function(data) {
+    if(data.user) {
+      $("#menu #logout,#menu #settings").show();
+      $("#menu #username").html(data.user.name);
+    } else {
+      $("#menu #login").show();
+    }
+    console.log("session data");
+    console.log(data);
+  });
+}
 
 //mark all as read
 function markallasread() {
