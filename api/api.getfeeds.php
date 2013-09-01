@@ -5,14 +5,21 @@ if(!isset($_SESSION["user"]))
 else
   $uid=$_SESSION["user"]["id"];
 
-$q=new DB_Query("SELECT f.id, f.title, COUNT(DISTINCT fi.id) AS total, COUNT(DISTINCT fr.item_id) AS `read`
-                FROM `feeds` AS f
-                LEFT JOIN user_feeds AS uf ON uf.feed_id=f.id
-                LEFT JOIN feed_items AS fi ON fi.feed_id=f.id
-                LEFT JOIN feed_read AS fr ON fr.feed_id=f.id
+$q=new DB_Query("SELECT f.id,
+                        f.title,
+                        (SELECT COUNT(DISTINCT fi.id)
+                          FROM feed_items AS fi
+                          WHERE fi.feed_id=f.id)
+                        AS `total`,
+                        (SELECT COUNT(DISTINCT fr.item_id) AS `read`
+                          FROM feed_items as fi
+                          LEFT JOIN feed_read AS fr ON fi.id=fr.item_id AND fi.feed_id=fr.feed_id
+                          WHERE fi.feed_id=f.id)
+                        AS `read`
+                FROM feeds AS f
+                LEFT JOIN user_feeds AS uf on uf.feed_id=f.id
                 WHERE uf.user_id=?
-                GROUP BY f.id
-                order by f.title asc",$uid);
+                ORDER BY f.title ASC",$uid);
 
 $ret["items"]=array();
 while($r=$q->fetch()) {

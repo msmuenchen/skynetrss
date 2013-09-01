@@ -53,7 +53,7 @@ DROP TABLE IF EXISTS `feeds`;
 CREATE TABLE `feeds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` text NOT NULL,
-  `title` varchar(255) NOT NULL,
+  `title` varchar(200) NOT NULL,
   `desc` text NOT NULL,
   `link` text NOT NULL,
   `icon` text NOT NULL,
