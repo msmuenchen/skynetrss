@@ -11,14 +11,17 @@ function importgrfile() {
     $("#grresult .row").remove();
     $("#grresult-noentries").show();
     
+    console.log("Shipping off OPML");
     $.post(appconfig.apiurl+'?action=importgr&feed=0', { data: result, name: fileName }, function(data) {
+      console.log("OPML processed");
+      console.log(data);
       if(data.status!="ok") {
-        $("#grresult").html($("#grresult").html()+"Fehler in importGR(): "+data.message);
+        alert(sprintf(appconfig.i18n.apierror_other,"importgr"));
         $("#importgrfile").removeAttr("disabled");
         return;
       }
       if(data.invalid!=0) {
-        $("#grresult").html($("#grresult").html()+data.message);
+        alert(sprintf(appconfig.i18n.apierror_other,"importgr"));
         $("#importgrfile").removeAttr("disabled");
         return;
       }
