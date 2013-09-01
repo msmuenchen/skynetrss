@@ -38,10 +38,16 @@ function loadFeedList() {
   $("#feedlist .feed").remove();
   $("#feedlist li").hide();
   $("#feedlist .loading").show();
+  
+  //settings view
+  $("#settings-feeds tbody").empty();
+  
+  $("#feedlist .nofeeds,#settings-feeds .nofeeds").hide();
+  
   doAPIRequest("getfeeds",{feed:0},function(data) { //success
     $("#feedlist .loading").hide();
     if(data.items.length==0)
-      $("#feedlist .nofeeds").show();
+      $("#feedlist .nofeeds,#settings-feeds .nofeeds").show();
     data.items.forEach(function(e){
       if(e.icon=="")
         e.icon=appconfig.feedicon;
