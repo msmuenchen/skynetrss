@@ -34,20 +34,29 @@ if($q->numRows!=1)
 
 $ret["feed"]=$fdata;
 
-$sql="select fi.*,fr.timestamp
+$sql="SELECT	fi.*,
+                (SELECT fr.timestamp
+                 FROM feed_read AS fr
+                 WHERE fr.feed_id=fi.feed_id
+                       AND fr.item_id=fi.id
+                       AND fr.user_id=?
+                ) AS `timestamp`
     FROM `feed_items` as fi
-    left join feed_read as fr on fr.feed_id=fi.feed_id and fr.item_id=fi.id where fi.feed_id=? ";
-if(isset($_GET["noshowread"]))
-  $sql.="and fr.timestamp is null ";
-$sql.="order by time $order limit $start,$len;";
+    WHERE fi.feed_id=? ";
+$sql.="ORDER BY `time` $order LIMIT $start,$len;";
 $ret["msg"]=$sql;
-$q=new DB_Query($sql,$feed);
+$q=new DB_Query($sql,$uid,$feed);
 $ret["items"]=array();
 while($r=$q->fetch()) {
+  if(isset($_GET["noshowread"]) && $r["timestamp"]!==null)
+    continue;
   $ret["items"][]=$r;
 }
 
-$q=new DB_Query("select count(id) as c from feed_items where feed_id=?",$feed);
+$q=new DB_Query("SELECT COUNT(DISTINCT id) as c
+                 FROM feed_items AS fi
+                 LEFT JOIN feed_read AS fr ON fr.item_id=fi.id AND fr.feed_id=fi.feed_id AND fr.user_id=?
+                 WHERE fi.feed_id=?",$uid,$feed);
 $r=$q->fetch();
 $total=$r["c"];
 $ret["total"]=$total;
