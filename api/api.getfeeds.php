@@ -16,12 +16,12 @@ $q=new DB_Query("SELECT f.id,
                         (SELECT COUNT(DISTINCT fr.item_id) AS `read`
                           FROM feed_items as fi
                           LEFT JOIN feed_read AS fr ON fi.id=fr.item_id AND fi.feed_id=fr.feed_id
-                          WHERE fi.feed_id=f.id)
+                          WHERE fi.feed_id=f.id AND fr.user_id=?)
                         AS `read`
                 FROM feeds AS f
                 LEFT JOIN user_feeds AS uf on uf.feed_id=f.id
                 WHERE uf.user_id=?
-                ORDER BY f.title ASC",$uid);
+                ORDER BY f.title ASC",$uid,$uid);
 
 $ret["items"]=array();
 while($r=$q->fetch()) {
