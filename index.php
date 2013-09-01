@@ -135,10 +135,25 @@ window.onkeydown=function(e) {
   </div>
   <div id="content">
     <div class="view" id="oplogin">
+      <h1>Anmelden</h1>
+      <form id="loginform">
+      <table>
+        <tr><th>Benutzername</th><td><input type="text" id="login-username" /></td></tr>
+        <tr><th>Passwort</th><td><input type="password" id="login-password" /></td></tr>
+        <tr><td colspan="2"><button id="login-btn">Anmelden</button></td></tr>
+      </table>
+      </form>
     </div>
     <div class="view" id="oplogout">
+      <h1>Abmelden</h1>
+      <form id="logoutform">
+      <p>Hiermit melden Sie sich von diesem Rechner ab.</p>
+      <p><em>Achtung</em>: dieser Schritt löscht sämtliche synchronisierten Elemente von Ihrem Rechner!</p>
+      <p><button id="logout-btn">Abmelden</button></p>
+      </form>
     </div>
     <div class="view" id="opsettings">
+      <h1>Einstellungen</h1>
     </div>
     <div class="view" id="opaddnew">
       <input id="newfeedurl" size="90" type="url" /> <button id="addnewfeed">Feed hinzufügen</button>
