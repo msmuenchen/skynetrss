@@ -26,6 +26,7 @@ try {
     case "get":
     case "setreadstate":
     case "markallasread":
+    case "unsubscribe":
       if(!isset($_GET["feed"]) || $_GET["feed"]=="")
         throw new APIWrongCallException("Kein Feed angegeben");
       $feed=$_GET["feed"];
@@ -64,6 +65,9 @@ try {
       case "getsession":
         require("api/api.getsession.php");
       break;
+      case "unsubscribe":
+        require("api/api.unsubscribe.php");
+      break;
       default:
         throw new APIWrongCallException("Ungültige Aktion angegeben");
     }
@@ -91,6 +95,7 @@ try {
       case "importgr":
       case "setreadstate":
       case "markallasread":
+      case "unsubscribe":
       break;
       default:
         throw new APIWrongCallException("Ungültige Aktion angegeben");
