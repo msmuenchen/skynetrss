@@ -9,6 +9,7 @@ $q=new DB_Query("SELECT f.id,
                         f.title,
                         f.icon,
                         f.desc,
+                        f.url,
                         (SELECT COUNT(DISTINCT fi.id)
                           FROM feed_items AS fi
                           WHERE fi.feed_id=f.id)
