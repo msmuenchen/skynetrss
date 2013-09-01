@@ -63,6 +63,21 @@ function loadFeedList() {
       //create the DOM objects for the feedlist entry  out of the template
       var el=$($("#tpl-feedlist").jqote(obj));
       el.appendTo($("#feedlist"));
+      
+      //settings
+      var tr=$("<tr></tr>");
+      $("<td></td>").html(e.id).appendTo(tr);
+      var lnk=$("<a></a>").attr("href",e.url).html(e.url).attr("target","_blank");
+      $("<td></td>").append(lnk).appendTo(tr);
+      $("<td></td>").html(e.title).appendTo(tr);
+      var lnk2=$("<button></button>").html("Löschen").click(function() {
+        doAPIRequest("unsubscribe",{feed:e.id},null, //success
+        null, //fail
+        loadFeedList //always
+        );
+      });
+      $("<td></td>").append(lnk2).appendTo(tr);
+      tr.appendTo($("#settings-feeds tbody"));
     });
     
     //update last-fetch timestamp
@@ -374,7 +389,7 @@ function initLogin() {
   doAPIRequest("getsession",{},function(data) {
     if(data.user) {
       $("#menu #logout,#menu #settings").show();
-      $("#menu #username").html(data.user.name);
+      $(".username").html(data.user.name);
     } else {
       $("#menu #login").show();
     }
@@ -416,7 +431,7 @@ function initLogin() {
       }
       $("#menu #logout,#menu #settings").show();
       $("#menu #login").hide();
-      $("#menu #username").html(data.user.name);
+      $(".username").html(data.user.name);
       loadFeedList();
       location.hash="index";
       $(window).hashchange();

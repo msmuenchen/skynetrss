@@ -121,7 +121,7 @@ window.onkeydown=function(e) {
       <li><a href="#op/addgr">GoogleReader Import</a></li>
       <li id="login"><a href="#op/login">Anmelden</a></li>
       <li id="logout"><a href="#op/logout">Abmelden</a></li>
-      <li id="settings"><a href="#op/settings">Einstellungen für <span id="username"></span></a></li>
+      <li id="settings"><a href="#op/settings">Einstellungen für <span class="username"></span></a></li>
     </ul>
     <hr />
     <ul id="feedlist">
@@ -156,6 +156,28 @@ window.onkeydown=function(e) {
     </div>
     <div class="view" id="opsettings">
       <h1>Einstellungen</h1>
+      
+      <h2>Konto</h2>
+      <form id="settingsform-account">
+      <table>
+        <tr><th>Benutzername</th><td><span class="username"></span></td></tr>
+        <tr><th>Passwort</th><td><input type="password" placeholder="Neues Passwort..." id="setings-password" /></td></tr>
+        <tr><td colspan="2"><button id="settings-accountbtn-save">Speichern</button></td></tr>
+      </table>
+      </form>
+      
+      <h2>Feeds</h2>
+      <table id="settings-feeds">
+        <thead>
+          <tr><th>Feed-ID</th><th>Feed-URL</th><th>Feed-Titel</th><th>Aktion</th></tr>
+          <tr class="nofeeds"><td colspan="4">Keine Feeds vorhanden</td></tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      
+      <h2>Darstellung</h2>
+      
     </div>
     <div class="view" id="opaddnew">
       <h1>Neuen Feed hinzufügen</h1>
