@@ -5,7 +5,7 @@ if(!isset($_SESSION["user"]))
 else
   $uid=$_SESSION["user"]["id"];
 
-$q=new DB_Query("SELECT f.*, f.title, COUNT(DISTINCT fi.id) AS total, COUNT(DISTINCT fr.item_id) AS `read`
+$q=new DB_Query("SELECT f.id, f.title, COUNT(DISTINCT fi.id) AS total, COUNT(DISTINCT fr.item_id) AS `read`
                 FROM `feeds` AS f
                 LEFT JOIN user_feeds AS uf ON uf.feed_id=f.id
                 LEFT JOIN feed_items AS fi ON fi.feed_id=f.id
