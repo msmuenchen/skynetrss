@@ -52,10 +52,12 @@ function doAPIRequest(target,params,success,fail,always) {
         console.log("Calling the 'always' handler of API request #"+reqId);
         always();
       }
-      APIRequestPool.splice(c._poolIdx,1);
+      for(var i=0;i<APIRequestPool.length;i++) {
+        if(APIRequestPool[i]==c)
+          APIRequestPool.splice(i,1);
+      }
       $("#poollen").html(APIRequestPool.length);
     });
-  request._poolIdx=APIRequestPool.length;
   APIRequestPool.push(request);
   $("#poollen").html(APIRequestPool.length);
 }
