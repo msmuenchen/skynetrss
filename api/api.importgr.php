@@ -1,17 +1,18 @@
 <?
 if(!isset($_POST["data"]))
   throw new Exception("No data given");
+$ret["xmldata"]=$_POST["data"];
 
 libxml_use_internal_errors(true);
 $xml=simplexml_load_string($_POST["data"]);
 if($xml===false) {
-  $estr="XML-Fehler im Feed $feed:<br /><pre>";
+  $estr="";
   foreach (libxml_get_errors() as $error) {
     $estr.=print_r($error,true);
   }
   libxml_clear_errors();
-  $estr.="</pre>";
-  throw new Exception($estr);
+  $ret["sxml_return"]=$estr;
+  throw new Exception("XML-Fehler");
 }
 
 
