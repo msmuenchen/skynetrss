@@ -383,6 +383,10 @@ function initLogin() {
   });
   $("#logout-btn").click(function() {
     $(this).attr("disabled","disabled");
+    //stop all running AJAX requests
+    APIRequestPool.forEach(function(e) {
+      e.abort();
+    });
     doAPIRequest("logout",{},function(data) {
       $("#menu #logout,#menu #settings").hide();
       $("#menu #login").show();
