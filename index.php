@@ -131,6 +131,7 @@ window.onkeydown=function(e) {
     <hr />
     <ul id="debug_extra">
       <li id="flts"></li>
+      <li>Pool: <span id="poollen"></span> Items</li>
     </ul>
   </div>
   <div id="content">
@@ -156,9 +157,11 @@ window.onkeydown=function(e) {
       <h1>Einstellungen</h1>
     </div>
     <div class="view" id="opaddnew">
-      <input id="newfeedurl" size="90" type="url" /> <button id="addnewfeed">Feed hinzufügen</button>
+      <h1>Neuen Feed hinzufügen</h1>
+      <input id="newfeedurl" size="90" type="url" placeholder="http://example.tld/feed.rss"/> <button id="addnewfeed">Feed hinzufügen</button>
     </div>
     <div class="view" id="opaddgr">
+      <h1>OPML-/Google-Reader-Import</h1>
       <input id="grfile" type="file" size="90" /> <button id="importgrfile">Import starten</button>
       <div id="grcounter"><span id="grcounter_cur">0</span> von <span id="grcounter_total">0</span> Feeds geladen</div>
       <pre id="grresult"></pre>
