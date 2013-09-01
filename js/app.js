@@ -389,6 +389,20 @@ jQuery(document).ready(function($){
   });
   
   initLogin();
+  
+  $("#settings-accountbtn-save").click(function() {
+    $("#settings-accountbtn-save").attr("disabled","disabled");
+    var pwd=$("#setings-password").val();
+    if(pwd=="") {
+      alert("Kein Passwort angegeben!");
+      return;
+    }
+    doAPIRequest("changepwd",{password:pwd},null, //success
+    null, //fail
+    function() {
+      $("#settings-accountbtn-save").removeAttr("disabled");
+    });
+  });
 });
 
 function initLogin() {
