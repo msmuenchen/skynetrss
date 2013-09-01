@@ -408,6 +408,15 @@ function updateFeed($id) {
   
   $log="Updating feed ".$row["url"]."\n";
   $feed=Feed::createFromUrl($row["url"]);
+  //Try to get the icon
+  $icon=$feed->icon;
+  if($icon!="") {
+    $data=@file_get_contents($icon);
+    $mt="application/octet-stream";//@mime_content_type($icon);
+    if($data!==false) {
+      $feed->icon=sprintf("data:%s;base64,%s",$mt,base64_encode($data));
+    }
+  }
   $log.=print_r($feed,true);
   $log.="Items:\n";
   $q2=new DB_Query("UPDATE `db_rss`.`feeds` SET `title`=?, `desc`=?, `link`=?, `ttl`=?, `lastread`=UNIX_TIMESTAMP(NOW()),`icon`=? where id=?;",$feed->title,$feed->desc,$feed->link,$feed->ttl,$feed->icon,$id);
