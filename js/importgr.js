@@ -8,6 +8,9 @@ function importgrfile() {
     var result = event.target.result;
     var fileName = $("#grfile").get(0).files[0].name;
     $("#importgrfile").attr("disabled","disabled");
+    $("#grresult .row").remove();
+    $("#grresult-noentries").show();
+    
     $.post(appconfig.apiurl+'?action=importgr&feed=0', { data: result, name: fileName }, function(data) {
       if(data.status!="ok") {
         $("#grresult").html($("#grresult").html()+"Fehler in importGR(): "+data.message);
@@ -24,26 +27,48 @@ function importgrfile() {
       $("#grcounter").show();
       $("#grcounter_total").html(total);
       $("#grcounter_cur").html(remaining);
-      $("#grresult").html($("#grresult").html()+total+" Feeds in OPML gefunden\n");
-      data.feeds.forEach(function(e) {
+      $("#grresult-noentries").hide();
+      
+      $.each(data.feeds,function(idx,e) {
+        var tr=$("<tr></tr>").addClass("row").attr("id","grresult-"+idx);
+        $("<td></td>").html(idx).appendTo(tr);
+        $("<td></td>").addClass("fid").appendTo(tr);
+        var lnk=$("<a></a>").attr("target","_blank").attr("href",e).html(e);
+        $("<td></td>").append(lnk).appendTo(tr);
+        $("<td></td>").addClass("title").appendTo(tr);
+        $("<td></td>").addClass("status").html("Lade...").appendTo(tr);
+        tr.appendTo($("#grresult"));
+
         doAPIRequest("add",{feed:e,ignoreAPIException:true},function(data2) {
           remaining--;
           $("#grcounter_cur").html(total-remaining);
           if(remaining<=0)
             $("#importgrfile").removeAttr("disabled");
           if(data2.status!="ok") {
-            if(data2.type=="AlreadyPresentException")
+            if(data2.type=="AlreadyPresentException") {
+              $("#grresult-"+idx+" .status").html("Bereits in der Liste");
+              $("#grresult-"+idx+" .title").html(data2.feed.title);
+              $("#grresult-"+idx+" .fid").html(data2.feed.id);
               return;
+            }
             var m=data2.type;
-            if(data2.type!="XMLParseException")
-              m+="\n"+data2.message;
-            $("#grresult").html($("#grresult").html()+"Fehler in addFeed("+e+"): "+m+"\n");
+            switch(m) {
+              case "XMLParseException": m="Ungültiges XML"; break;
+              case "FileLoadException": m="Serverproblem"; break;
+              default: m="Unbekannter Fehler "+m;
+            }
+            //if(data2.type!="XMLParseException")
+            //  m+="\n"+data2.message;
+            $("#grresult-"+idx+" .status").html("Fehler: "+m);
+          } else {
+            $("#grresult-"+idx+" .title").html(data2.feed.title);
+            $("#grresult-"+idx+" .fid").html(data2.feed.id);
+            $("#grresult-"+idx+" .status").html("Erfolgreich hinzugefügt");
           }
         });
       });
     });
   }
-  $("#grresult").html("Übertrage OPML zur Auswertung\n");
   var file = $("#grfile").get(0).files[0];
   var reader = new FileReader();
   reader.readAsText(file, 'UTF-8');

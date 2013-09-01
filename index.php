@@ -163,9 +163,14 @@ window.onkeydown=function(e) {
     </div>
     <div class="view" id="opaddgr">
       <h1>OPML-/Google-Reader-Import</h1>
+      <h2>Datei</h2>
       <input id="grfile" type="file" size="90" /> <button id="importgrfile">Import starten</button>
+      <h2>Ergebnisse</h2>
       <div id="grcounter"><span id="grcounter_cur">0</span> von <span id="grcounter_total">0</span> Feeds geladen</div>
-      <pre id="grresult"></pre>
+      <table id="grresult" border="1">
+        <tr class="header"><th>ReqID</th><th>Feed ID</th><th>Feed URL</th><th>Feed Title</th><th>Status</th></tr>
+        <tr id="grresult-noentries"><td colspan="5">Keinen Feed geladen</td></tr>
+      </table>
     </div>
     <div class="view" id="index">
       Bitte wählen Sie links einen Feed aus...
