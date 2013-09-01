@@ -408,10 +408,10 @@ jQuery(document).ready(function($){
 function initLogin() {
   doAPIRequest("getsession",{},function(data) {
     if(data.user) {
-      $("#menu #logout,#menu #settings").show();
+      $("#menu .loginshow").show();
       $(".username").html(data.user.name);
     } else {
-      $("#menu #login").show();
+      $("#menu .logoutshow").show();
     }
     console.log("session data");
     console.log(data);
@@ -429,8 +429,8 @@ function initLogin() {
     appstate.pos=0;
     appstate.nextstart=0;
     doAPIRequest("logout",{},function(data) {
-      $("#menu #logout,#menu #settings").hide();
-      $("#menu #login").show();
+      $("#menu .loginshow").hide();
+      $("#menu .logoutshow").show();
       location.hash="op/login";
       $(window).hashchange();
       loadFeedList();
@@ -449,8 +449,8 @@ function initLogin() {
         $("#login-error").show().html(data.msg);
         return;
       }
-      $("#menu #logout,#menu #settings").show();
-      $("#menu #login").hide();
+      $("#menu .loginshow").show();
+      $("#menu .logoutshow").hide();
       $(".username").html(data.user.name);
       loadFeedList();
       location.hash="index";

@@ -117,11 +117,11 @@ window.onkeydown=function(e) {
   <div id="menu">
     <ul>
       <li><a href="#index">Startseite</a></li>
-      <li><a href="#op/addnew">Neuen Feed hinzufügen</a></li>
-      <li><a href="#op/addgr">GoogleReader Import</a></li>
-      <li id="login"><a href="#op/login">Anmelden</a></li>
-      <li id="logout"><a href="#op/logout">Abmelden</a></li>
-      <li id="settings"><a href="#op/settings">Einstellungen für <span class="username"></span></a></li>
+      <li class="loginshow"><a href="#op/addnew">Neuen Feed hinzufügen</a></li>
+      <li class="loginshow"><a href="#op/addgr">GoogleReader Import</a></li>
+      <li class="logoutshow"><a href="#op/login">Anmelden</a></li>
+      <li class="loginshow"><a href="#op/logout">Abmelden</a></li>
+      <li class="loginshow"><a href="#op/settings">Einstellungen für <span class="username"></span></a></li>
     </ul>
     <hr />
     <ul id="feedlist">

@@ -180,7 +180,7 @@ margin-bottom:5px;
 #feedmenu {
 height:20px;
 }
-#menu #login, #menu #logout, #menu #settings, #feedlist .loading, #feedlist .nofeeds {
+#menu .loginshow, #menu .logoutshow, #feedlist .loading, #feedlist .nofeeds {
 	display:none;
 }
 #login-error {
