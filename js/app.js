@@ -381,6 +381,19 @@ function initLogin() {
     console.log("session data");
     console.log(data);
   });
+  $("#logout-btn").click(function() {
+    $(this).attr("disabled","disabled");
+    doAPIRequest("logout",{},function(data) {
+      $("#menu #logout,#menu #settings").hide();
+      $("#menu #login").show();
+      location.hash="op/login";
+      $(window).hashchange();
+    },
+    null, //fail
+    function() { //always
+      $("#logout-btn").removeAttr("disabled");
+    });
+  });
 }
 
 //mark all as read
