@@ -399,11 +399,31 @@ function initLogin() {
       location.hash="op/login";
       $(window).hashchange();
       loadFeedList();
-      
     },
     null, //fail
     function() { //always
       $("#logout-btn").removeAttr("disabled");
+    });
+  });
+  $("#login-btn").click(function() {
+    $(this).attr("disabled","disabled");
+    $("#login-error").hide();
+    doAPIRequest("login",{username:$("#login-username").val(),password:$("#login-password").val()},function(data) {
+      if(data.login!="ok") {
+        console.log("login failed, message: "+data.msg);
+        $("#login-error").show().html(data.msg);
+        return;
+      }
+      $("#menu #logout,#menu #settings").show();
+      $("#menu #login").hide();
+      $("#menu #username").html(data.user.name);
+      loadFeedList();
+      location.hash="index";
+      $(window).hashchange();
+    },
+    null, //fail
+    function() { //always
+      $("#login-btn").removeAttr("disabled");
     });
   });
 }

@@ -138,6 +138,7 @@ window.onkeydown=function(e) {
     <div class="view" id="oplogin">
       <h1>Anmelden</h1>
       <form id="loginform">
+      <div id="login-error"></div>
       <table>
         <tr><th>Benutzername</th><td><input type="text" id="login-username" /></td></tr>
         <tr><th>Passwort</th><td><input type="password" id="login-password" /></td></tr>

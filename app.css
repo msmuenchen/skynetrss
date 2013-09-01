@@ -183,6 +183,11 @@ height:20px;
 #menu #login, #menu #logout, #menu #settings, #feedlist .loading, #feedlist .nofeeds {
 	display:none;
 }
+#login-error {
+	font-weight:700;
+	color:red;
+}
+
 h2 {
 	line-height:20px;
 	font-size:20px;
