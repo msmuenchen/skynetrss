@@ -168,7 +168,7 @@ margin:0px 10px;
 #feedbar .item:last-of-type {
 	margin-right:0px;
 }
-#feedbar button {
+button {
 	padding:0px 3px;
 }
 h1 {
