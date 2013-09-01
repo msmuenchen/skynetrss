@@ -2,6 +2,10 @@
 require("orm.php");
 session_start(); //only after all classes have loaded
 
+//pseudo exception for login-exceptions like wrong username/password
+class LoginException extends Exception {
+}
+
 if(!isset($_GET["username"]) || $_GET["username"]=="")
  throw new APIWrongCallException("Kein Benutzername angegeben");
 if(!isset($_GET["password"]) || $_GET["password"]=="")
@@ -10,9 +14,10 @@ if(!isset($_GET["password"]) || $_GET["password"]=="")
 $user=$_GET["username"];
 $pass=$_GET["password"];
 
+try {
 $q=new DB_Query("select * from users where name=?",$user);
 if($q->numRows!=1)
-  throw new Exception("Benutzername existiert nicht");
+  throw new LoginException("Benutzername existiert nicht");
 
 $row=$q->fetch();
 if(strpos($row["password"],":")===FALSE)
@@ -23,10 +28,10 @@ else
 list($version,$iterations,$alg,$hash,$salt)=explode(":",$p);
 //check password
 if($hash!=hash($alg,$pass.$salt))
-  throw new Exception("Passwort falsch");
+  throw new LoginException("Passwort falsch");
 //check if account is active
 if($row["is_active"]!=1)
-  throw new Exception("Account nicht aktiv");
+  throw new LoginException("Account nicht aktiv");
 
 $_SESSION["user"]=$row;
 
@@ -39,3 +44,8 @@ if($p!=$row["password"]) {
 
 $ret["user"]=$row;
 $ret["sid"]=session_id();
+$ret["login"]="ok";
+} catch(LoginException $e) {
+  $ret["login"]="error";
+  $ret["msg"]=$e->getMessage();
+}
