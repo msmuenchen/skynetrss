@@ -429,7 +429,7 @@ function updateFeed($id) {
       $full="";
       if($row["scrape_elementid"]!="")
         $full=scrapeFeed($item->link,$row["scrape_elementid"]);
-      if($full===false) $full="Scrape-Fehler";
+      if(is_array($full)) { $log.="Scrape fail at new item\n"; $item->text.="<br />(Scrape-Fehler: ".$full[0].")"; $full=""; }
       $q=new DB_Query("INSERT INTO `db_rss`.`feed_items` (`feed_id`, `id`, `guid`, `title`, `time`, `link`, `fulltext`,`author`, `scrape_fulltext`) VALUES (?, NULL, ?, ?, ?, ?, ?, ?,?);",$row["id"],$item->guid,$item->title,$item->time,$item->link,$item->text,$item->author,$full);
       $log.="\tItem added to DB, ID ".$q->insertId."\n";
     } elseif($q->numRows==1) {
@@ -438,7 +438,7 @@ function updateFeed($id) {
         $full="";
         if($row["scrape_elementid"]!="")
           $full=scrapeFeed($item->link,$row["scrape_elementid"]);
-        if($full===false) $full="Scrape-Fehler";
+        if(is_array($full)) { $log.="Scrape fail at item ".$db["id"]."\n"; $item->text.="<br />(Scrape-Fehler: ".$full[0].")"; $full=""; }
         $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=?,`scrape_fulltext`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$full,$row["id"],$db["id"]);
         $log.="\tItem updated in DB, ID ".$db["id"]."\n";
         $q=new DB_Query("DELETE FROM feed_read WHERE feed_id=? and item_id=?",$row["id"],$db["id"]);
@@ -457,8 +457,7 @@ function updateFeed($id) {
 function scrapeFeed($link,$xpath_query) {
   $raw=@file_get_contents($link);
   if($raw===false) {
-    echo "could not get content of $link\n";
-    return false;
+    return array("could not get content of $link\n");
   }
   //avoid stupid warnings caused by invalid HTML
   libxml_use_internal_errors(true);
@@ -468,7 +467,8 @@ function scrapeFeed($link,$xpath_query) {
   $xpath=new DOMXPath($doc);
   $res=$xpath->evaluate($xpath_query);
   if($res->length!=1) {
-    echo "xpath expression $xpath_query did not return exactly 1 element on $link\n";
+  echo "xpath fail";
+    return array("xpath expression $xpath_query did not return exactly 1 element on $link (".$res->length.")\n");
   }
   $item=$res->item(0);
   $newdoc=new DOMDocument();
