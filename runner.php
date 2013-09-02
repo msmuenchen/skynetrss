@@ -5,6 +5,7 @@ require("DB_Query.php");
 require("rss.php");
 
 $q=new DB_Query("select * from feeds where lastread<(UNIX_TIMESTAMP(NOW())-(ttl*60))");
+//$q=new DB_Query("select * from feeds where scrape_elementid!=''");
 echo "Got ".$q->numRows." feeds\n";
 
 while($r=$q->fetch()) {

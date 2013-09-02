@@ -426,12 +426,20 @@ function updateFeed($id) {
     $q=new DB_Query("select * from feed_items where feed_id=? and guid=?",$row["id"],$item->guid);
     $log.="Item ".($i++)."\n";
     if($q->numRows==0) {
-      $q=new DB_Query("INSERT INTO `db_rss`.`feed_items` (`feed_id`, `id`, `guid`, `title`, `time`, `link`, `fulltext`,`author`) VALUES (?, NULL, ?, ?, ?, ?, ?, ?);",$row["id"],$item->guid,$item->title,$item->time,$item->link,$item->text,$item->author);
+      $full="";
+      if($row["scrape_elementid"]!="")
+        $full=scrapeFeed($item->link,$row["scrape_elementid"]);
+      if($full===false) $full="Scrape-Fehler";
+      $q=new DB_Query("INSERT INTO `db_rss`.`feed_items` (`feed_id`, `id`, `guid`, `title`, `time`, `link`, `fulltext`,`author`, `scrape_fulltext`) VALUES (?, NULL, ?, ?, ?, ?, ?, ?,?);",$row["id"],$item->guid,$item->title,$item->time,$item->link,$item->text,$item->author,$full);
       $log.="\tItem added to DB, ID ".$q->insertId."\n";
     } elseif($q->numRows==1) {
       $db=$q->fetch();
       if($db["title"]!=$item->title || $db["link"]!=$item->link || $db["fulltext"]!=$item->text || $db["author"]!=$item->author) {
-        $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$row["id"],$db["id"]);
+        $full="";
+        if($row["scrape_elementid"]!="")
+          $full=scrapeFeed($item->link,$row["scrape_elementid"]);
+        if($full===false) $full="Scrape-Fehler";
+        $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=?,`scrape_fulltext`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$full,$row["id"],$db["id"]);
         $log.="\tItem updated in DB, ID ".$db["id"]."\n";
         $q=new DB_Query("DELETE FROM feed_read WHERE feed_id=? and item_id=?",$row["id"],$db["id"]);
       } else {
@@ -442,4 +450,30 @@ function updateFeed($id) {
     }
   }
   return $log;
+}
+
+//load a HTML document and try to get the innerHTML of the node selected by xpath
+//if return===false, then scrape failed
+function scrapeFeed($link,$xpath_query) {
+  $raw=@file_get_contents($link);
+  if($raw===false) {
+    echo "could not get content of $link\n";
+    return false;
+  }
+  //avoid stupid warnings caused by invalid HTML
+  libxml_use_internal_errors(true);
+  $doc = new DomDocument();
+  $doc->loadHTML($raw);
+  libxml_use_internal_errors(false);
+  $xpath=new DOMXPath($doc);
+  $res=$xpath->evaluate($xpath_query);
+  if($res->length!=1) {
+    echo "xpath expression $xpath_query did not return exactly 1 element on $link\n";
+  }
+  $item=$res->item(0);
+  $newdoc=new DOMDocument();
+  $cloned=$item->cloneNode(true);
+  $newdoc->appendChild($newdoc->importNode($cloned,true));
+  $content=$newdoc->saveHTML();
+  return $content;
 }

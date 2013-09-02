@@ -189,6 +189,10 @@ function loadFeedData(id,pos,start) {
       data.items.forEach(function(e) {
         var d=new Date(e.time*1000);
         var ds=dateFormat(d,"dd.mm.yyyy HH:MM:ss");
+        //if we have scraped fulltext, use it instead
+        if(e.scrape_fulltext && e.scrape_fulltext!="")
+          e.fulltext=e.scrape_fulltext;
+        
         var obj={
           id:e.id,
           title:e.title,
