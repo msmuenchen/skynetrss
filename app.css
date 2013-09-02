@@ -194,3 +194,20 @@ h2 {
 	margin-top:1px;
 	margin-bottom:2px;
 }
+#logintw,#loginfb {
+display:block;
+height:22px;
+width:150px;
+}
+#logintw {
+	background:url("assets/signin_twitter.png");
+}
+#loginfb {
+	background:url("assets/signin_facebook.png");
+}
+#logintw:hover,#loginfb:hover {
+	background-position:0 46px;
+}
+#logintw:active,#loginfb:active {
+	background-position:0 22px;
+}
