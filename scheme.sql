@@ -21,6 +21,7 @@ CREATE TABLE `feed_items` (
   `author` text NOT NULL,
   `link` text NOT NULL,
   `fulltext` text NOT NULL,
+  `scrape_fulltext` text NOT NULL,
   PRIMARY KEY (`feed_id`,`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -58,6 +59,7 @@ CREATE TABLE `feeds` (
   `link` text NOT NULL,
   `icon` text NOT NULL,
   `ttl` int(11) NOT NULL,
+  `scrape_elementid` text NOT NULL,
   `lastread` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_getfeedsquery` (`id`,`title`)
