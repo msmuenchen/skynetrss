@@ -137,6 +137,7 @@ window.onkeydown=function(e) {
   <div id="content">
     <div class="view" id="oplogin">
       <h1>Anmelden</h1>
+      <h2>SkyRSS-Konto</h2>
       <form id="loginform">
       <div id="login-error"></div>
       <table>
@@ -145,6 +146,10 @@ window.onkeydown=function(e) {
         <tr><td colspan="2"><button id="login-btn">Anmelden</button></td></tr>
       </table>
       </form>
+      <h2>Twitter</h2>
+      <a href="lib/twitter.php" id="logintw"></a>
+      <h2>Facebook</h2>
+      <a href="lib/facebook.php" id="loginfb"></a>
     </div>
     <div class="view" id="oplogout">
       <h1>Abmelden</h1>
