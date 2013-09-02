@@ -410,6 +410,10 @@ function initLogin() {
     if(data.user) {
       $("#menu .loginshow").show();
       $(".username").html(data.user.name);
+      if(data.user.source!="")
+        $("#settingsform-account .passwordrow").hide();
+      else
+        $("#settingsform-account .passwordrow").show();
     } else {
       $("#menu .logoutshow").show();
     }
@@ -452,6 +456,10 @@ function initLogin() {
       $("#menu .loginshow").show();
       $("#menu .logoutshow").hide();
       $(".username").html(data.user.name);
+      if(data.user.source!="")
+        $("#settingsform-account .passwordrow").hide();
+      else
+        $("#settingsform-account .passwordrow").show();
       loadFeedList();
       location.hash="index";
       $(window).hashchange();

@@ -166,8 +166,8 @@ window.onkeydown=function(e) {
       <form id="settingsform-account">
       <table>
         <tr><th>Benutzername</th><td><span class="username"></span></td></tr>
-        <tr><th>Passwort</th><td><input type="password" placeholder="Neues Passwort..." id="setings-password" /></td></tr>
-        <tr><td colspan="2"><button id="settings-accountbtn-save">Speichern</button></td></tr>
+        <tr class="passwordrow"><th>Passwort</th><td><input type="password" placeholder="Neues Passwort..." id="setings-password" /></td></tr>
+        <tr class="passwordrow"><td colspan="2"><button id="settings-accountbtn-save">Speichern</button></td></tr>
       </table>
       </form>
       
