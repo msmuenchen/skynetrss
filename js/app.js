@@ -22,7 +22,7 @@ var appconfig= {
 //when the update is done, tell the app to reload the feed
 function updateFeed(id) {
   $("#feed_update").attr("disabled","disabled");
-  doAPIRequest("update",{feed:id},function(data) { //success
+  doAPIRequest("update",{feed:id,rescrape:true},function(data) { //success
     appstate.feed=0;
     $(window).hashchange();
   },

@@ -1,3 +1,2 @@
 <?
-$log=updateFeed($feed);
-//echo $log;
+$log=updateFeed($feed,isset($_GET["rescrape"]));

@@ -389,7 +389,9 @@ class RSSFeed extends Feed {
 }
 
 //look for new items in the feed and put them in the db
-function updateFeed($id) {
+//if forceRescrape is set to true AND the feed has an xpath for scraping, then
+//even "not-updated" items get rescraped.
+function updateFeed($id,$forceRescrape=false) {
   //check if the feed is in the database already
   $q=new DB_Query("select * from feeds where id=?",$id);
   if($q->numRows!=1)
@@ -424,7 +426,7 @@ function updateFeed($id) {
       $log.="\tItem added to DB, ID ".$q->insertId."\n";
     } elseif($q->numRows==1) {
       $db=$q->fetch();
-      if($db["title"]!=$item->title || $db["link"]!=$item->link || $db["fulltext"]!=$item->text || $db["author"]!=$item->author) {
+      if($db["title"]!=$item->title || $db["link"]!=$item->link || $db["fulltext"]!=$item->text || $db["author"]!=$item->author || $forceRescrape) {
         $full="";
         if($row["scrape_elementid"]!="")
           $full=scrapeFeed($item->link,$row["scrape_elementid"]);
