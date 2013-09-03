@@ -30,12 +30,7 @@ class Feed {
   //Items
   public $items=array();
   
-  public static function createFromUrl($url) {
-    //get content
-    $content=@file_get_contents($url);
-    if($content===false)
-      throw new FileLoadException("Fehler beim Laden des Feeds $url");
-    
+  public static function createFromText($url,$content) {
     //parse xml
     libxml_use_internal_errors(true);
     $tree=simplexml_load_string($content,"SimpleXMLElement",LIBXML_NOCDATA);
@@ -58,6 +53,15 @@ class Feed {
       default:
         throw new WrongFormatException("Unknown type ".$tree->getName());
     }
+  }
+  
+  public static function createFromUrl($url) {
+    //get content
+    $content=@file_get_contents($url);
+    if($content===false)
+      throw new FileLoadException("Fehler beim Laden des Feeds $url");
+    
+    return static::createFromText($url,$content);
   }
 }
 class AtomFeed extends Feed {
