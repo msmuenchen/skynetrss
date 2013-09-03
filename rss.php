@@ -451,8 +451,8 @@ function scrapeFeed($link,$xpath_query) {
   }
   //avoid stupid warnings caused by invalid HTML
   libxml_use_internal_errors(true);
-  $doc = new DomDocument();
-  $doc->loadHTML($raw);
+  $doc = new DomDocumentCharset();
+  $doc->loadHTMLCharset($raw);
   libxml_use_internal_errors(false);
   $xpath=new DOMXPath($doc);
   $res=$xpath->evaluate($xpath_query);

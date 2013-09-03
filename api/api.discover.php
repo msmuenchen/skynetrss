@@ -9,11 +9,11 @@ if($raw===false) {
 //avoid stupid warnings caused by invalid HTML
 libxml_use_internal_errors(true);
 //First, try to load as XML (strict)
-$doc = new DomDocument();
+$doc = new DomDocumentCharset();
 $rv=$doc->loadXML($raw);
 if($rv===false) {
-  $doc=new DOMDocument();
-  $rv=$doc->loadHTML($raw);
+  $doc=new DOMDocumentCharset();
+  $rv=$doc->loadHTMLCharset($raw);
   if($rv===false)
     throw new WrongFormatException("XML load failed");
 }
