@@ -64,6 +64,9 @@ try {
       case "changepwd":
         require("api/api.changepwd.php");
       break;
+      case "discover":
+        require("api/api.discover.php");
+      break;
       default:
         throw new APIWrongCallException("Ungültige Aktion angegeben");
     }
@@ -86,6 +89,9 @@ try {
       break;
       case "getsession":
         require("api/api.getsession.php");
+      break;
+      case "discover":
+        require("api/api.discover.php");
       break;
       case "add": //add new feed to DB
       case "importgr":
