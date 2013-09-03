@@ -211,6 +211,12 @@ function loadFeedData(id,pos,start) {
             location.hash="feed/"+id+"/"+e.id;
         });
         
+        $(".share",el).click(function() {
+          $("#share-container").show();
+          $("#share-twitter").attr("href","https://twitter.com/intent/tweet?url="+encodeURIComponent(e.link));
+          $("#share-fb").attr("href","https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(e.link));
+        });
+        
         //Set the initial state of the checkbox
         if(e.timestamp===null)
           $(".itemRead",el).attr("checked",true);
@@ -507,6 +513,21 @@ window.addEventListener('message', function(event) {
     $(window).trigger(ve);
   }
 },false);
+
+jQuery(document).ready(function($){
+  $("#share-close").click(function() {
+    $("#share-container").hide();
+  });
+});
+
+//handle escape-key-presses
+$(window).keydown(function(e) {
+  if(e.keyCode!=27) //escape
+    return;
+  if(!$("#share-container").is(":visible")) //check if the sharer modal is active
+    return;
+  $("#share-container").hide();
+});
 
 //handle key presses. for now, we're just interested in the space key
 $(window).keypress(function(e) {

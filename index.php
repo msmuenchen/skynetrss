@@ -35,7 +35,7 @@
   <table class="bottomRow">
     <tr>
       <td><input type="checkbox" class="itemRead" id="itemread-<%= this.id %>"/> <label for="itemread-<%= this.id %>">Als ungelesen markieren</label></td>
-      <td>Teilen</td>
+      <td class="share">Teilen</td>
     </tr>
   </table>
 </li>
@@ -231,5 +231,20 @@ window.onkeydown=function(e) {
       </ul>
     </div>
   </div>  
+  <div id="share-container">
+    <div id="share-content">
+      <div id="share-close">
+      X
+      </div>
+      <h2>Twitter</h2>
+      <a id="share-twitter" href="" target="_blank">
+        Auf Twitter teilen
+      </a>
+      <h2>Facebook</h2>
+      <a id="share-fb" href="" target="_blank">
+        Auf Facebook teilen
+      </a>
+    </div>
+  </div>
   </body>
 </html>
