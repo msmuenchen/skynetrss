@@ -2,10 +2,6 @@
 require("orm.php");
 session_start(); //only after all classes have loaded
 
-//pseudo exception for login-exceptions like wrong username/password
-class LoginException extends Exception {
-}
-
 if(!isset($_GET["username"]) || $_GET["username"]=="")
  throw new APIWrongCallException("Kein Benutzername angegeben");
 if(!isset($_GET["password"]) || $_GET["password"]=="")

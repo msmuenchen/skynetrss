@@ -1,5 +1,6 @@
 <?
 require("config.php");
+require("exceptions.php");
 require("DB.php");
 require("DB_Query.php");
 require("rss.php");

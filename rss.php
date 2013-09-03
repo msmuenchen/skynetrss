@@ -1,20 +1,6 @@
 <?
 //Feed abstractor classes
 
-
-//Feed cannot be loaded
-class FileLoadException extends Exception {
-}
-//Not valid XML
-class XMLParseException extends Exception {
-}
-//Invalid feed type
-class WrongFormatException extends Exception {
-}
-//Critical elements missing while feed parsing
-class MalformedFeedException extends Exception {
-}
-
 class FeedItem {
   public $guid;
   public $title;

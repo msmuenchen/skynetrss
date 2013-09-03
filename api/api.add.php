@@ -8,9 +8,6 @@ else
 if($uid==0)
   throw new PermissionDeniedException();
 
-class AlreadyPresentException extends Exception {
-}
-
 $feedObj=Feed::createFromUrl($feed);
 $q=new DB_Query("select * from feeds where url=?",$feed);
 

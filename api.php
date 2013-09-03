@@ -2,17 +2,10 @@
 header("Content-Type:application/json; charset=utf-8");
 
 require("config.php");
+require("exceptions.php");
 require("rss.php");
 require("DB.php");
 require("DB_Query.php");
-
-//wrong or missing API parameters
-class APIWrongCallException extends Exception {
-}
-
-//Permission denied (user not subscribed to this feed id!)
-class PermissionDeniedException extends Exception {
-}
 
 $ret=array();
 $log="";
