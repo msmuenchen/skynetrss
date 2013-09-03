@@ -4,3 +4,6 @@
 [submodule "lib/twitteroauth"]
 	path = lib/twitteroauth
 	url = https://github.com/abraham/twitteroauth.git
+[submodule "orm"]
+	path = orm
+	url = https://github.com/msmuenchen/skynetorm.git
