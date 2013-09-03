@@ -277,13 +277,36 @@ function loadFeedData(id,pos,start) {
 function addFeed() {
   $("#addnewfeed").attr("disabled","disabled");
   var url=$("#newfeedurl").val();
-  console.log("loading feed "+url);
-  doAPIRequest("add",{feed:url},function(data) { //success
-    console.log("added feed");
-    console.log(data);
-    location.hash="feed/"+data.id;
-    updateFeed(data.id);
-    loadFeedList();
+  doAPIRequest("discover",{url:url},function(data) { //success
+    $("#discover-results").show();
+    var tb=$("#discover-feedlist tbody").empty();
+    data.feeds.forEach(function(e) {
+      var tr=$("<tr></tr>").appendTo(tb);
+      $("<td></td>").html(e.link).appendTo(tr);
+      $("<td></td>").html(e.title).appendTo(tr);
+      var btn=$("<button></button>").html("Feed hinzufügen").click(function() {
+        var me=$(this);
+        doAPIRequest("add",{feed:e.link,ignoreAPIException:true},function(data) { //success
+          if(data.status!="ok") {
+            if(data.type=="AlreadyPresentException") {
+              location.hash="feed/"+data.id+"/";
+              $(window).hashchange();
+            } else {
+              alert(sprintf(appconfig.i18n.apierror_other,"add"));
+            }
+            return;
+          }
+          location.hash="feed/"+data.id+"/";
+          $(window).hashchange();
+          updateFeed(data.id);
+        },
+        null, //fail
+        function() { //always
+          me.removeAttr("disabled");
+        });
+      });
+      $("<td></td>)").append(btn).appendTo(tr);
+    });
   },
   null, //fail
   function() { //always

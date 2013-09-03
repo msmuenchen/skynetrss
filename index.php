@@ -186,7 +186,18 @@ window.onkeydown=function(e) {
     </div>
     <div class="view" id="opaddnew">
       <h1>Neuen Feed hinzufügen</h1>
-      <input id="newfeedurl" size="90" type="url" placeholder="http://example.tld/feed.rss"/> <button id="addnewfeed">Feed hinzufügen</button>
+      <p>Sie können in die Box die Adresse einer beliebigen Website oder eines RSS/ATOM/RDF-Feeds einfügen, den Rest erledigt SkyRSS</p>
+      <p><input id="newfeedurl" size="90" type="url" placeholder="http://example.tld/feed.rss"/> <button id="addnewfeed">Feed hinzufügen</button></p>
+      <div id="discover-results">
+      <h2>Feeds</h2>
+        <table id="discover-feedlist">
+          <thead>
+            <tr><th>Feed-URL</th><th>Feed-Titel</th><th>Aktion</th></tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="view" id="opaddgr">
       <h1>OPML-/Google-Reader-Import</h1>

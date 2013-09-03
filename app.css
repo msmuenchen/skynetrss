@@ -243,3 +243,6 @@ box-sizing: border-box;
 padding: 2px;
 cursor: pointer;
 }
+#discover-results {
+display:none;
+}
