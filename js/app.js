@@ -29,6 +29,7 @@ function updateFeed(id) {
   null, //fail
   function() { //always
     $("#feed_update").removeAttr("disabled");
+    loadFeedList(); //reload the feed list with new read-count
   });
 }
 
