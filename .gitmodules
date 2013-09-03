@@ -7,3 +7,6 @@
 [submodule "orm"]
 	path = orm
 	url = https://github.com/msmuenchen/skynetorm.git
+[submodule "lib/dom-document-charset"]
+	path = lib/dom-document-charset
+	url = https://github.com/glenscott/dom-document-charset.git

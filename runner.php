@@ -1,9 +1,5 @@
 <?
-require("config.php");
-require("exceptions.php");
-require("DB.php");
-require("DB_Query.php");
-require("rss.php");
+require("core.php");
 
 $q=new DB_Query("select * from feeds where lastread<(UNIX_TIMESTAMP(NOW())-(ttl*60))");
 //$q=new DB_Query("select * from feeds where scrape_elementid!=''");
