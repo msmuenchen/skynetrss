@@ -15,6 +15,10 @@
     <script type="text/javascript" src="js/api.js"></script>
     <script type="text/javascript" src="js/importgr.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/i18n.js"></script>
+    <script type="text/javascript" src="i18n/de.js"></script>
+    <script type="text/javascript" src="i18n/en.js"></script>
+    
     <script type="text/javascript" src="js/sprintf.js/src/sprintf.js"></script>
     
     <!-- jqote template for a feed item line -->
@@ -28,14 +32,14 @@
   </tr>
   </table>
   <div class="feedDetails" id="data-<%= this.id %>">
-    <div><a class="fullLink" target="_blank" href="<%! this.href %>"><%= appconfig.i18n.page_openlink %></a></div>
+    <div><a class="fullLink" target="_blank" href="<%! this.href %>"><%= _("page_openlink") %></a></div>
     <div class="author"><%! this.author %></div>
     <div class="fullText"></div>
   </div>
   <table class="bottomRow">
     <tr>
-      <td><input type="checkbox" class="itemRead" id="itemread-<%= this.id %>"/> <label for="itemread-<%= this.id %>"><%= appconfig.i18n.page_markasread %></label></td>
-      <td class="share"><%= appconfig.i18n.page_share %></td>
+      <td><input type="checkbox" class="itemRead" id="itemread-<%= this.id %>"/> <label for="itemread-<%= this.id %>"><%= _("page_markasread") %></label></td>
+      <td class="share"><%= _("page_share") %></td>
     </tr>
   </table>
 </li>
