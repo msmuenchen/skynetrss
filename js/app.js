@@ -117,7 +117,9 @@ function loadFeed(id,pos) {
   pos=pos||0;
   if(appstate.feed!=id) {
     console.log("appstate fid="+appstate.feed+", id="+id);
-    $("#feedtitle").html(_("page_loading"));
+    $("#feedmenu, #feedentries").hide();
+    $("#feed_href").removeAttr("href");
+    $("#feed_title").html(_("page_loading"));
     $("#feedentries li.feedline").remove();
     loadFeedData(id,pos,0);
   } else {
@@ -174,6 +176,7 @@ function loadFeedData(id,pos,start) {
         }
         return;
       }
+      $("#feedmenu,#feedentries").show();
       $("#feed_title").html(data.feed.title);
       if(data.feed.link!="")
         $("#feed_href").attr("href",data.feed.link);
