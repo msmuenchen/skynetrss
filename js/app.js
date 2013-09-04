@@ -15,9 +15,72 @@ var appconfig= {
     apierror_confirm:"API-Anfrage %s fehlgeschlagen, erneut versuchen?",
     apierror_permissiondenied:"Zugriff auf Feed verweigert!",
     apierror_other:"API-Anfrage %s fehlgeschlagen!",
+    error_nopassgiven:"Kein Passwort angegeben",
+    page_markasread:"Als ungelesen markieren",
+    page_openlink:"Seite öffnen",
+    page_share:"Teilen",
+    page_home:"Startseite",
+    page_addnewfeed:"Neuen Feed hinzufügen",
+    page_addgr:"GoogleReader Import",
+    page_login:"Anmelden",
+    page_logout:"Abmelden",
+    page_settingsfor:"Einstellungen für",
+    page_skyrssaccount:"SkyRSS-Konto",
+    page_username:"Benutzername",
+    page_password:"Passwort",
+    page_addfeed:"Feed hinzufügen",
+    page_settings:"Einstellungen",
+    page_settingsfor:"Einstellungen für ",
+    page_feeds:"Feeds",
+    page_feedid:"Feed-ID",
+    page_feedurl:"Feed-URL",
+    page_feedtitle:"Feed-Titel",
+    page_action:"Aktion",
+    page_account:"Konto",
+    page_displaysettings:"Darstellung",
+    page_ts:"Stand",
+    page_save:"Speichern",
+    page_file:"Datei",
+    page_startimport:"Import starten",
+    page_results:"Ergebnisse",
+    page_status:"Status",
+    page_nofeeds:"Keine Feeds geladen",
+    page_requestid:"Request-ID",
+    page_entries:"Einträge",
+    page_reload:"Neu laden",
+    page_reloadserver:"Von Quelle laden",
+    page_markallasread:"Alle als gelesen markieren",
+    page_showread:"Gelesene Elemente anzeigen",
+    page_newestfirst:"Neueste zuerst",
+    page_oldestfirst:"Älteste zuerst",
+    page_shareontwitter:"Auf Twitter teilen",
+    page_shareonfb:"Auf Facebook teilen",
+    page_loading:"Lade...",
+    page_startsite:"Bitte wählen Sie links einen Feed aus...",
+    page_addnewintro:"Sie können in die Box die Adresse einer beliebigen Website oder eines RSS/ATOM/RDF-Feeds einfügen, den Rest erledigt SkyRSS",
+    page_logoutwarning:"dieser Schritt löscht sämtliche synchronisierten Elemente von Ihrem Rechner!",
+    page_warning:"Achtung",
+    page_logoutconfirm:"Hiermit melden Sie sich von diesem Rechner ab.",
+    page_more:"Mehr...",
+    page_nomore:"Keine Einträge mehr vorhanden",
+    page_delete:"Löschen",
   },
 }
 
+function _(k) {
+  if(appconfig.i18n[k])
+    var t=appconfig.i18n[k];
+  else {
+    console.log("Unknown key "+k);
+    t=k;
+  }
+  return t;
+}
+jQuery(document).ready(function($){
+  $(".i18n").each(function() {
+    $(this).html(_($(this).data("key")));
+  });
+});
 //tell server to reload a specific feed from upstream server
 //when the update is done, tell the app to reload the feed
 function updateFeed(id) {
@@ -77,7 +140,7 @@ function loadFeedList() {
       var lnk=$("<a></a>").attr("href",e.url).html(e.url).attr("target","_blank");
       $("<td></td>").append(lnk).appendTo(tr);
       $("<td></td>").html(e.title).appendTo(tr);
-      var lnk2=$("<button></button>").html("Löschen").click(function() {
+      var lnk2=$("<button></button>").html(_("page_delete")).click(function() {
         doAPIRequest("unsubscribe",{feed:e.id},null, //success
         null, //fail
         loadFeedList //always
@@ -110,6 +173,8 @@ function openFeedItem(pos) {
       $("#feedentries").scrollTo($("#fl-"+pos));
   //actually populate the iframe we created earlier!
   ifr.attr("src","data:text/html;charset=utf-8,"+$("#fl-"+pos).data("html"));
+  console.log("iframe element");
+  console.log(ifr);
   $("#fl-"+pos+" .itemRead").attr("checked",false).change();
 }
  
@@ -118,7 +183,7 @@ function loadFeed(id,pos) {
   pos=pos||0;
   if(appstate.feed!=id) {
     console.log("appstate fid="+appstate.feed+", id="+id);
-    $("#feedtitle").html("Lade...");
+    $("#feedtitle").html(_("page_loading"));
     $("#feedentries li.feedline").remove();
     loadFeedData(id,pos,0);
   } else {
@@ -169,9 +234,9 @@ function loadFeedData(id,pos,start) {
       
       if(data.status!="ok") {
         if(data.type=="PermissionDeniedException") {
-          alert(appconfig.i18n.apierror_permissiondenied);
+          alert(_("apierror_permissiondenied"));
         } else {
-          alert(sprintf(appconfig.i18n.apierror_other,"get"));
+          alert(sprintf(_("apierror_other"),"get"));
         }
         return;
       }
@@ -285,7 +350,7 @@ function addFeed() {
       var tr=$("<tr></tr>").appendTo(tb);
       $("<td></td>").html(e.link).appendTo(tr);
       $("<td></td>").html(e.title).appendTo(tr);
-      var btn=$("<button></button>").html("Feed hinzufügen").click(function() {
+      var btn=$("<button></button>").html(_("page_addfeed")).click(function() {
         var me=$(this);
         doAPIRequest("add",{feed:e.link,ignoreAPIException:true},function(data) { //success
           if(data.status!="ok") {
@@ -293,7 +358,7 @@ function addFeed() {
               location.hash="feed/"+data.id+"/";
               $(window).hashchange();
             } else {
-              alert(sprintf(appconfig.i18n.apierror_other,"add"));
+              alert(sprintf(_("apierror_other"),"add"));
             }
             return;
           }
@@ -429,7 +494,7 @@ jQuery(document).ready(function($){
     $("#settings-accountbtn-save").attr("disabled","disabled");
     var pwd=$("#setings-password").val();
     if(pwd=="") {
-      alert("Kein Passwort angegeben!");
+      alert(_("error_nopassgiven"));
       return;
     }
     doAPIRequest("changepwd",{password:pwd},null, //success

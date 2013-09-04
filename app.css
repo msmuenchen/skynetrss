@@ -246,3 +246,6 @@ cursor: pointer;
 #discover-results {
 display:none;
 }
+span.i18n {
+	display: inline !important;
+}

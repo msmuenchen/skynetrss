@@ -28,14 +28,14 @@
   </tr>
   </table>
   <div class="feedDetails" id="data-<%= this.id %>">
-    <div><a class="fullLink" target="_blank" href="<%! this.href %>">Seite öffnen</a></div>
+    <div><a class="fullLink" target="_blank" href="<%! this.href %>"><%= appconfig.i18n.page_openlink %></a></div>
     <div class="author"><%! this.author %></div>
     <div class="fullText"></div>
   </div>
   <table class="bottomRow">
     <tr>
-      <td><input type="checkbox" class="itemRead" id="itemread-<%= this.id %>"/> <label for="itemread-<%= this.id %>">Als ungelesen markieren</label></td>
-      <td class="share">Teilen</td>
+      <td><input type="checkbox" class="itemRead" id="itemread-<%= this.id %>"/> <label for="itemread-<%= this.id %>"><%= appconfig.i18n.page_markasread %></label></td>
+      <td class="share"><%= appconfig.i18n.page_share %></td>
     </tr>
   </table>
 </li>
@@ -116,17 +116,17 @@ window.onkeydown=function(e) {
   <body>
   <div id="menu">
     <ul>
-      <li><a href="#index">Startseite</a></li>
-      <li class="loginshow"><a href="#op/addnew">Neuen Feed hinzufügen</a></li>
-      <li class="loginshow"><a href="#op/addgr">GoogleReader Import</a></li>
-      <li class="logoutshow"><a href="#op/login">Anmelden</a></li>
-      <li class="loginshow"><a href="#op/logout">Abmelden</a></li>
-      <li class="loginshow"><a href="#op/settings">Einstellungen für <span class="username"></span></a></li>
+      <li><a href="#index"><span class="i18n" data-key="page_home"></span></a></li>
+      <li class="loginshow"><a href="#op/addnew"><span class="i18n" data-key="page_addfeed"></span></a></li>
+      <li class="loginshow"><a href="#op/addgr"><span class="i18n" data-key="page_addgr"></span></a></li>
+      <li class="logoutshow"><a href="#op/login"><span class="i18n" data-key="page_login"></span></a></li>
+      <li class="loginshow"><a href="#op/logout"><span class="i18n" data-key="page_logout"></span></a></li>
+      <li class="loginshow"><a href="#op/settings"><span class="i18n" data-key="page_settingsfor"></span><span class="username"></span></a></li>
     </ul>
     <hr />
     <ul id="feedlist">
-      <li class="loading">Lade...</li>
-      <li class="nofeeds">Keine Feeds vorhanden</li>
+      <li class="loading"><span class="i18n" data-key="page_loading"></span></li>
+      <li class="nofeeds"><span class="i18n" data-key="page_nofeeds"></span></li>
     </ul>
     <hr />
     <ul id="debug_extra">
@@ -136,14 +136,14 @@ window.onkeydown=function(e) {
   </div>
   <div id="content">
     <div class="view" id="oplogin">
-      <h1>Anmelden</h1>
-      <h2>SkyRSS-Konto</h2>
+      <h1><span class="i18n" data-key="page_login"></span></h1>
+      <h2><span class="i18n" data-key="page_skyrssaccount"></span></h2>
       <form id="loginform">
       <div id="login-error"></div>
       <table>
-        <tr><th>Benutzername</th><td><input type="text" id="login-username" /></td></tr>
-        <tr><th>Passwort</th><td><input type="password" id="login-password" /></td></tr>
-        <tr><td colspan="2"><button id="login-btn">Anmelden</button></td></tr>
+        <tr><th><span class="i18n" data-key="page_username"></span></th><td><input type="text" id="login-username" /></td></tr>
+        <tr><th><span class="i18n" data-key="page_password"></span></th><td><input type="password" id="login-password" /></td></tr>
+        <tr><td colspan="2"><button id="login-btn"><span class="i18n" data-key="page_login"></span></button></td></tr>
       </table>
       </form>
       <h2>Twitter</h2>
@@ -152,47 +152,47 @@ window.onkeydown=function(e) {
       <a href="lib/facebook.php" id="loginfb"></a>
     </div>
     <div class="view" id="oplogout">
-      <h1>Abmelden</h1>
+      <h1><span class="i18n" data-key="page_logout"></span></h1>
       <form id="logoutform">
-      <p>Hiermit melden Sie sich von diesem Rechner ab.</p>
-      <p><em>Achtung</em>: dieser Schritt löscht sämtliche synchronisierten Elemente von Ihrem Rechner!</p>
-      <p><button id="logout-btn">Abmelden</button></p>
+      <p><span class="i18n" data-key="page_logoutconfirm"></span></p>
+      <p><em><span class="i18n" data-key="page_warning"></span></em>: <span class="i18n" data-key="page_logoutwarning"></span></p>
+      <p><button id="logout-btn"><span class="i18n" data-key="page_logout"></span></button></p>
       </form>
     </div>
     <div class="view" id="opsettings">
-      <h1>Einstellungen</h1>
+      <h1><span class="i18n" data-key="page_settings"></span></h1>
       
-      <h2>Konto</h2>
+      <h2><span class="i18n" data-key="page_account"></span></h2>
       <form id="settingsform-account">
       <table>
-        <tr><th>Benutzername</th><td><span class="username"></span></td></tr>
-        <tr class="passwordrow"><th>Passwort</th><td><input type="password" placeholder="Neues Passwort..." id="setings-password" /></td></tr>
-        <tr class="passwordrow"><td colspan="2"><button id="settings-accountbtn-save">Speichern</button></td></tr>
+        <tr><th><span class="i18n" data-key="page_username"></span></th><td><span class="username"></span></td></tr>
+        <tr class="passwordrow"><th><span class="i18n" data-key="page_password"></span></th><td><input type="password" placeholder="Neues Passwort..." id="setings-password" /></td></tr>
+        <tr class="passwordrow"><td colspan="2"><button id="settings-accountbtn-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
       </table>
       </form>
       
-      <h2>Feeds</h2>
+      <h2><span class="i18n" data-key="page_feeds"></span></h2>
       <table id="settings-feeds">
         <thead>
-          <tr><th>Feed-ID</th><th>Feed-URL</th><th>Feed-Titel</th><th>Aktion</th></tr>
-          <tr class="nofeeds"><td colspan="4">Keine Feeds vorhanden</td></tr>
+          <tr><th><span class="i18n" data-key="page_feedid"></span></th><th><span class="i18n" data-key="page_feedurl"></span></th><th><span class="i18n" data-key="page_feedtitle"></span></th><th><span class="i18n" data-key="page_action"></span></th></tr>
+          <tr class="nofeeds"><td colspan="4"><span class="i18n" data-key="page_nofeeds"></span></td></tr>
         </thead>
         <tbody>
         </tbody>
       </table>
       
-      <h2>Darstellung</h2>
+      <h2><span class="i18n" data-key="page_displaysettings"></span></h2>
       
     </div>
     <div class="view" id="opaddnew">
-      <h1>Neuen Feed hinzufügen</h1>
-      <p>Sie können in die Box die Adresse einer beliebigen Website oder eines RSS/ATOM/RDF-Feeds einfügen, den Rest erledigt SkyRSS</p>
-      <p><form><input id="newfeedurl" size="90" type="url" placeholder="http://example.tld/feed.rss"/> <button id="addnewfeed">Feed hinzufügen</button></form></p>
+      <h1><span class="i18n" data-key="page_addfeed"></span></h1>
+      <p><span class="i18n" data-key="page_addnewintro"></span></p>
+      <p><form><input id="newfeedurl" size="90" type="url" placeholder="http://example.tld/feed.rss"/> <button id="addnewfeed"><span class="i18n" data-key="page_addfeed"></span></button></form></p>
       <div id="discover-results">
-      <h2>Feeds</h2>
+      <h2><span class="i18n" data-key="page_feeds"></span></h2>
         <table id="discover-feedlist">
           <thead>
-            <tr><th>Feed-URL</th><th>Feed-Titel</th><th>Aktion</th></tr>
+            <tr><th><span class="i18n" data-key="page_feedurl"></span></th><th><span class="i18n" data-key="page_feedtitle"></span></th><th><span class="i18n" data-key="page_action"></span></th></tr>
           </thead>
           <tbody>
           </tbody>
@@ -200,44 +200,44 @@ window.onkeydown=function(e) {
       </div>
     </div>
     <div class="view" id="opaddgr">
-      <h1>OPML-/Google-Reader-Import</h1>
-      <h2>Datei</h2>
-      <input id="grfile" type="file" size="90" /> <button id="importgrfile">Import starten</button>
-      <h2>Ergebnisse</h2>
+      <h1><span class="i18n" data-key="page_addgr"></span></h1>
+      <h2><span class="i18n" data-key="page_file"></span></h2>
+      <input id="grfile" type="file" size="90" /> <button id="importgrfile"><span class="i18n" data-key="page_startimport"></span></button>
+      <h2><span class="i18n" data-key="page_results"></span></h2>
       <div id="grcounter"><span id="grcounter_cur">0</span> von <span id="grcounter_total">0</span> Feeds geladen</div>
       <table id="grresult" border="1">
-        <tr class="header"><th>ReqID</th><th>Feed ID</th><th>Feed URL</th><th>Feed Title</th><th>Status</th></tr>
-        <tr id="grresult-noentries"><td colspan="5">Keinen Feed geladen</td></tr>
+        <tr class="header"><th><span class="i18n" data-key="page_requestid"></span></th><th><span class="i18n" data-key="page_feedid"></span></th><th><span class="i18n" data-key="page_feedurl"></span></th><th><span class="i18n" data-key="page_feedtitle"></span></th><th><span class="i18n" data-key="page_status"></span></th></tr>
+        <tr id="grresult-noentries"><td colspan="5"><span class="i18n" data-key="page_nofeeds"></span></td></tr>
       </table>
     </div>
     <div class="view" id="index">
-      Bitte wählen Sie links einen Feed aus...
+      <span class="i18n" data-key="page_startsite"></span>
     </div>
     <div class="view" id="feed">
       <div id="feedbar">
         <a id="feed_href" target="_blank"><h1 id="feed_title"></h1></a>
         <div id="feedmenu">
-          <span class="item">Stand: <span id="feed_ts"></span></span>
-          <span class="item"><span id="feed_shown"></span>/<span id="feed_total"></span> Einträge</span>
-          <span class="item"><button id="feed_reload">Neu laden</button></span>
-          <span class="item"><button id="feed_update">Von Server laden</button></span>
-          <span class="item"><button id="feed_allread">Alle als gelesen markieren</button></span>
+          <span class="item"><span class="i18n" data-key="page_ts"></span>: <span id="feed_ts"></span></span>
+          <span class="item"><span id="feed_shown"></span>/<span id="feed_total"></span> <span class="i18n" data-key="page_entries"></span></span>
+          <span class="item"><button id="feed_reload"><span class="i18n" data-key="page_reload"></span></button></span>
+          <span class="item"><button id="feed_update"><span class="i18n" data-key="page_reloadserver"></span></button></span>
+          <span class="item"><button id="feed_allread"><span class="i18n" data-key="page_markallasread"></span></button></span>
           <span class="item">
             <select id="feed_sort">
-              <option value="desc">Neueste zuerst</option>
-              <option value="asc">Älteste zuerst</option>
+              <option value="desc" class="i18n" data-key="page_newestfirst"></option>
+              <option value="asc" class="i18n" data-key="page_oldestfirst"></option>
             </select>
           </span>
           <span class="item">
-            <input id="feed_showread" checked="checked" type="checkbox"/> <label for="feed_showread">Gelesene Elemente anzeigen</label>
+            <input id="feed_showread" checked="checked" type="checkbox"/> <label for="feed_showread"><span class="i18n" data-key="page_showread"></span></label>
           </span>
         </div>
       </div>
       <ul id="feedentries">
         <li id="feedmore">
-          <span class="more">Mehr Einträge</span>
-          <span class="loading">Lade...</span>
-          <span class="nomore">Keine weiteren Einträge vorhanden</span>
+          <span class="more"><span class="i18n" data-key="page_more"></span></span>
+          <span class="loading"><span class="i18n" data-key="page_loading"></span></span>
+          <span class="nomore"><span class="i18n" data-key="page_nomore"></span></span>
         </li>
       </ul>
     </div>
@@ -249,11 +249,11 @@ window.onkeydown=function(e) {
       </div>
       <h2>Twitter</h2>
       <a id="share-twitter" href="" target="_blank">
-        Auf Twitter teilen
+        <span class="i18n" data-key="page_shareontwitter"></span>
       </a>
       <h2>Facebook</h2>
       <a id="share-fb" href="" target="_blank">
-        Auf Facebook teilen
+        <span class="i18n" data-key="page_shareonfb"></span>
       </a>
     </div>
   </div>
