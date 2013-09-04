@@ -187,7 +187,7 @@ window.onkeydown=function(e) {
     <div class="view" id="opaddnew">
       <h1>Neuen Feed hinzufügen</h1>
       <p>Sie können in die Box die Adresse einer beliebigen Website oder eines RSS/ATOM/RDF-Feeds einfügen, den Rest erledigt SkyRSS</p>
-      <p><input id="newfeedurl" size="90" type="url" placeholder="http://example.tld/feed.rss"/> <button id="addnewfeed">Feed hinzufügen</button></p>
+      <p><form><input id="newfeedurl" size="90" type="url" placeholder="http://example.tld/feed.rss"/> <button id="addnewfeed">Feed hinzufügen</button></form></p>
       <div id="discover-results">
       <h2>Feeds</h2>
         <table id="discover-feedlist">
