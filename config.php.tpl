@@ -6,3 +6,7 @@ $config["db"]["user"]="";
 $config["db"]["pass"]="";
 $config["db"]["db"]="";
 $config["demomode"]=false;
+$config["twitter"]["consumer_key"]="";
+$config["twitter"]["consumer_secret"]="";
+$config["facebook"]["app_id"]="";
+$config["facebook"]["app_secret"]="";
