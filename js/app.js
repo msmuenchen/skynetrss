@@ -277,6 +277,7 @@ function loadFeedData(id,pos,start) {
 function addFeed() {
   $("#addnewfeed").attr("disabled","disabled");
   var url=$("#newfeedurl").val();
+  $("#discover-results").hide();
   doAPIRequest("discover",{url:url},function(data) { //success
     $("#discover-results").show();
     var tb=$("#discover-feedlist tbody").empty();
