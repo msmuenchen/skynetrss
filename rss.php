@@ -57,10 +57,11 @@ class Feed {
   
   public static function createFromUrl($url) {
     //get content
-    $content=@file_get_contents($url);
-    if($content===false)
+    try {
+      $content=CURL::get($url);
+    } catch(CURLDownloadException $e) {
       throw new FileLoadException("Fehler beim Laden des Feeds $url");
-    
+    }    
     return static::createFromText($url,$content);
   }
 }
@@ -403,10 +404,12 @@ function updateFeed($id,$forceRescrape=false) {
   //Try to get the icon
   $icon=$feed->icon;
   if($icon!="") {
-    $data=@file_get_contents($icon);
-    $mt="application/octet-stream";//@mime_content_type($icon);
-    if($data!==false) {
+    try {
+      $data=CURL::get($icon);
+      $mt="application/octet-stream";//@mime_content_type($icon);
       $feed->icon=sprintf("data:%s;base64,%s",$mt,base64_encode($data));
+    } catch(CURLDownloadException $e) {
+      $feed->icon="";
     }
   }
   $log.=print_r($feed,true);
@@ -447,8 +450,9 @@ function updateFeed($id,$forceRescrape=false) {
 //load a HTML document and try to get the innerHTML of the node selected by xpath
 //if return===false, then scrape failed
 function scrapeFeed($link,$xpath_query) {
-  $raw=@file_get_contents($link);
-  if($raw===false) {
+  try {
+    $raw=CURL::get($link);
+  } catch (CURLDownloadException $e) {
     return array("could not get content of $link\n");
   }
   //avoid stupid warnings caused by invalid HTML

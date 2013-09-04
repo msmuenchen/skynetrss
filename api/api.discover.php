@@ -1,9 +1,19 @@
 <?
 $url=$_GET["url"];
 
-$raw=@file_get_contents($url);
-if($raw===false) {
+try {
+  $raw=CURL::get($url);
+} catch(CURLDownloadException $e) {
   throw new FileLoadException();
+} catch(PermissionDeniedException $e) {
+  try {
+    $scheme=parse_url($url,PHP_URL_SCHEME);
+    if($scheme=="")
+      $url="http://$url";
+    $raw=CURL::get($url);
+  } catch(Exception $e2) {
+    throw new FileLoadException();
+  }
 }
 
 //avoid stupid warnings caused by invalid HTML
