@@ -209,10 +209,11 @@ function loadFeedData(id,pos,start) {
         var el=$($("#tpl-feedline").jqote(obj));
         $(".topRow",el).click(function(){
           if(el.hasClass("open")) {
-          el.removeClass("open");
-          location.hash="feed/"+id+"/";
-          } else
+            el.removeClass("open");
+            location.hash="feed/"+id+"/";
+          } else {
             location.hash="feed/"+id+"/"+e.id;
+          }
         });
         
         $(".share",el).click(function() {
