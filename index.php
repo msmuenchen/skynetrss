@@ -1,10 +1,11 @@
 <!doctype html>
-<html manifest="manifest.php">
+<html manifest="manifest2.php">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="min-width=1000px" />
     <title>SKYRSS Reader</title>
     <link rel="stylesheet" href="app.css" type="text/css" media="all" />
+    
     
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/jquery.ba-hashchange.min.js"></script>
@@ -12,12 +13,14 @@
     <script type="text/javascript" src="js/date.format.js"></script>
     <script type="text/javascript" src="js/jquery.scrollTo-min.js"></script>
     <script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
-    <script type="text/javascript" src="js/api.js"></script>
-    <script type="text/javascript" src="js/importgr.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/genconfig.php"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
     <script type="text/javascript" src="i18n/de.js"></script>
     <script type="text/javascript" src="i18n/en.js"></script>
+    <script type="text/javascript" src="js/api.js"></script>
+    <script type="text/javascript" src="js/importgr.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    
     
     <script type="text/javascript" src="js/sprintf.js/src/sprintf.js"></script>
     

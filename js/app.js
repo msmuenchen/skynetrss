@@ -8,12 +8,6 @@ var appstate={
 }
 
 //Config (TODO: generate in PHP, export I18n here...)
-var appconfig= {
-  feedicon:"assets/feed-icon-28x28.png",
-  apiurl:"api.php",
-  lang:"en",
-  deflang:"de",
-}
 
 //tell server to reload a specific feed from upstream server
 //when the update is done, tell the app to reload the feed
