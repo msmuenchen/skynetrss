@@ -21,15 +21,13 @@ height:calc(100% - 2 * 20px);
 overflow-y:scroll;
 }
 #menu a {
-width: 100%;
+width: calc(100% - 40px); /* give the unread_count approx.40px */
 text-overflow: ellipsis;
 white-space: nowrap;
 overflow: hidden;
-display: block;
+display: inline-block;
   text-decoration:none;
   color:black;
-font-size: 16px;
-line-height: 16px;
 height: 20px;
 padding: 2px 0px;
 box-sizing: border-box;
@@ -251,4 +249,20 @@ span.i18n {
 }
 #feedmenu, #feedentries {
 display:none;
+}
+
+.unread_count {
+position:absolute;
+right:0px;
+padding: 2px 0px;
+}
+
+#feedlist li {
+border-bottom: 1px solid #eee;
+font-size:16px;
+line-height:16px;
+
+}
+#feedlist li:last-of-type {
+border-bottom:none; /* prevent double border */
 }

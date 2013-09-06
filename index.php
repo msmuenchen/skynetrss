@@ -53,7 +53,8 @@
 <% if(this.icon!="") { %>
   <img src="<%! this.icon %>" class="icon" />
 <% } %>
-  <a href="#feed/<%= this.id %>/" title="<%! this.desc %>"><%! this.title %> (<span class="unread_count"><%= this.unread %></span>)</a>
+  <a href="#feed/<%= this.id %>/" title="<%! this.desc %>"><%! this.title %></a>
+  <span class="unread_count"><%= this.unread %></span>
 </li>
 ]]>    
     </script>
