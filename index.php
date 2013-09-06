@@ -49,11 +49,11 @@
     <!-- jqote template for a feed list entry -->
     <script type="text/html" id="tpl-feedlist">
 <![CDATA[
-<li class="feed <%= this.liclass %>" id="fi-<%= this.id %>">
+<li class="feed <%= this.liclass %>" id="fi-<%= this.id %>" title="<%! this.desc %>">
 <% if(this.icon!="") { %>
   <img src="<%! this.icon %>" class="icon" />
 <% } %>
-  <a href="#feed/<%= this.id %>/" title="<%! this.desc %>"><%! this.title %></a>
+  <a><%! this.title %></a>
   <span class="unread_count"><%= this.unread %></span>
 </li>
 ]]>    

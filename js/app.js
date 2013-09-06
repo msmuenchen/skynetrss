@@ -67,6 +67,10 @@ function loadFeedList() {
       //create the DOM objects for the feedlist entry  out of the template
       var el=$($("#tpl-feedlist").jqote(obj));
       el.appendTo($("#feedlist"));
+      el.click(function() {
+        location.hash="#feed/"+e.id+"/";
+        $(window).hashchange();
+      });
       
       //settings
       var tr=$("<tr></tr>");

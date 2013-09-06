@@ -264,6 +264,7 @@ padding: 2px 0px;
 
 #feedlist li {
 border-bottom: 1px solid #eee;
+cursor:pointer;
 }
 #feedlist li:last-of-type {
 border-bottom:none; /* prevent double border */
