@@ -16,12 +16,12 @@ function importgrfile() {
       console.log("OPML processed");
       console.log(data);
       if(data.status!="ok") {
-        alert(sprintf(appconfig.i18n.apierror_other,"importgr"));
+        alert(sprintf(_("apierror_other"),"importgr"));
         $("#importgrfile").removeAttr("disabled");
         return;
       }
       if(data.invalid!=0) {
-        alert(sprintf(appconfig.i18n.apierror_other,"importgr"));
+        alert(sprintf(_("apierror_other"),"importgr"));
         $("#importgrfile").removeAttr("disabled");
         return;
       }

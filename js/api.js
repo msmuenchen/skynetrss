@@ -21,7 +21,7 @@ function doAPIRequest(target,params,success,fail,always) {
           data.message="";
         console.error("Request #"+reqId+" to API "+target+" ("+logstr+") returned error on API level: '"+data.message+"'");
         //See if the user wants to retry, don't fail silently
-        if(confirm(sprintf(appconfig.i18n.apierror_confirm,target)))
+        if(confirm(sprintf(_("apierror_confirm"),target)))
           doAPIRequest(target,params,success,fail,always);
         else {
           if(typeof(fail)=="function") {
@@ -38,7 +38,7 @@ function doAPIRequest(target,params,success,fail,always) {
     }).
     fail(function() {
       console.error("Request #"+reqId+" to API "+target+" ("+logstr+") failed on network level");
-      if(confirm(sprintf(appconfig.i18n.apierror_confirm,target))) {
+      if(confirm(sprintf(_("apierror_confirm"),target))) {
         doAPIRequest(target,params,success,fail,always);
         return; //the request may succeed on retry, so return and do not fire the supplied fail-handler
       }
