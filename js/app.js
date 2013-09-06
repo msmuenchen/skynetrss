@@ -63,7 +63,6 @@ function loadFeedList() {
       el.appendTo($("#feedlist"));
       el.click(function() {
         location.hash="#feed/"+e.id+"/";
-        $(window).hashchange();
       });
       
       //settings
@@ -295,14 +294,12 @@ function addFeed() {
           if(data.status!="ok") {
             if(data.type=="AlreadyPresentException") {
               location.hash="feed/"+data.id+"/";
-              $(window).hashchange();
             } else {
               alert(sprintf(_("apierror_other"),"add"));
             }
             return;
           }
           location.hash="feed/"+data.id+"/";
-          $(window).hashchange();
           updateFeed(data.id);
         },
         null, //fail
@@ -475,7 +472,6 @@ function initLogin() {
       $("#menu .loginshow").hide();
       $("#menu .logoutshow").show();
       location.hash="op/login";
-      $(window).hashchange();
       loadFeedList();
     },
     null, //fail
@@ -501,7 +497,6 @@ function initLogin() {
         $("#settingsform-account .passwordrow").show();
       loadFeedList();
       location.hash="index";
-      $(window).hashchange();
     },
     null, //fail
     function() { //always
