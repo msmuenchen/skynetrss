@@ -31,6 +31,11 @@ display: inline-block;
 height: 20px;
 padding: 2px 0px;
 box-sizing: border-box;
+
+}
+#menu li {
+font-size:16px;
+line-height:16px;
 }
 #feedlist .feed {
 margin:2px 0px;
@@ -259,9 +264,6 @@ padding: 2px 0px;
 
 #feedlist li {
 border-bottom: 1px solid #eee;
-font-size:16px;
-line-height:16px;
-
 }
 #feedlist li:last-of-type {
 border-bottom:none; /* prevent double border */
