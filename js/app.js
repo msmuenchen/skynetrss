@@ -92,23 +92,66 @@ function loadFeedList() {
 function openFeedItem(pos) {
   //clean up the old item(s) so that the DOM resources are free'd
   $(".feedline iframe").remove();
+  var newfl=$("#fl-"+pos);
   var ifr=$("<iframe>");
   ifr.attr("src","about:blank");
   //Browsers like to set an implicit height on iframes (Chrome: 150px)
   //So set it to 0. Upon loading the content, it will automatically scale up again :)
   ifr.height(0);
-  ifr.appendTo($("#fl-"+pos+" .fullText"));
+  ifr.appendTo($(".fullText",newfl));
+  
   $(".feedline.open").removeClass("open");
-  $("#fl-"+pos).addClass("open");
-  if($("#fl-"+pos).length>0)
-      $("#feedentries").scrollTo($("#fl-"+pos));
+  newfl.addClass("open");
+  
+  //scroll so that the new-opened item is always at the top
+  if($("#fl-"+pos).length>0) {
+    var fe=$("#feedentries");
+    fe.css("padding-bottom",0);
+    var md=getFeedItemMeasurements(newfl);
+    if(md.scrollTop>md.maxScrollTop) {
+      var d=md.scrollTop-md.maxScrollTop;
+      var mfm=getFeedItemMeasurements($("#feedmore"));
+      if(mfm.bottom<mfm.maxBottom) { //there's a difference between the bottom of feedmore and the height => less elements visible than the view is high => no scrolling possible
+        d+=mfm.maxBottom-mfm.bottom;
+      }
+      fe.css("padding-bottom",d+"px");
+    }
+    $("#feedentries").scrollTop(md.scrollTop);
+  }
   //actually populate the iframe we created earlier!
-  ifr.attr("src","data:text/html;charset=utf-8,"+$("#fl-"+pos).data("html"));
-  console.log("iframe element");
-  console.log(ifr);
+  ifr.attr("src","data:text/html;charset=utf-8,"+newfl.data("html"));
   $("#fl-"+pos+" .itemRead").attr("checked",false).change();
 }
- 
+
+//get scroll-related measurement data for a feed item
+function getFeedItemMeasurements(item) {
+  var topOffset=0;
+  var fe=$("#feedentries");
+  
+  //position().top is relative to the document!
+  //"bottom" is ALSO relative to the top of #feedline!
+  topOffset+=fe.position().top+parseInt(fe.css("marginTop"));
+  //"top" is relative to the top of #feedline, i.e. the topmost element has a top of 0, if scrolled all up
+  var top=item.position().top-topOffset;
+  var bottom=top+item.outerHeight();
+  //maxbottom is the maximum bottom that an element may have in order to be fully visible
+  //so, e.g. if an element's bottom is bigger than maxBottom it is not fully visible
+  var maxBottom=fe.height();
+  
+  var st=fe.scrollTop()+top;
+  return {
+    topOffset:topOffset,
+    top:top,
+    bottom:bottom,
+    maxBottom:maxBottom,
+    scrollTop:st,
+    maxScrollTop:fe.get(0).scrollHeight-fe.height(),
+  }
+}
+function isFeedItemVisible(item) {
+  var md=getFeedItemMeasurements(item);
+  return md.bottom<=md.maxBottom;
+}
 //load a new feed, or open an item of the current feed
 function loadFeed(id,pos) {
   pos=pos||0;
@@ -529,7 +572,22 @@ window.addEventListener('message', function(event) {
   if(event.data.type=="seth") {
     var pid=event.data.myId;
     var h=event.data.scrollHeight;
-    $("#fl-"+pid+" iframe").height(h);
+    var fl=$("#fl-"+pid);
+    var fe=$("#feedentries");
+    var st=fe.scrollTop(); //back up scrollTop, as the height change will reset it
+    $("iframe",fl).height(h);
+    //now we got a height, adjust the padding (if possible)
+    fe.css("padding-bottom",0);
+    var md=getFeedItemMeasurements(fl);
+    if(md.scrollTop>md.maxScrollTop) {
+      var d=md.scrollTop-md.maxScrollTop;
+      var mfm=getFeedItemMeasurements($("#feedmore"));
+      if(mfm.bottom<mfm.maxBottom) { //there's a difference between the bottom of feedmore and the height => less elements visible than the view is high => no scrolling possible
+        d+=mfm.maxBottom-mfm.bottom;
+      }
+      fe.css("padding-bottom",d+"px");
+    }
+    fe.scrollTop(st);
   } else if(event.data.type=="keypress") {
     var ve=jQuery.Event("keypress");
     ve.keyCode=event.data.ev.keyCode;
@@ -556,61 +614,75 @@ $(window).keydown(function(e) {
 
 //handle key presses. for now, we're just interested in the space key
 $(window).keypress(function(e) {
+  //don't capture keypresses in anything other than feedview
   if(appstate.view!="feed")
       return;
+
+  //check if keycode is allowed at all
+  if($.inArray(e.keyCode,[32,33,34,35,36,38,40])==-1)
+    return;
+
+  //prevent unvoluntary crap
+  e.preventDefault();
+  
   console.log("window got a keypress event:");
   console.log(e);
+  //scroll delta
+  var delta=$("#feedentries").height()/4;
+  //current scrollTop
+  var current=$("#feedentries").scrollTop();
+  //maximum scrollTop
+  var maxScroll=$("#feedentries")[0].scrollHeight-$("#feedentries").height();
+  //new scrollTop (we centralize the scroll later)
+  var newScroll=current;
+  
   if(e.keyCode==32 && e.metaKey==false) { //space = next element
-    console.log("got a space at "+appstate.pos);
     if(appstate.pos!=0 && !$("#fl-"+appstate.pos).length) {
       //this happens when the current element is not present (e.g. on the next page)
       appstate.pos=0;
     }
     if(appstate.pos==0) {
       var n=$(".feedline").first();
+      var c=$("#feedentries");
     } else {
       var n=$("#fl-"+appstate.pos).next();
-      //check if we have to scroll, or to go next element
-      var top=$("#fl-"+appstate.pos).position().top-$("#feedentries").position().top;
-      var bottom=top+$("#fl-"+appstate.pos).outerHeight();
-      if(bottom>$("#feedentries").height()-$("#feedmore").outerHeight()) {
-        $("#feedentries").scrollTop($("#feedentries").scrollTop()+$("#feedentries").height()/4);
-        return;
-      }
+      var c=$("#fl-"+appstate.pos);
     }
-    var nId=n.attr("id");
-    e.preventDefault();
-    if(nId=="feedmore") {
-      if(!$("#feedmore").hasClass("more"))
-        return;
-      $("#feedmore").click();
-    } else {
-      var r=/fl-([0-9]*)/.exec(nId);
-      location.hash="feed/"+appstate.feed+"/"+r[1];
+    console.log("next is ");
+    console.log(n);
+    if(!isFeedItemVisible(c)) { //current element is not fully visible, just scroll down
+      console.log("current element is not fully visible");
+      newScroll+=delta;
+    } else { //current element is fully visible, open the next element
+      var nId=n.attr("id");
+      console.log(nId);
+      console.log("next item is "+nId);
+      if(nId=="feedmore") {
+        if($("#feedmore").hasClass("more")) //more items available => click
+          $("#feedmore").click();
+      } else {
+        var r=/fl-([0-9]*)/.exec(nId);
+        location.hash="feed/"+appstate.feed+"/"+r[1];
+      }
+      return;
     }
   } else if((e.keyCode==40||e.keyCode==34) && e.relayed) { //arrowkeys, if relayed then accept it
-    var delta=$("#feedentries").height()/4;
     if(e.keyCode==34)
       delta*=2; //pgdn doubles scrollheight
-    var current=$("#feedentries").scrollTop();
-    var max=$("#feedentries")[0].scrollHeight-$("#feedentries").height();
-    var n=current+delta;
-    if(n>max)
-      n=max;
-    $("#feedentries").scrollTop(n);
+    newScroll+=delta;
   } else if((e.keyCode==38||e.keyCode==33) && e.relayed) { //arrowkeys, if relayed then accept it
-    var delta=$("#feedentries").height()/4;
     if(e.keyCode==33)
       delta*=2; //pgdn doubles scrollheight
-    var current=$("#feedentries").scrollTop();
-    var n=current-delta;
-    if(n<0)
-        n=0;
-    $("#feedentries").scrollTop(n);
+    newScroll-=delta;
   } else if(e.keyCode==36 && e.relayed) { //pos1, scroll to top
-    $("#feedentries").scrollTop(0);
+    newScroll=0;
   } else if(e.keyCode==35 && e.relayed) { //end, scroll to bottom
-    var max=$("#feedentries")[0].scrollHeight-$("#feedentries").height();
-    $("#feedentries").scrollTop(max);
+    newScroll=maxScroll;
   }
+  if(newScroll>maxScroll)
+    newScroll=maxScroll;
+  if(newScroll<0)
+    newScroll=0;
+  console.log("delta "+delta+" current "+current+" new "+newScroll);
+  $("#feedentries").scrollTop(newScroll);
 });
