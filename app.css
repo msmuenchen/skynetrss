@@ -57,9 +57,10 @@ width:calc(100% - 300px - 2 * 30px - 2 * 40px - 2px);
   overflow-y:auto;
 }
 #feedentries {
-height:calc(100% - 49px - 5px - 2px); /* height of feedbar - top margin feedentries - unknown?! */
+height:calc(100% - 49px - 5px); /* height of feedbar - top margin feedentries */
 overflow-y:scroll;
 margin-top:5px;
+box-sizing:border-box;
 }
 #index {
   display:block;
@@ -177,7 +178,6 @@ button {
 h1 {
 	font-size:24px;
 line-height:24px;
-margin-top:2px;
 margin-bottom:5px;
 }
 #feedmenu {
