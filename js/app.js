@@ -3,11 +3,12 @@ var appstate={
   view:"index", /* the current view */
   feed:0, /* current feed id */
   pos:0, /* current feed item id */
+  selected:0, /* current selected item */
   nextstart:0,
   requestCounter:0, /* keep track of AJAX requests */
+  keyscope:0, /* state of the keypress-state-machine, 99: no input accepted */
 }
 
-//Config (TODO: generate in PHP, export I18n here...)
 
 //tell server to reload a specific feed from upstream server
 //when the update is done, tell the app to reload the feed
@@ -89,10 +90,14 @@ function loadFeedList() {
 }
 
 //open a feed item in the list (pos: db id of the item)
-function openFeedItem(pos) {
+function openFeedItem(pos, noScroll) {
+  if(typeof noScroll=="undefined")
+    noScroll=false;
   //clean up the old item(s) so that the DOM resources are free'd
-  $(".feedline iframe").remove();
+  if(!noScroll)
+    $(".feedline iframe").remove();
   var newfl=$("#fl-"+pos);
+  
   var ifr=$("<iframe>");
   ifr.attr("src","about:blank");
   //Browsers like to set an implicit height on iframes (Chrome: 150px)
@@ -100,11 +105,14 @@ function openFeedItem(pos) {
   ifr.height(0);
   ifr.appendTo($(".fullText",newfl));
   
-  $(".feedline.open").removeClass("open");
+  if(!noScroll)
+    $(".feedline.open").removeClass("open");
   newfl.addClass("open");
   
+  newfl.data("noscroll",noScroll);
+  
   //scroll so that the new-opened item is always at the top
-  if($("#fl-"+pos).length>0) {
+  if($("#fl-"+pos).length>0 && !noScroll) {
     var fe=$("#feedentries");
     fe.css("padding-bottom",0);
     var md=getFeedItemMeasurements(newfl);
@@ -161,7 +169,11 @@ function loadFeed(id,pos) {
     $("#feed_href").removeAttr("href");
     $("#feed_title").html(_("page_loading"));
     $("#feedentries li.feedline").remove();
+    $("#feedentries").css("padding-bottom",0);
+    appstate.selected=0; //reset selector on feedchange
     loadFeedData(id,pos,0);
+    $("#feedentries").scrollTop(0); //scroll to top
+    console.log("scrolled to top");
   } else {
     console.log("appstate fid=id="+id);
     openFeedItem(pos);
@@ -258,7 +270,7 @@ function loadFeedData(id,pos,start) {
             location.hash="feed/"+id+"/"+e.id;
           }
         });
-        
+        el.attr("title",e.id);
         $(".share",el).click(function() {
           $("#share-container").show();
           $("#share-twitter").attr("href","https://twitter.com/intent/tweet?url="+encodeURIComponent(e.link));
@@ -576,6 +588,9 @@ window.addEventListener('message', function(event) {
     var fe=$("#feedentries");
     var st=fe.scrollTop(); //back up scrollTop, as the height change will reset it
     $("iframe",fl).height(h);
+    console.log("adjusted height of "+pid+" to "+h);
+    if(!fe.data("noscroll"))
+      return;
     //now we got a height, adjust the padding (if possible)
     fe.css("padding-bottom",0);
     var md=getFeedItemMeasurements(fl);
@@ -612,7 +627,9 @@ $(window).keydown(function(e) {
   $("#share-container").hide();
 });
 
-//handle key presses. for now, we're just interested in the space key
+/* KEY PRESS HANDLERS */
+//Reference: http://www.shortcutworld.com/en/web/Google-Reader.html
+//Section 1: Space, arrow keys, PgUp/Dn, Home, End keys
 $(window).keypress(function(e) {
   //don't capture keypresses in anything other than feedview
   if(appstate.view!="feed")
@@ -685,4 +702,120 @@ $(window).keypress(function(e) {
     newScroll=0;
   console.log("delta "+delta+" current "+current+" new "+newScroll);
   $("#feedentries").scrollTop(newScroll);
+});
+
+//Section 2: Feed item navigation
+/*
+j/k open next/previous item
+n/p select next/previous item but dont open it
+o/<return> open/close selected item
+1 open all
+2 close all
+*/
+$(window).keypress(function(e) {
+  if(appstate.view!="feed")
+    return;
+  
+  //check if we're not allowed to react on keypresses
+  //e.g. while entering comments, tags etc
+  if(appstate.keyscope==99)
+    return;
+  //check if keycode is allowed at all
+  if($.inArray(e.keyCode,[13,49,50,106,107,110,111,112])==-1)
+    return;
+  
+  //no meta-key (alt,ctrl, etc) combos
+  if(e.metaKey)
+    return;
+  
+  //prevent unvoluntary crap
+  e.preventDefault();
+  
+  switch(e.keyCode) {
+    case 110: //n
+      if(appstate.selected==0) {
+        var n=$(".feedline").first();
+        var c=n;
+      } else {
+        var n=$("#fl-"+appstate.selected).next();
+        var c=$("#fl-"+appstate.selected);
+      }
+      console.log("next");
+      console.log(c);
+      console.log(n);
+      var nId=n.attr("id");
+      if(nId=="feedmore")
+        return;
+      var r=/fl-([0-9]*)/.exec(nId);
+      appstate.selected=r[1];
+      c.removeClass("selected");
+      n.addClass("selected");
+    break;
+    case 112: //p
+      if(appstate.selected==0) {
+        var n=$(".feedline").first();
+        var c=n;
+      } else {
+        var n=$("#fl-"+appstate.selected).prev();
+        var c=$("#fl-"+appstate.selected);
+      }
+      if(n.length!=1)
+        return;
+      var nId=n.attr("id");
+      var r=/fl-([0-9]*)/.exec(nId);
+      appstate.selected=r[1];
+      c.removeClass("selected");
+      n.addClass("selected");
+    break;
+    case 111: //o
+    case 13: //<return>
+      var c=$("#fl-"+appstate.selected);
+      var cId=c.attr("id");
+      var r=/fl-([0-9]*)/.exec(cId);
+      if(c.hasClass("open")) //collapse
+        location.hash="feed/"+appstate.feed+"/";
+      else
+        location.hash="feed/"+appstate.feed+"/"+r[1];
+    break;
+    case 49: //1
+      $(".feedline").each(function(e) {
+        var cId=$(this).attr("id");
+        var r=/fl-([0-9]*)/.exec(cId);
+        openFeedItem(r[1],true);
+      });
+    break;
+    case 50: //2
+      location.hash="feed/"+appstate.feed+"/";
+    break;
+    case 106: //j
+      if(appstate.pos!=0 && !$("#fl-"+appstate.pos).length) {
+        appstate.pos=0;
+      }
+      if(appstate.pos==0) {
+        var n=$(".feedline").first();
+      } else {
+        var n=$("#fl-"+appstate.pos).next();
+      }
+      var nId=n.attr("id");
+      if(nId=="feedmore")
+        return;
+      var r=/fl-([0-9]*)/.exec(nId);
+      location.hash="feed/"+appstate.feed+"/"+r[1];
+    break;
+    case 107: //k
+      if(appstate.pos!=0 && !$("#fl-"+appstate.pos).length) {
+        appstate.pos=0;
+      }
+      if(appstate.pos==0) {
+        var n=$(".feedline").first();
+      } else {
+        var n=$("#fl-"+appstate.pos).prev();
+      }
+      if(n.length!=1)
+        return;
+      var nId=n.attr("id");
+      var r=/fl-([0-9]*)/.exec(nId);
+      location.hash="feed/"+appstate.feed+"/"+r[1];
+    break;
+  }
 });

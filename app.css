@@ -103,6 +103,9 @@ text-align:right;
 .feedline .topRow,.feedline .bottomRow td {
 	cursor:pointer;
 }
+.feedline.selected .topRow {
+	background-color:yellow;
+}
 .feedDetails:before,
 .feedDetails:after {
   content: '';
