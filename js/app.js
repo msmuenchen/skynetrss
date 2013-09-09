@@ -622,9 +622,13 @@ jQuery(document).ready(function($){
 $(window).keydown(function(e) {
   if(e.keyCode!=27) //escape
     return;
+  if(appstate.keyscope!=99) //only react on share-window
+    return;
+  
   if(!$("#share-container").is(":visible")) //check if the sharer modal is active
     return;
   $("#share-container").hide();
+  appstate.keyscope=0;
 });
 
 /* KEY PRESS HANDLERS */
@@ -638,7 +642,12 @@ $(window).keypress(function(e) {
   //check if keycode is allowed at all
   if($.inArray(e.keyCode,[32,33,34,35,36,38,40])==-1)
     return;
-
+  
+  //check if we're not allowed to react on keypresses
+  //e.g. while entering comments, tags etc
+  if(appstate.keyscope==99)
+    return;
+  
   //prevent unvoluntary crap
   e.preventDefault();
   
@@ -818,4 +827,59 @@ $(window).keypress(function(e) {
       location.hash="feed/"+appstate.feed+"/"+r[1];
     break;
   }
+});
+
+//section 3: item actions
+//v: open in new background tab
+//m: toggle read/unread
+//s: share (this DIFFERS from google reader!!)
+$(window).keypress(function(e) {
+  if(appstate.view!="feed")
+    return;
+  
+  //check if we're not allowed to react on keypresses
+  //e.g. while entering comments, tags etc
+  if(appstate.keyscope==99)
+    return;
+  //check if keycode is allowed at all
+//  if($.inArray(e.keyCode,[13,49,50,106,107,110,111,112])==-1)
+//    return;
+  
+  //no meta-key (alt,ctrl, etc) combos
+  if(e.metaKey)
+    return;
+  
+  //prevent unvoluntary crap
+  e.preventDefault();
+
+  //get the current item
+  var c=$("#fl-"+appstate.pos);
+  if(!c.length) //make sure that an item is open!
+    return;
+
+  switch(e.keyCode) {
+    case 118: //v
+      var l=$(".fullLink",c); //get the link element
+      if(!l.length)
+        return;
+      if(l.attr("href")=="")
+        return;
+      //Open in background tab by firing a middle-click (http://stackoverflow.com/a/11389138/1933738)
+      var evt = document.createEvent("MouseEvents");
+      //the tenth parameter of initMouseEvent sets ctrl key
+      evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,
+                                  true, false, false, false, 0, null);
+      l.get(0).dispatchEvent(evt);
+    break;
+    case 109: //m
+      var cb=$(".itemRead",c);
+      cb.toggleCheckbox(); //toggle and fire the change event
+    break;
+    case 115: //s
+      var btn=$(".share",c);
+      btn.click();
+      appstate.keyscope=99; //prevent firing of other handlers
+    break;
+  }
+  console.log(e.keyCode+" "+e.metaKey);
 });
