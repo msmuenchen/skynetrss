@@ -463,7 +463,6 @@ function scrapeFeed($link,$xpath_query) {
   $xpath=new DOMXPath($doc);
   $res=$xpath->evaluate($xpath_query);
   if($res->length!=1) {
-  echo "xpath fail";
     return array("xpath expression $xpath_query did not return exactly 1 element on $link (".$res->length.")\n");
   }
   $item=$res->item(0);
