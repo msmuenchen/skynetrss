@@ -60,7 +60,6 @@ width:calc(100% - 300px - 2 * 30px - 2 * 40px - 2px);
 height:calc(100% - 49px - 5px); /* height of feedbar - top margin feedentries */
 overflow-y:scroll;
 margin-top:5px;
-box-sizing:border-box;
 }
 #index {
   display:block;
@@ -271,4 +270,21 @@ cursor:pointer;
 }
 #feedlist li:last-of-type {
 border-bottom:none; /* prevent double border */
+}
+
+#feedentries {
+position:relative;
+}
+.feedline {
+position:relative;
+z-index:2;
+background:#fff;
+}
+#feedentries:after {
+    content: "";
+    display: block;
+    height: 100%;
+    margin-top: -20px;
+    position: relative;
+    z-index: 1;
 }
