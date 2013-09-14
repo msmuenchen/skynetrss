@@ -115,23 +115,11 @@ function openFeedItem(pos, noScroll) {
     $(".feedline.open").removeClass("open");
   newfl.addClass("open");
   
-  newfl.data("noscroll",noScroll);
-  
-  //scroll so that the new-opened item is always at the top
-  if($("#fl-"+pos).length>0 && !noScroll) {
-    var fe=$("#feedentries");
-    fe.css("padding-bottom",0);
-    var md=getFeedItemMeasurements(newfl);
-    if(md.scrollTop>md.maxScrollTop) {
-      var d=md.scrollTop-md.maxScrollTop;
-      var mfm=getFeedItemMeasurements($("#feedmore"));
-      if(mfm.bottom<mfm.maxBottom) { //there's a difference between the bottom of feedmore and the height => less elements visible than the view is high => no scrolling possible
-        d+=mfm.maxBottom-mfm.bottom;
-      }
-      fe.css("padding-bottom",d+"px");
-    }
-    $("#feedentries").scrollTop(md.scrollTop);
+  if(!noScroll) {
+    if(userSettings.jumponopen && userSettings.jumponopen==1)
+      $("#feedentries").scrollTo(newfl);
   }
+  
   //actually populate the iframe we created earlier!
   ifr.attr("src","data:text/html;charset=utf-8,"+newfl.data("html"));
   $("#fl-"+pos+" .itemRead").attr("checked",false).change();
@@ -173,13 +161,11 @@ function loadFeed(id,pos) {
     console.log("appstate fid="+appstate.feed+", id="+id);
     $("#feed_href").removeAttr("href");
     $("#feed_title").html(_("page_loading"));
+    $("#feedentries").scrollTop(0); //scroll to top
     $("#feedentries li.feedline").remove();
-    $("#feedentries").css("padding-bottom",0);
     $("#feedmenu, #feedentries, #feedfooter").hide();
     appstate.selected=0; //reset selector on feedchange
     loadFeedData(id,pos,0);
-    $("#feedentries").scrollTop(0); //scroll to top
-    console.log("scrolled to top");
   } else {
     console.log("appstate fid=id="+id);
     openFeedItem(pos);
@@ -637,24 +623,8 @@ window.addEventListener('message', function(event) {
     var pid=event.data.myId;
     var h=event.data.scrollHeight;
     var fl=$("#fl-"+pid);
-    var fe=$("#feedentries");
-    var st=fe.scrollTop(); //back up scrollTop, as the height change will reset it
     $("iframe",fl).height(h);
     console.log("adjusted height of "+pid+" to "+h);
-    if(!fe.data("noscroll"))
-      return;
-    //now we got a height, adjust the padding (if possible)
-    fe.css("padding-bottom",0);
-    var md=getFeedItemMeasurements(fl);
-    if(md.scrollTop>md.maxScrollTop) {
-      var d=md.scrollTop-md.maxScrollTop;
-      var mfm=getFeedItemMeasurements($("#feedmore"));
-      if(mfm.bottom<mfm.maxBottom) { //there's a difference between the bottom of feedmore and the height => less elements visible than the view is high => no scrolling possible
-        d+=mfm.maxBottom-mfm.bottom;
-      }
-      fe.css("padding-bottom",d+"px");
-    }
-    fe.scrollTop(st);
   } else if(event.data.type=="keypress") {
     var ve=jQuery.Event("keypress");
     ve.keyCode=event.data.ev.keyCode;
