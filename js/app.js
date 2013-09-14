@@ -95,10 +95,14 @@ function loadFeedList() {
 function openFeedItem(pos, noScroll) {
   if(typeof noScroll=="undefined")
     noScroll=false;
+
+  var newfl=$("#fl-"+pos);
+  if(newfl.hasClass("open")) //nothing to do here
+    return;
+  
   //clean up the old item(s) so that the DOM resources are free'd
   if(!noScroll)
     $(".feedline iframe").remove();
-  var newfl=$("#fl-"+pos);
   
   var ifr=$("<iframe>");
   ifr.attr("src","about:blank");
@@ -267,6 +271,7 @@ function loadFeedData(id,pos,start) {
         $(".topRow",el).click(function(){
           if(el.hasClass("open")) {
             el.removeClass("open");
+            $("iframe",el).remove();
             location.hash="feed/"+id+"/";
           } else {
             location.hash="feed/"+id+"/"+e.id;
@@ -841,7 +846,8 @@ $(window).keypress(function(e) {
       });
     break;
     case 50: //2
-      location.hash="feed/"+appstate.feed+"/";
+      $(".feedline.open").removeClass("open");
+      $(".feedline iframe").remove();
     break;
     case 106: //j
       if(appstate.pos!=0 && !$("#fl-"+appstate.pos).length) {
