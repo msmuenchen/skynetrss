@@ -9,6 +9,8 @@ var appstate={
   keyscope:0, /* state of the keypress-state-machine, 99: no input accepted */
 }
 
+var userSettings={};
+var defaultSettings={};
 
 //tell server to reload a specific feed from upstream server
 //when the update is done, tell the app to reload the feed
@@ -165,11 +167,11 @@ function loadFeed(id,pos) {
   pos=pos||0;
   if(appstate.feed!=id) {
     console.log("appstate fid="+appstate.feed+", id="+id);
-    $("#feedmenu, #feedentries").hide();
     $("#feed_href").removeAttr("href");
     $("#feed_title").html(_("page_loading"));
     $("#feedentries li.feedline").remove();
     $("#feedentries").css("padding-bottom",0);
+    $("#feedmenu, #feedentries, #feedfooter").hide();
     appstate.selected=0; //reset selector on feedchange
     loadFeedData(id,pos,0);
     $("#feedentries").scrollTop(0); //scroll to top
@@ -228,7 +230,7 @@ function loadFeedData(id,pos,start) {
         }
         return;
       }
-      $("#feedmenu,#feedentries").show();
+      $("#feedmenu, #feedentries, #feedfooter").show();
       $("#feed_title").html(data.feed.title);
       if(data.feed.link!="")
         $("#feed_href").attr("href",data.feed.link);
@@ -497,6 +499,22 @@ jQuery(document).ready(function($){
   });
 });
 
+//update the state of the settings elements according to the current settings
+function updateSettingsElements() {
+  $("#settingsform-display input").each(function() {
+    var e=$(this);
+    var k=e.data("key");
+    switch(e.attr("type")) {
+      case "checkbox":
+        if(userSettings[k]==1)
+          e.attr("checked",true);
+        else
+          e.attr("checked",false);
+      break;
+    }
+  });
+}
+
 function initLogin() {
   doAPIRequest("getsession",{},function(data) {
     if(data.user) {
@@ -509,8 +527,10 @@ function initLogin() {
     } else {
       $("#menu .logoutshow").show();
     }
-    console.log("session data");
-    console.log(data);
+    $.extend(userSettings,defaultSettings);
+    $.extend(userSettings,data.user_settings);
+    $.extend(defaultSettings,data.default_settings);
+    updateSettingsElements();
   });
   $("#logout-btn").click(function() {
     $(this).attr("disabled","disabled");
@@ -524,6 +544,7 @@ function initLogin() {
     appstate.feed=0;
     appstate.pos=0;
     appstate.nextstart=0;
+    userSettings=defaultSettings;
     doAPIRequest("logout",{},function(data) {
       $("#menu .loginshow").hide();
       $("#menu .logoutshow").show();
@@ -558,6 +579,32 @@ function initLogin() {
     function() { //always
       $("#login-btn").removeAttr("disabled");
     });
+  });
+  $("#settings-display-save").click(function(ev) {
+    ev.preventDefault();
+    var sobj={};
+    $("#settingsform-display input").each(function() {
+      var e=$(this);
+      var k=e.data("key");
+      switch(e.attr("type")) {
+        case "checkbox":
+          if(e.is(":checked"))
+            sobj[k]=1;
+          else
+            sobj[k]=0;
+        break;
+      }
+    });
+    $.extend(userSettings,sobj);
+    console.log("saving settings");
+    console.log(sobj);
+    $("#settings-display-save").attr("disabled","disabled");
+    doAPIRequest("updatesettings",sobj,null, //success
+    null, //fail
+    function() { //always
+      $("#settings-display-save").removeAttr("disabled");
+    }
+    );
   });
 }
 

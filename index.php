@@ -191,7 +191,12 @@ window.onkeydown=function(e) {
       </table>
       
       <h2><span class="i18n" data-key="page_displaysettings"></span></h2>
-      
+      <form id="settingsform-display">
+      <table>
+        <tr><th>Bei Öffnen eines Elements nach oben springen</th><td><input type="checkbox" id="settings-display-jumponopen" data-key="jumponopen" /></td></tr>
+        <tr><td colspan="2"><button id="settings-display-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
+      </table>
+      </form>
     </div>
     <div class="view" id="opaddnew">
       <h1><span class="i18n" data-key="page_addfeed"></span></h1>
@@ -226,7 +231,6 @@ window.onkeydown=function(e) {
       <div id="feedbar">
         <a id="feed_href" target="_blank"><h1 id="feed_title"></h1></a>
         <div id="feedmenu">
-          <span class="item"><span class="i18n" data-key="page_ts"></span>: <span id="feed_ts"></span></span>
           <span class="item"><span id="feed_shown"></span>/<span id="feed_total"></span> <span class="i18n" data-key="page_entries"></span></span>
           <span class="item"><button id="feed_reload"><span class="i18n" data-key="page_reload"></span></button></span>
           <span class="item"><button id="feed_update"><span class="i18n" data-key="page_reloadserver"></span></button></span>
@@ -249,6 +253,9 @@ window.onkeydown=function(e) {
           <span class="nomore"><span class="i18n" data-key="page_nomore"></span></span>
         </li>
       </ul>
+      <div id="feedfooter">
+        <span class="item"><span class="i18n" data-key="page_ts"></span>: <span id="feed_ts"></span></span>
+      </div>
     </div>
   </div>  
   <div id="share-container">

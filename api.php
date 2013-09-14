@@ -61,6 +61,9 @@ try {
     case "discover":
       require("api/api.discover.php");
     break;
+    case "updatesettings":
+      require("api/api.updatesettings.php");
+    break;
     default:
       throw new APIWrongCallException("Ungültige Aktion angegeben");
   }
