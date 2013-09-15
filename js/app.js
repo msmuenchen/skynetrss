@@ -104,23 +104,25 @@ function openFeedItem(pos, noScroll) {
   if(!noScroll)
     $(".feedline iframe").remove();
   
+  
+  if(!noScroll)
+    $(".feedline.open").removeClass("open");
+  newfl.addClass("open");
+  
+  if(newfl.length!=1)
+    return;
+  
+  if(!noScroll) {
+    if(userSettings.jumponopen && userSettings.jumponopen==1)
+      $("#feedentries").scrollTo(newfl);
+  }
+
   var ifr=$("<iframe>");
   ifr.attr("src","about:blank");
   //Browsers like to set an implicit height on iframes (Chrome: 150px)
   //So set it to 0. Upon loading the content, it will automatically scale up again :)
   ifr.height(0);
   ifr.appendTo($(".fullText",newfl));
-  
-  if(!noScroll)
-    $(".feedline.open").removeClass("open");
-  newfl.addClass("open");
-  
-  if(!noScroll) {
-    if(userSettings.jumponopen && userSettings.jumponopen==1)
-      $("#feedentries").scrollTo(newfl);
-  }
-  
-  //actually populate the iframe we created earlier!
   ifr.attr("src","data:text/html;charset=utf-8,"+newfl.data("html"));
   $("#fl-"+pos+" .itemRead").attr("checked",false).change();
 }
@@ -656,7 +658,8 @@ $(window).keydown(function(e) {
 /* KEY PRESS HANDLERS */
 //Reference: http://www.shortcutworld.com/en/web/Google-Reader.html
 //Section 1: Space, arrow keys, PgUp/Dn, Home, End keys
-$(window).keypress(function(e) {
+//Use keydown here, see http://stackoverflow.com/a/2218915/1933738
+$(window).keydown(function(e) {
   //don't capture keypresses in anything other than feedview
   if(appstate.view!="feed")
       return;
@@ -781,6 +784,7 @@ $(window).keypress(function(e) {
       appstate.selected=r[1];
       c.removeClass("selected");
       n.addClass("selected");
+      $("#feedentries").scrollTo(n);
     break;
     case 112: //p
       if(appstate.selected==0) {
@@ -797,10 +801,16 @@ $(window).keypress(function(e) {
       appstate.selected=r[1];
       c.removeClass("selected");
       n.addClass("selected");
+      $("#feedentries").scrollTo(n);
     break;
     case 111: //o
     case 13: //<return>
-      var c=$("#fl-"+appstate.selected);
+      if(appstate.selected==0) {
+        var c=$("#fl-"+appstate.pos);
+        if(c.length!=1)
+          return;
+      } else
+        var c=$("#fl-"+appstate.selected);
       var cId=c.attr("id");
       var r=/fl-([0-9]*)/.exec(cId);
       if(c.hasClass("open")) //collapse
