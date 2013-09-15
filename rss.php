@@ -422,8 +422,8 @@ function updateFeed($id,$forceRescrape=false) {
     $log.="Item ".($i++)."\n";
     if($q->numRows==0) {
       $full="";
-      if($row["scrape_elementid"]!="")
-        $full=scrapeFeed($item->link,$row["scrape_elementid"]);
+      if($row["scrape_data"]!="")
+        $full=scrapeFeed($item->link,$row["scrape_data"]);
       if(is_array($full)) { $log.="Scrape fail at new item\n"; $item->text.="<br />(Scrape-Fehler: ".$full[0].")"; $full=""; }
       $q=new DB_Query("INSERT INTO `db_rss`.`feed_items` (`feed_id`, `id`, `guid`, `title`, `time`, `link`, `fulltext`,`author`, `scrape_fulltext`) VALUES (?, NULL, ?, ?, ?, ?, ?, ?,?);",$row["id"],$item->guid,$item->title,$item->time,$item->link,$item->text,$item->author,$full);
       $log.="\tItem added to DB, ID ".$q->insertId."\n";
@@ -431,8 +431,8 @@ function updateFeed($id,$forceRescrape=false) {
       $db=$q->fetch();
       if($db["title"]!=$item->title || $db["link"]!=$item->link || $db["fulltext"]!=$item->text || $db["author"]!=$item->author || $forceRescrape) {
         $full="";
-        if($row["scrape_elementid"]!="")
-          $full=scrapeFeed($item->link,$row["scrape_elementid"]);
+        if($row["scrape_data"]!="")
+          $full=scrapeFeed($item->link,$row["scrape_data"]);
         if(is_array($full)) { $log.="Scrape fail at item ".$db["id"]."\n"; $item->text.="<br />(Scrape-Fehler: ".$full[0].")"; $full=""; }
         $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=?,`scrape_fulltext`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$full,$row["id"],$db["id"]);
         $log.="\tItem updated in DB, ID ".$db["id"]."\n";
@@ -449,11 +449,13 @@ function updateFeed($id,$forceRescrape=false) {
 
 //load a HTML document and try to get the innerHTML of the node selected by xpath
 //if return===false, then scrape failed
-function scrapeFeed($link,$xpath_query) {
+function scrapeFeed($link,$data) {
+  $log="loading $link\n";
+  
   try {
     $raw=CURL::get($link);
   } catch (CURLDownloadException $e) {
-    return array("could not get content of $link\n");
+    return array("Konnte $link nicht laden\n");
   }
   //avoid stupid warnings caused by invalid HTML
   libxml_use_internal_errors(true);
@@ -461,14 +463,50 @@ function scrapeFeed($link,$xpath_query) {
   $doc->loadHTMLCharset($raw);
   libxml_use_internal_errors(false);
   $xpath=new DOMXPath($doc);
-  $res=$xpath->evaluate($xpath_query);
-  if($res->length!=1) {
-    return array("xpath expression $xpath_query did not return exactly 1 element on $link (".$res->length.")\n");
-  }
-  $item=$res->item(0);
+  
+  $adata=@json_decode($data);
+  if($adata===null)
+    $adata=array((object)array("site"=>"(.*)","xpath_inc"=>array($data),"xpath_exc"=>array()));
+  
   $newdoc=new DOMDocument();
-  $cloned=$item->cloneNode(true);
-  $newdoc->appendChild($newdoc->importNode($cloned,true));
+  
+  foreach($adata as $sitedata) { //use multiple entries here for different sites with different xpath needs
+    $log.=sprintf("trying site %s\n",$sitedata->site);
+    if(preg_match("@".$sitedata->site."@isU",$link)!==1) {
+      $log.=sprintf("%s did not match\n",$sitedata->site);
+      continue;
+    }
+    foreach($sitedata->xpath_inc as $xpath_query) {
+      $log.=sprintf("checking xpath %s\n",$xpath_query);
+      $res=$xpath->evaluate($xpath_query);
+      if($res===false || $res->length==0) {
+        $log.=sprintf("xpath did not match\n");
+        continue;
+      }
+      for($i=0;$i<$res->length;$i++) {
+        $item=$res->item($i);
+        $cloned=$item->cloneNode(true);
+        $newdoc->appendChild($newdoc->importNode($cloned,true));
+      }
+    }
+    foreach($sitedata->xpath_exc as $xpath_query) {
+      $log.=sprintf("checking exclude xpath %s\n",$xpath_query);
+      $xpath2=new DOMXPath($newdoc); //reconstruct this every time as $newdoc will change and the xpath must reflect that
+      $res=$xpath2->evaluate($xpath_query);
+      if($res===false || $res->length==0) {
+        $log.=sprintf("xpath did not match\n");
+        continue;
+      }
+      for($i=0;$i<$res->length;$i++) {
+        $item=$res->item($i);
+        $item->parentNode->removeChild($item);
+      }
+    }
+  }
   $content=$newdoc->saveHTML();
-  return $content;
+
+  $log="<!--\n$log\n-->\n";
+  if($content=="")
+    return array("Scrape-Fehler: keine passenden Elemente gefunden!");
+  return $log.$content;
 }

@@ -59,7 +59,7 @@ CREATE TABLE `feeds` (
   `link` text NOT NULL,
   `icon` text NOT NULL,
   `ttl` int(11) NOT NULL,
-  `scrape_elementid` text NOT NULL,
+  `scrape_data` text NOT NULL,
   `lastread` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_getfeedsquery` (`id`,`title`)
