@@ -1,4 +1,33 @@
 <?
+function resolveRelativeUrl($base,$url) {
+  $p=parse_url($base);
+  if(parse_url($url,PHP_URL_SCHEME)!="") //is already fully-qualified!
+    return $url; 
+  
+  //backup auth data from base
+  $auth="";
+  if(isset($p["user"]))
+    $auth=$p["user"];
+  if(isset($p["pass"]))
+    $auth.=":".$p["pass"];
+  if($auth!="")
+    $auth.="@";
+  //backup port from base
+  $port="";
+  if(isset($p["port"]))
+    $port=":".$p["port"];
+  if(substr($url,0,1)=="/") //relative to site URL
+    return sprintf("%s://%s%s%s%s",$p["scheme"],$auth,$p["host"],$port,$url);
+  
+  //now, try to check if the path is a directory
+  if(substr($p["path"],-1,1)=="/") //directory
+    return sprintf("%s://%s%s%s%s%s",$p["scheme"],$auth,$p["host"],$port,$p["path"],$url);
+  
+  //strip the last filename-component off the path
+  $p["path"]=substr($p["path"],0,strrpos($p["path"],"/"));
+    return sprintf("%s://%s%s%s%s/%s",$p["scheme"],$auth,$p["host"],$port,$p["path"],$url);
+}
+
 $url=$_GET["url"];
 
 try {
@@ -32,7 +61,7 @@ libxml_use_internal_errors(false);
 if(strtolower($doc->documentElement->tagName=="html")) {
   //get all link elements conforming to http://www.rssboard.org/rss-autodiscovery
   $xpath=new DOMXPath($doc);
-
+  
   $res=$xpath->evaluate('//link[@type="application/rss+xml" or @type="application/atom+xml"][@rel="alternate"]');
   $ret["feeds"]=array();
   for($i=0;$i<$res->length;$i++) {
@@ -42,7 +71,7 @@ if(strtolower($doc->documentElement->tagName=="html")) {
     $title="";
     if($item->hasAttribute("title"))
       $title=$item->getAttribute("title");
-    $ret["feeds"][]=array("link"=>$item->getAttribute("href"),"title"=>$title);
+    $ret["feeds"][]=array("link"=>resolveRelativeUrl($url,$item->getAttribute("href")),"title"=>$title);
   }
 } elseif(strtolower($doc->documentElement->tagName=="rss")) {
   $feed=Feed::createFromText($url,$raw);
@@ -50,3 +79,4 @@ if(strtolower($doc->documentElement->tagName=="html")) {
 } else {
   throw new WrongFormatException("Expected HTML, got ".$doc->documentElement->tagName);
 }
+
