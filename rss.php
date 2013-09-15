@@ -1,6 +1,24 @@
 <?
 //Feed abstractor classes
 
+//Utility function: try to parse a timestamp...
+//and throw a MalformedFeedException if it's not parsable
+function parseTimestamp($ts) {
+  $formats=array(
+    DateTime::RFC1123, //RFC 1123 D, d M Y H:i:s O
+    DateTime::RFC3339, //RFC 3339 Y-m-d\TH:i:sP
+    "Y-m-d\TH:i:s.uP", //RFC 3339 with microseconds
+    DateTime::RFC822,  //RFC 822  D, d M y H:i:s O
+    "d M Y H:i:s O",   //RFC 1123 without text day name (taz.de)
+  );
+  foreach($formats as $format) {
+    $d=DateTime::createFromFormat($format,$ts);
+    if($d!==false)
+      return $d->getTimestamp();
+  }
+  throw new MalformedFeedException("Failed to parse timestamp $ts");
+}
+
 class FeedItem {
   public $guid;
   public $title;
@@ -153,12 +171,7 @@ class AtomFeed extends Feed {
       //Try to get date
       if(property_exists($item,"updated")) {
         $val=$item->updated;
-        $d=DateTime::createFromFormat(DateTime::RFC3339,$val);
-        if($d===false)
-          $d=DateTime::createFromFormat("Y-m-d\TH:i:s.uP",$val);
-        if($d===false)
-          throw new MalformedFeedException("Failed to parse timestamp ".$val);
-        $d=$d->getTimestamp();
+        $d=parseTimestamp($val);
       } else {
         $d=time();
       }
@@ -249,10 +262,7 @@ class RDFFeed extends Feed {
       //Try to get date
       if(isset($namespaces["dc"]) && property_exists($item->children($namespaces["dc"]),"date")) {
         $val=$item->children($namespaces["dc"])->date;
-        $d=DateTime::createFromFormat(DateTime::RFC3339,$val);
-        if($d===false)
-          throw new MalformedFeedException("Failed to parse timestamp ".$val);
-        $d=$d->getTimestamp();
+        $d=parseTimestamp($val);
       } else {
         $d=time();
       }
@@ -358,15 +368,7 @@ class RSSFeed extends Feed {
       //Try to get date
       //See http://www.rssboard.org/rss-specification#optionalChannelElements - valid is RFC822, and the 4-year version aka RFC 1123
       if(property_exists($item,"pubDate")) {
-        //First, use RFC822
-        $d=DateTime::createFromFormat(DateTime::RFC822,$item->pubDate);
-        if($d===false) {
-          //Try RFC1123
-          $d=DateTime::createFromFormat(DateTime::RFC1123,$item->pubDate);
-        }
-        if($d===false)
-          throw new MalformedFeedException("Failed to parse timestamp ".$item->pubDate);
-        $d=$d->getTimestamp();
+        $d=parseTimestamp($item->pubDate);
       } else {
         $d=time();
       }
