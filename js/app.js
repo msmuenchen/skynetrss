@@ -717,17 +717,17 @@ $(window).keydown(function(e) {
       }
       return;
     }
-  } else if((e.keyCode==40||e.keyCode==34) && e.relayed) { //arrowkeys, if relayed then accept it
+  } else if(e.keyCode==40||e.keyCode==34) {
     if(e.keyCode==34)
       delta*=2; //pgdn doubles scrollheight
     newScroll+=delta;
-  } else if((e.keyCode==38||e.keyCode==33) && e.relayed) { //arrowkeys, if relayed then accept it
+  } else if(e.keyCode==38||e.keyCode==33) {
     if(e.keyCode==33)
       delta*=2; //pgdn doubles scrollheight
     newScroll-=delta;
-  } else if(e.keyCode==36 && e.relayed) { //pos1, scroll to top
+  } else if(e.keyCode==36) { //pos1, scroll to top
     newScroll=0;
-  } else if(e.keyCode==35 && e.relayed) { //end, scroll to bottom
+  } else if(e.keyCode==35) { //end, scroll to bottom
     newScroll=maxScroll;
   }
   if(newScroll>maxScroll)
@@ -875,8 +875,8 @@ $(window).keypress(function(e) {
   if(appstate.keyscope==99)
     return;
   //check if keycode is allowed at all
-//  if($.inArray(e.keyCode,[13,49,50,106,107,110,111,112])==-1)
-//    return;
+  if($.inArray(e.keyCode,[109,115,118])==-1)
+    return;
   
   //no meta-key (alt,ctrl, etc) combos
   if(e.metaKey)
