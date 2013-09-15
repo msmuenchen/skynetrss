@@ -53,7 +53,8 @@ DROP TABLE IF EXISTS `feed_tags`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `feed_tags` (
   `feed_id` int(11) NOT NULL,
-  `tag` varchar(100) NOT NULL
+  `tag` varchar(100) NOT NULL,
+  UNIQUE KEY `feed_id` (`feed_id`,`tag`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `feeds`;
