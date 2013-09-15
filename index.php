@@ -131,6 +131,7 @@ window.onkeydown=function(e) {
       <li class="logoutshow"><a href="#op/login"><span class="i18n" data-key="page_login"></span></a></li>
       <li class="loginshow"><a href="#op/logout"><span class="i18n" data-key="page_logout"></span></a></li>
       <li class="loginshow"><a href="#op/settings"><span class="i18n" data-key="page_settingsfor"></span><span class="username"></span></a></li>
+      <li class="loginshow"><a href="#library"><span class="i18n" data-key="page_library"></span></a></li>
     </ul>
     <hr />
     <ul id="feedlist">
@@ -223,6 +224,11 @@ window.onkeydown=function(e) {
         <tr class="header"><th><span class="i18n" data-key="page_requestid"></span></th><th><span class="i18n" data-key="page_feedid"></span></th><th><span class="i18n" data-key="page_feedurl"></span></th><th><span class="i18n" data-key="page_feedtitle"></span></th><th><span class="i18n" data-key="page_status"></span></th></tr>
         <tr id="grresult-noentries"><td colspan="5"><span class="i18n" data-key="page_nofeeds"></span></td></tr>
       </table>
+    </div>
+    <div class="view" id="library">
+      <h1><span class="i18n" data-key="page_library"></span></h1>
+      <div id="library-content">
+      </div>
     </div>
     <div class="view" id="index">
       <span class="i18n" data-key="page_startsite"></span>

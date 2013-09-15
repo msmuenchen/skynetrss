@@ -64,6 +64,9 @@ try {
     case "updatesettings":
       require("api/api.updatesettings.php");
     break;
+    case "library":
+      require("api/api.library.php");
+    break;
     default:
       throw new APIWrongCallException("Ungültige Aktion angegeben");
   }

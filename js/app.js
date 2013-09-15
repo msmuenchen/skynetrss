@@ -433,8 +433,6 @@ jQuery(document).ready(function($){
     appstate.view=op[1];
   });
   
-  //read the current hash (e.g. when tab-clicking around or reloading)
-  $(window).hashchange();
   
   //these are handled externally, the spaghetti was too much
   $("#addnewfeed").click(addFeed);
@@ -915,4 +913,53 @@ $(window).keypress(function(e) {
     break;
   }
   console.log(e.keyCode+" "+e.metaKey);
+});
+
+//Feed library
+jQuery(document).ready(function($){
+  //Hash change handler for library
+  $(window).bind("hashchange",function() {
+    var h=location.hash;
+    var f=/library/.exec(h);
+    if(!f) //we're not in library view, let other handlers take a chance...
+      return;
+    appstate.view="library";
+    $(".view").hide();
+    $("#library").show();
+    $("#library-content").empty().append($("<h2></h2>").html(_("page_loading")));
+    doAPIRequest("library",{},function(data) {
+      var c=$("#library-content").empty();
+      for(tag in data.tags) {
+        var e=data.tags[tag];
+        var t=_("tag_"+tag);
+        var dt=$("<h2></h2>").html(t).appendTo(c);
+        var l=$("<ul></ul>").appendTo(c);
+        e.forEach(function(f) {
+          var le=$("<li></li>").appendTo(l);
+          $("<span></span>").html(f.title).attr("title",f.desc).appendTo(le);
+          le.html(le.html()+" &mdash; ");
+          $("<a></a>").html("Hinzufügen").css("cursor","pointer").appendTo(le).click(function() {
+            doAPIRequest("add",{feed:f.url,ignoreAPIException:true},function(data) { //success
+              if(data.status!="ok") {
+                if(data.type=="AlreadyPresentException") {
+                  //do nothing
+                  return;
+                } else {
+                  alert(sprintf(_("apierror_other"),"add"));
+                }
+                return;
+              }
+              loadFeedList();
+            });
+          });
+        });
+      }
+    });
+  });
+  
+});
+
+jQuery(document).ready(function($){
+  //read the current hash (e.g. when tab-clicking around or reloading)
+  $(window).hashchange();
 });

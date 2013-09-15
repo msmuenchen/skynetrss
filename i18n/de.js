@@ -51,4 +51,10 @@ i18n.de= {
   page_more:"Mehr...",
   page_nomore:"Keine Einträge mehr vorhanden",
   page_delete:"Löschen",
+  tag_news:"Nachrichten",
+  tag_german:"Deutsch",
+  tag_fun:"Spaß",
+  page_library:"Bibliothek",
+  tag_itsec:"IT-Sicherheit",
+  tag_blog:"Blogs",
 };
