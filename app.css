@@ -275,7 +275,7 @@ border-bottom:none; /* prevent double border */
 #feedentries {
 position:relative;
 }
-.feedline {
+.feedline, #feedmore {
 position:relative;
 z-index:2;
 background:#fff;
