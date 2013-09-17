@@ -6,7 +6,7 @@
     <title>SKYRSS Reader</title>
     <link rel="stylesheet" href="app.css" type="text/css" media="all" />
     
-    
+    <script type="text/javascript" src="js/console.js"></script>
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/jquery.ba-hashchange.min.js"></script>
     <script type="text/javascript" src="js/jquery.disableSelection.js"></script>
