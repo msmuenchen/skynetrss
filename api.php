@@ -67,6 +67,9 @@ try {
     case "library":
       require("api/api.library.php");
     break;
+    case "createaccount":
+      require("api/api.createaccount.php");
+    break;
     default:
       throw new APIWrongCallException("Ungültige Aktion angegeben");
   }

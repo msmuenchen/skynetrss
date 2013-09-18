@@ -571,6 +571,30 @@ function initLogin() {
       $("#login-btn").removeAttr("disabled");
     });
   });
+  $("#createaccount-btn").click(function() {
+    $(this).attr("disabled","disabled");
+    $("#login-error").hide();
+    doAPIRequest("createaccount",{username:$("#login-username").val(),password:$("#login-password").val()},function(data) {
+      if(data.login!="ok") {
+        console.log("login failed, message: "+data.msg);
+        $("#login-error").show().html(data.msg);
+        return;
+      }
+      $("#menu .loginshow").show();
+      $("#menu .logoutshow").hide();
+      $(".username").html(data.user.name);
+      if(data.user.source!="")
+        $("#settingsform-account .passwordrow").hide();
+      else
+        $("#settingsform-account .passwordrow").show();
+      loadFeedList();
+      location.hash="index";
+    },
+    null, //fail
+    function() { //always
+      $("#createaccount-btn").removeAttr("disabled");
+    });
+  });
   $("#settings-display-save").click(function(ev) {
     ev.preventDefault();
     var sobj={};
