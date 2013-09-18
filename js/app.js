@@ -267,7 +267,7 @@ function loadFeedData(id,pos,start) {
         });
         el.attr("title",e.id);
         $(".share",el).click(function() {
-          $("#share-container").show();
+          $("#share-container").show().focus();
           $("#share-twitter").attr("href","https://twitter.com/intent/tweet?url="+encodeURIComponent(e.link));
           $("#share-fb").attr("href","https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(e.link));
         });
