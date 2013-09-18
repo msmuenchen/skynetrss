@@ -1,5 +1,5 @@
 <!doctype html>
-<html manifest="manifest2.php">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="min-width=1000px" />
