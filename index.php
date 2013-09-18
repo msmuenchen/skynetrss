@@ -14,7 +14,7 @@
     <script type="text/javascript" src="js/jquery.scrollTo-min.js"></script>
     <script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
     <script type="text/javascript" src="js/jquery.toggleCheckbox.js"></script>
-    <script type="text/javascript" src="js/genconfig.php"></script>
+    <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
     <script type="text/javascript" src="i18n/de.js"></script>
     <script type="text/javascript" src="i18n/en.js"></script>
