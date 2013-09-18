@@ -63,5 +63,44 @@ i18n.de= {
   tag_comic:"Comics",
   page_add:"Hinzufügen",
   page_createaccount:"Konto erstellen",
+  page_firststeps:"Erste Schritte",
+  page_welcome:"Willkommen",
+  page_firststeps_1:"Die Oberfläche:\
+<p>Links befindet sich die zentrale Navigation. Hier kannst Du zwischen den einzelnen Feeds wechseln, die Du abonniert hast.</p>\
+<p>Rechts wird der jeweilige Inhalt angezeigt.</p>\
+",
+  page_firststeps_2:"In der Bibliothek Feeds entdecken:\
+<p>die Bibliothek ist nach Themen sortiert und ein kleiner Teil der auf diesem Server verfügbaren Feeds.</p>\
+<p>Wenn Dir ein Feed gefällt, klicke einfach auf \"Hinzufügen\", um den Feed zu Deiner Liste hinzuzufügen.</p>\
+",
+  page_firststeps_3:"OPML-Import:\
+<p>Mit der Funktion \"OPML-Import\" lassen sich OPML-Dateien aus Google Reader, Feedly und anderen RSS-Readern komfortabel importieren.</p>\
+<p>Wähle die Datei von Deinem Rechner aus und importiere sie mit \"Import starten\".</p>\
+<p>Feeds aus OPML-Dateien werden sofort zu Deiner Liste hinzugefügt.</p>\
+<p>Im Status-Feld kannst Du sehen, ob der jeweilige Feed erfolgreich importiert wurde oder ob es Probleme gab.</p>\
+<p>Die häufigsten Fehler sind \"Serverproblem\" und \"Ungültiges XML\" - diese Fehler liegen in der Regel am Betreiber und können von uns nicht behoben werden.</p>\
+<p>Bitte beachte, dass Feeds mit Problemen <em>nicht</em> hinzugefügt wurden!</p>\
+",
+  page_firststeps_4:"Feed manuell hinzufügen:\
+<p>Mit der Funktion \"Feed manuell hinzufügen\" kannst Du Feeds von Webseiten hinzufügen.</p>\
+<p>Füge hierzu die URL des Feeds (wenn bekannt) oder die URL der Webseite (z.B. \"spiegel.de\") in die Box ein und drücke auf \"Feeds erkennen\".</p>\
+<p>Daraufhin werden Dir die auf der Website erkannten Feeds angezeigt. Um den Feed hinzuzufügen, klicke auf den Knopf \"Feed hinzufügen\".</p>\
+",
+  page_firststeps_5:"Einstellungen:\
+<p>In den Einstellungen kannst Du Deine Feeds verwalten, Deine Anzeigeoptionen ändern und bei hier erstellten Konten (Login nicht per Facebook oder Twitter) Dein Passwort ändern.</p>\
+<p>Die Darstellungsoption \"Bei Öffnen eines Elements nach oben springen\" legt fest, ob bei Öffnen eines neuen Elements in einem Feed die Anzeige ganz nach oben springt (so dass möglichst viel des Artikels sofort sichtbar ist), \
+oder ob die Position an der Stelle verbleibt, an der Du gerade liest.</p>\
+",
+  page_firststeps_6:"Feed-Anzeige:\
+<p>In der Feed-Anzeige werden die Elemente eines Feeds angezeigt.</p>\
+<p>Elemente kannst Du durch Klicken öffnen.</p>\
+<p>Fett markierte Einträge sind als \"ungelesen\" markiert; sobald Du sie öffnest, werden sie automatisch als gelesen markiert.</p>\
+<p>\"Neu laden\" lädt die aktuellsten Einträge vom Server; \"Von Quelle laden\" erzwingt eine komplette Aktualisierung des Feeds beim Anbieter.</p>\
+<p>Du kannst einzelne Elemente durch Klicken auf \"als ungelesen markieren\" wieder als ungelesen markieren und durch Drücken auf \"Teilen\" an Deine Freunde und Follower auf Facebook und Twitter teilen.</p>\
+<p>Den Text für Twitter- und Facebook-Posts kannst Du vor dem Posten nochmals kontrollieren.</p>\
+<p>Wenn Du ein Premium-Konto gebucht hast, dann erscheinen ausgewählte Feeds für Dich auch im Volltext. Dies ist ein Premium-Feature, da manche Seitenbetreiber nur Anrisse auf den Feeds veröffentlichen und das Laden \
+des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.</p>\
+<p>Wenn Du ein Premium-Konto gebucht hast und einen bestimmten Feed im Volltext lesen willst, schreibe uns bitte eine e-Mail und wir kümmern uns darum.</p>\
+",
   page_detectfeeds:"Feeds erkennen",
 };

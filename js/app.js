@@ -588,7 +588,7 @@ function initLogin() {
       else
         $("#settingsform-account .passwordrow").show();
       loadFeedList();
-      location.hash="index";
+      location.hash="welcome";
     },
     null, //fail
     function() { //always
@@ -985,6 +985,21 @@ jQuery(document).ready(function($){
   
 });
 
+
+//Welcome screen
+jQuery(document).ready(function($){
+  //Hash change handler for library
+  $(window).bind("hashchange",function() {
+    var h=location.hash;
+    var f=/welcome/.exec(h);
+    if(!f) //we're not in welcome view, let other handlers take a chance...
+      return;
+    appstate.view="library";
+    $(".view").hide();
+    $("#welcome").show();
+  });
+  
+});
 jQuery(document).ready(function($){
   //read the current hash (e.g. when tab-clicking around or reloading)
   $(window).hashchange();

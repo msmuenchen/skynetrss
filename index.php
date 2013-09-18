@@ -310,7 +310,20 @@ window.onkeydown=function(e) {
         <span class="item"><span class="i18n" data-key="page_ts"></span>: <span id="feed_ts"></span></span>
       </div>
     </div>
-  </div>  
+    <div class="view" id="welcome">
+      <h1 class="i18n" data-key="page_welcome"></h1>
+      <h2 class="i18n" data-key="page_firststeps"></h2>
+      <img src="assets/reader_feedview.png" style="width:500px" /><br />
+      <ol id="welcome_firststeps">
+        <li class="i18n" data-key="page_firststeps_1"></li>
+        <li class="i18n" data-key="page_firststeps_2"></li>
+        <li class="i18n" data-key="page_firststeps_3"></li>
+        <li class="i18n" data-key="page_firststeps_4"></li>
+        <li class="i18n" data-key="page_firststeps_5"></li>
+        <li class="i18n" data-key="page_firststeps_6"></li>
+      </ol>
+    </div>  
+  </div>
   <div id="share-container">
     <div id="share-content">
       <div id="share-close">

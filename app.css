@@ -296,6 +296,7 @@ max-height:200px;
 overflow-y:scroll;
 }
 
+/* no tabbing in low-width devices */
 @media screen and (min-width: 1000px){
     .tabcontainer_group {
             position:relative;
@@ -322,4 +323,19 @@ overflow-y:scroll;
     .tabheader {
             cursor:pointer;
     }
+}
+
+#welcome_firststeps {
+	padding-left:20px;
+}
+
+#welcome_firststeps li {
+	font-weight:bold;
+	margin-bottom:5px;
+}
+#welcome_firststeps li p {
+	font-weight:normal;
+}
+#welcome_firststeps li p:first-of-type {
+	margin-top:2px;
 }
