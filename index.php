@@ -249,7 +249,7 @@ window.onkeydown=function(e) {
     <div class="view" id="opaddnew">
       <h1><span class="i18n" data-key="page_addfeed"></span></h1>
       <p><span class="i18n" data-key="page_addnewintro"></span></p>
-      <p><form><input id="newfeedurl" size="90" type="url" placeholder="http://example.tld/feed.rss"/> <button id="addnewfeed"><span class="i18n" data-key="page_addfeed"></span></button></form></p>
+      <p><form><input id="newfeedurl" size="90" type="url" placeholder="http://example.tld/feed.rss"/> <button id="addnewfeed"><span class="i18n" data-key="page_detectfeeds"></span></button></form></p>
       <div id="discover-results">
       <h2><span class="i18n" data-key="page_feeds"></span></h2>
         <table id="discover-feedlist">

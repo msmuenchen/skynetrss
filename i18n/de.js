@@ -63,4 +63,5 @@ i18n.de= {
   tag_comic:"Comics",
   page_add:"Hinzufügen",
   page_createaccount:"Konto erstellen",
+  page_detectfeeds:"Feeds erkennen",
 };
