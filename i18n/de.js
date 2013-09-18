@@ -57,5 +57,10 @@ i18n.de= {
   page_library:"Bibliothek",
   tag_itsec:"IT-Sicherheit",
   tag_blog:"Blogs",
+  tag_english:"Englisch",
+  tag_medicine:"Medizin",
+  tag_technology:"Technologie",
+  tag_comic:"Comics",
+  page_add:"Hinzufügen",
   page_createaccount:"Konto erstellen",
 };
