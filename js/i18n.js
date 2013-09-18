@@ -19,8 +19,12 @@ function _(k) {
   }
   return t;
 }
-jQuery(document).ready(function($){
-  $(".i18n").each(function() {
+jQuery(document).ready(function(){
+  xlateAll();
+});
+
+function xlateAll() {
+$(".i18n").each(function() {
     $(this).html(_($(this).data("key")));
   });
-});
+}

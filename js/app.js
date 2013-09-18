@@ -979,6 +979,7 @@ jQuery(document).ready(function($){
           });
         });
       }
+      xlateAll();
     });
   });
   
