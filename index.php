@@ -152,6 +152,7 @@ window.onkeydown=function(e) {
       <li class="loginshow"><a href="#op/logout"><span class="i18n" data-key="page_logout"></span></a></li>
       <li class="loginshow"><a href="#op/settings"><span class="i18n" data-key="page_settingsfor"></span><span class="username"></span></a></li>
       <li class="loginshow"><a href="#library"><span class="i18n" data-key="page_library"></span></a></li>
+      <li class="loginshow"><a href="#welcome"><span class="i18n" data-key="page_firststeps"></span></a></li>
     </ul>
     <hr />
     <ul id="feedlist">
