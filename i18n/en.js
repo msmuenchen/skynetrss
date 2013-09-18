@@ -1,4 +1,4 @@
-i18n.en= {
+xlateAddLang("en","English",{
   apierror_confirm:"API request %s failed, retry?",
   apierror_permissiondenied:"Access to feed denied!",
   apierror_other:"API request %s failed!",
@@ -50,4 +50,4 @@ i18n.en= {
   page_more:"More...",
   page_nomore:"No more entries left",
   page_delete:"Delete",
-};
+});

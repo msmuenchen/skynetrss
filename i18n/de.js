@@ -1,4 +1,4 @@
-i18n.de= {
+xlateAddLang("de","Deutsch",{
   apierror_confirm:"API-Anfrage %s fehlgeschlagen, erneut versuchen?",
   apierror_permissiondenied:"Zugriff auf Feed verweigert!",
   apierror_other:"API-Anfrage %s fehlgeschlagen!",
@@ -104,4 +104,5 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
 ",
   page_detectfeeds:"Feeds erkennen",
   page_jumponopen:"Beim Öffnen eines Elements nach oben springen",
-};
+  page_language:"Sprache",
+});
