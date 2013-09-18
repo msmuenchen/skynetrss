@@ -291,6 +291,11 @@ background:#fff;
 #feedfooter {
 	margin-top:5px;
 }
+.libblock {
+max-height:200px;
+overflow-y:scroll;
+}
+
 @media screen and (min-width: 1000px){
     .tabcontainer_group {
             position:relative;

@@ -956,13 +956,14 @@ jQuery(document).ready(function($){
       for(tag in data.tags) {
         var e=data.tags[tag];
         var t=_("tag_"+tag);
-        var dt=$("<h2></h2>").html(t).appendTo(c);
-        var l=$("<ul></ul>").appendTo(c);
+        var blktpl=$($("#tpl-libblock").jqote({title:t})).appendTo(c);
+        console.log(blktpl);
+        var tbl=$("table",blktpl);
+        console.log(tbl);
         e.forEach(function(f) {
-          var le=$("<li></li>").appendTo(l);
-          $("<span></span>").html(f.title).attr("title",f.desc).appendTo(le);
-          le.html(le.html()+" &mdash; ");
-          $("<a></a>").html("Hinzufügen").css("cursor","pointer").appendTo(le).click(function() {
+          var tr=$($("#tpl-libentry").jqote({title:f.title,desc:f.desc})).appendTo(tbl);
+          console.log(tr);
+          $("button.addfeed",tr).click(function() {
             doAPIRequest("add",{feed:f.url,ignoreAPIException:true},function(data) { //success
               if(data.status!="ok") {
                 if(data.type=="AlreadyPresentException") {

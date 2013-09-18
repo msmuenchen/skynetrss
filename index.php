@@ -60,10 +60,30 @@
   <a><%! this.title %></a>
   <span class="unread_count"><%= this.unread %></span>
 </li>
-]]>    
+]]>
     </script>
-    
-    
+
+    <!-- jqote template for a library block -->
+    <script type="text/html" id="tpl-libblock">
+<![CDATA[
+<div class="libblock">
+  <h2><%! this.title %></h2>
+  <table>
+  </table>
+</div>
+]]>
+    </script>
+
+    <!-- jqote template for a library entry -->
+    <script type="text/html" id="tpl-libentry">
+<![CDATA[
+<tr>
+  <td><span title="<%! this.desc %>"><%! this.title %></td></td>
+  <td><button class="i18n addfeed" data-key="page_add"></button></td>
+</tr>
+]]>
+    </script>    
+
     <script type="text/plain" id="inject-height">
 // This script gets injected into the content iframes.
 // It tells the parent its inner height so that the iframe can be exactly fit
