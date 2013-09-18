@@ -57,4 +57,5 @@ i18n.de= {
   page_library:"Bibliothek",
   tag_itsec:"IT-Sicherheit",
   tag_blog:"Blogs",
+  page_createaccount:"Konto erstellen",
 };

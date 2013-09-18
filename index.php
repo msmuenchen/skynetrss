@@ -177,6 +177,8 @@ window.onkeydown=function(e) {
               <tr><th><span class="i18n" data-key="page_username"></span></th><td><input type="text" id="login-username" /></td></tr>
               <tr><th><span class="i18n" data-key="page_password"></span></th><td><input type="password" id="login-password" /></td></tr>
               <tr><td colspan="2"><button id="login-btn"><span class="i18n" data-key="page_login"></span></button></td></tr>
+              <tr><td colspan="2" id="login-captcha"></td></tr>
+              <tr><td colspan="2"><button id="createaccount-btn"><span class="i18n" data-key="page_createaccount"></span></button></td></tr>
             </table>
             </form>
           </div>
