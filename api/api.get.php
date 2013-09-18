@@ -28,7 +28,7 @@ if($q->numRows!=1)
 $fdata=$q->fetch();
 
 $q=new DB_Query("select * from user_feeds where user_id=? and feed_id=?",$uid,$feed);
-if($q->numRows!=1)
+if($q->numRows!=1 && false)
   throw new PermissionDeniedException();
 
 
