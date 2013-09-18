@@ -1,30 +1,50 @@
 if(typeof i18n=="undefined")
-  i18n={};
+  i18n={
+    _init:false, //are dict/defdict loaded?
+    _dict:false, //current language's dictionary object
+    _defdict:false, //fallback/default language's dictionary object
+  };
 
+//shorthand translate function
 function _(k) {
-  var dict;
-  if(!i18n[appconfig.lang]) {
-    console.error("no valid dictionary for language "+appconfig.lang+" and message "+k);
-    dict=i18n[appconfig.deflang];
-  } else
-    dict=i18n[appconfig.lang];
-  if(dict[k]) {
-    var t=dict[k];
-  } else if(i18n[appconfig.deflang][k]) {
-    dict=i18n[appconfig.deflang];
-    var t=dict[k];
+  if(!i18n._init)
+    return k;
+  
+  if(i18n._dict[k]) {
+    var t=i18n._dict[k];
+  } else if(i18n._defdict[k]) {
+    var t=i18n._defdict[k];
   } else {
-    console.log("Unknown key "+k);
+    console.gerror("i18n","Unknown key",k);
     t=k;
   }
   return t;
 }
+
 jQuery(document).ready(function(){
+  if(!appconfig || !appconfig.deflang || !appconfig.lang) {
+    console.gerror("i18n","appconfig not loaded or broken",appconfig);
+    return;
+  }
+  
+  if(!i18n[appconfig.deflang]) {
+    console.gerror("i18n","no valid dictionary for default language",appconfig.deflang);
+    i18n._defdict={};
+  } else
+    i18n._defdict=i18n[appconfig.deflang];
+  
+  if(!i18n[appconfig.lang]) {
+    console.gerror("i18n","no valid dictionary for language",appconfig.lang);
+    i18n._dict=i18n._defdict;
+  } else
+    i18n._dict=i18n[appconfig.lang];
+  
+  i18n._init=true;
   xlateAll();
 });
 
 function xlateAll() {
-$(".i18n").each(function() {
+  $(".i18n").each(function() {
     $(this).html(_($(this).data("key")));
   });
 }
