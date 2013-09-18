@@ -103,4 +103,5 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
 <p>Wenn Du ein Premium-Konto gebucht hast und einen bestimmten Feed im Volltext lesen willst, schreibe uns bitte eine e-Mail und wir kümmern uns darum.</p>\
 ",
   page_detectfeeds:"Feeds erkennen",
+  page_jumponopen:"Beim Öffnen eines Elements nach oben springen",
 };

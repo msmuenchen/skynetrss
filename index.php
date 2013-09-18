@@ -239,7 +239,7 @@ window.onkeydown=function(e) {
           <div class="tab tab-display">
             <form id="settingsform-display">
             <table>
-              <tr><th>Bei Öffnen eines Elements nach oben springen</th><td><input type="checkbox" id="settings-display-jumponopen" data-key="jumponopen" /></td></tr>
+              <tr><th class="i18n" data-key="page_jumponopen"></th><td><input type="checkbox" id="settings-display-jumponopen" data-key="jumponopen" /></td></tr>
               <tr><td colspan="2"><button id="settings-display-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
             </table>
             </form>
