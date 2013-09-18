@@ -21,7 +21,7 @@
     <script type="text/javascript" src="js/api.js"></script>
     <script type="text/javascript" src="js/importgr.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    
+    <script type="text/javascript" src="js/tab.js"></script>
     
     <script type="text/javascript" src="js/sprintf.js/src/sprintf.js"></script>
     
@@ -147,19 +147,33 @@ window.onkeydown=function(e) {
   <div id="content">
     <div class="view" id="oplogin">
       <h1><span class="i18n" data-key="page_login"></span></h1>
-      <h2><span class="i18n" data-key="page_skyrssaccount"></span></h2>
-      <form id="loginform">
-      <div id="login-error"></div>
-      <table>
-        <tr><th><span class="i18n" data-key="page_username"></span></th><td><input type="text" id="login-username" /></td></tr>
-        <tr><th><span class="i18n" data-key="page_password"></span></th><td><input type="password" id="login-password" /></td></tr>
-        <tr><td colspan="2"><button id="login-btn"><span class="i18n" data-key="page_login"></span></button></td></tr>
-      </table>
-      </form>
-      <h2>Twitter</h2>
-      <a href="lib/twitter.php" id="logintw"></a>
-      <h2>Facebook</h2>
-      <a href="lib/facebook.php" id="loginfb"></a>
+      <div class="tabcontainer_group tabgroup-login">
+        <div class="tabcontainer tab-skyrssaccount">
+          <h2 class="tabheader tabgroup-login tab-skyrssaccount"><span style="display:none" class="i18n" data-key="page_skyrssaccount"></span></h2>
+          <div class="tab tab-skyrssaccount active">
+            <form id="loginform">
+            <div id="login-error"></div>
+            <table>
+              <tr><th><span class="i18n" data-key="page_username"></span></th><td><input type="text" id="login-username" /></td></tr>
+              <tr><th><span class="i18n" data-key="page_password"></span></th><td><input type="password" id="login-password" /></td></tr>
+              <tr><td colspan="2"><button id="login-btn"><span class="i18n" data-key="page_login"></span></button></td></tr>
+            </table>
+            </form>
+          </div>
+        </div>
+        <div class="tabcontainer tab-twitteraccount">
+          <h2 class="tabheader tab-twitteraccount tabgroup-login">Twitter</h2>
+          <div class="tab tab-twitteraccount">
+            <a href="lib/twitter.php" id="logintw"></a>
+          </div>
+        </div>
+        <div class="tabcontainer tab-facebookaccount">
+          <h2 class="tabheader tab-facebookaccount tabgroup-login">Facebook</h2>
+          <div class="tab tab-facebookaccount">
+            <a href="lib/facebook.php" id="loginfb"></a>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="view" id="oplogout">
       <h1><span class="i18n" data-key="page_logout"></span></h1>
@@ -171,33 +185,44 @@ window.onkeydown=function(e) {
     </div>
     <div class="view" id="opsettings">
       <h1><span class="i18n" data-key="page_settings"></span></h1>
-      
-      <h2><span class="i18n" data-key="page_account"></span></h2>
-      <form id="settingsform-account">
-      <table>
-        <tr><th><span class="i18n" data-key="page_username"></span></th><td><span class="username"></span></td></tr>
-        <tr class="passwordrow"><th><span class="i18n" data-key="page_password"></span></th><td><input type="password" placeholder="Neues Passwort..." id="setings-password" /></td></tr>
-        <tr class="passwordrow"><td colspan="2"><button id="settings-accountbtn-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
-      </table>
-      </form>
-      
-      <h2><span class="i18n" data-key="page_feeds"></span></h2>
-      <table id="settings-feeds">
-        <thead>
-          <tr><th><span class="i18n" data-key="page_feedid"></span></th><th><span class="i18n" data-key="page_feedurl"></span></th><th><span class="i18n" data-key="page_feedtitle"></span></th><th><span class="i18n" data-key="page_action"></span></th></tr>
-          <tr class="nofeeds"><td colspan="4"><span class="i18n" data-key="page_nofeeds"></span></td></tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      
-      <h2><span class="i18n" data-key="page_displaysettings"></span></h2>
-      <form id="settingsform-display">
-      <table>
-        <tr><th>Bei Öffnen eines Elements nach oben springen</th><td><input type="checkbox" id="settings-display-jumponopen" data-key="jumponopen" /></td></tr>
-        <tr><td colspan="2"><button id="settings-display-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
-      </table>
-      </form>
+      <div class="tabcontainer_group tabgroup-settings">
+        <div class="tabcontainer tab-account">
+          <h2 class="tabheader tab-account tabgroup-settings"><span class="i18n" data-key="page_account"></span></h2>
+          <div class="tab tab-account">
+            <form id="settingsform-account">
+            <table>
+              <tr><th><span class="i18n" data-key="page_username"></span></th><td><span class="username"></span></td></tr>
+              <tr class="passwordrow"><th><span class="i18n" data-key="page_password"></span></th><td><input type="password" placeholder="Neues Passwort..." id="setings-password" /></td></tr>
+              <tr class="passwordrow"><td colspan="2"><button id="settings-accountbtn-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
+            </table>
+            </form>
+          </div>
+        </div>
+        <div class="tabcontainer tab-feeds">
+          <h2 class="tabheader tab-feeds tabgroup-settings"><span class="i18n" data-key="page_feeds"></span></h2>
+          <div class="tab tab-feeds active">
+            <table id="settings-feeds">
+              <thead>
+                <tr><th><span class="i18n" data-key="page_feedid"></span></th><th><span class="i18n" data-key="page_feedurl"></span></th><th><span class="i18n" data-key="page_feedtitle"></span></th><th><span class="i18n" data-key="page_action"></span></th></tr>
+                <tr class="nofeeds"><td colspan="4"><span class="i18n" data-key="page_nofeeds"></span></td></tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tabcontainer tab-display">
+          <h2 class="tabheader tab-display tabgroup-settings"><span class="i18n" data-key="page_displaysettings"></span></h2>
+          <div class="tab tab-display">
+            <form id="settingsform-display">
+            <table>
+              <tr><th>Bei Öffnen eines Elements nach oben springen</th><td><input type="checkbox" id="settings-display-jumponopen" data-key="jumponopen" /></td></tr>
+              <tr><td colspan="2"><button id="settings-display-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
+            </table>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="view" id="opaddnew">
       <h1><span class="i18n" data-key="page_addfeed"></span></h1>
