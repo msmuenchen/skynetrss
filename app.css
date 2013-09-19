@@ -216,7 +216,8 @@ width:150px;
 #logintw:active,#loginfb:active {
 	background-position:0 22px;
 }
-#share-container {
+
+#modal-container {
 position: fixed;
 height: 100%;
 width: 100%;
@@ -224,7 +225,8 @@ background-color: rgba(100,100,100,0.75);
 z-index: 99999;
 display:none;
 }
-#share-content {
+.modal-box {
+display:none;
 	width:350px;
 	margin:0 auto 0;
 height: 250px;
@@ -235,8 +237,7 @@ border-radius: 12px;
 padding: 15px;
 box-sizing: border-box;
 }
-
-#share-close {
+.modal-close {
 position: absolute;
 right: 20px;
 top: 20px;
