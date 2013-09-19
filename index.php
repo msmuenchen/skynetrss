@@ -340,6 +340,14 @@ window.onkeydown=function(e) {
         <span class="i18n" data-key="page_shareonfb"></span>
       </a>
     </div>
+    <div id="ie-warning" class="modal-box">
+      <h2 class="i18n" data-key="page_error"></h2>
+      <span class="i18n" data-key="page_noie"></span>
+    </div>
+    <div id="safariwin-warning" class="modal-box">
+      <h2 class="i18n" data-key="page_error"></h2>
+      <span class="i18n" data-key="page_nosafariwin"></span>
+    </div>
   </div>
   </body>
 </html>

@@ -104,4 +104,12 @@ supposed to stay at the position where you opened it.</p>\
 and storage of the full content is a very time- and memory-intensive effort.</p>\
 <p>If you have a Premium account and would like to read a feed in full text, please write us an e-mail and we will take care of it.</p>\
 ",
+  page_error:"Error",
+  page_noie:"<p>The Internet Explorer browser is not supported by this application for technical reasons.</p>\
+<p>Supported browsers include Mozilla Firefox, Google Chrome and Apple Safari (for Mac OS X only) as well as their mobile counterparts.</p>\
+<p>Technical background information can be found <a href=\"http://msdn.microsoft.com/en-us/library/cc848897%28v=vs.85%29.aspx\" target=\"_blank\">here</a>.</p>\
+",
+  page_nosafariwin:"<p>The Apple Safari browser for Windows is not supported by this application, as Apple has retired the Windows port of Safari and features required by this application are not present.</p>\
+<p>Supported browsers include Mozilla Firefox, Google Chrome and Apple Safari (for Mac OS X only) as well as their mobile counterparts.</p>\
+",
 });
