@@ -267,7 +267,8 @@ function loadFeedData(id,pos,start) {
         });
         el.attr("title",e.id);
         $(".share",el).click(function() {
-          $("#share-container").show().focus();
+          $("#modal-container").show();
+          $("#share-content").show().focus();
           $("#share-twitter").attr("href","https://twitter.com/intent/tweet?url="+encodeURIComponent(e.link));
           $("#share-fb").attr("href","https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(e.link));
         });
@@ -690,8 +691,10 @@ window.addEventListener('message', function(event) {
 },false);
 
 jQuery(document).ready(function($){
-  $("#share-close").click(function() {
-    $("#share-container").hide();
+  $(".modal-close").click(function() {
+    $("#modal-container").hide(); //hide the overlay
+    $(this).parent().hide(); //and hide the container the button belongs to
+    appstate.keyscope=0;
   });
 });
 
@@ -702,9 +705,9 @@ $(window).keydown(function(e) {
   if(appstate.keyscope!=99) //only react on share-window
     return;
   
-  if(!$("#share-container").is(":visible")) //check if the sharer modal is active
+  if(!$("#share-content").is(":visible")) //check if the sharer modal is active
     return;
-  $("#share-container").hide();
+  $("#share-content,#modal-container").hide();
   appstate.keyscope=0;
 });
 

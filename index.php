@@ -326,9 +326,9 @@ window.onkeydown=function(e) {
       </ol>
     </div>  
   </div>
-  <div id="share-container">
-    <div id="share-content">
-      <div id="share-close">
+  <div id="modal-container">
+    <div id="share-content" class="modal-box">
+      <div id="share-close" class="modal-close">
       X
       </div>
       <h2>Twitter</h2>
