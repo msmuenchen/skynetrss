@@ -105,7 +105,7 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_detectfeeds:"Feeds erkennen",
   page_jumponopen:"Beim Öffnen eines Elements nach oben springen",
   page_language:"Sprache",
-  page_error:"Fehler";
+  page_error:"Fehler",
   page_noie:"<p>Der Internet Explorer-Browser wird von dieser Anwendung aus technischen Gründen leider nicht unterstützt.</p>\
 <p>Unterstützte Browser sind z.B. Mozilla Firefox, Google Chrome und Apple Safari (nur für Mac OS X) sowie deren Handy-Varianten.</p>\
 <p>Technische Hintergründe finden sich <a href=\"http://msdn.microsoft.com/en-us/library/cc848897%28v=vs.85%29.aspx\" target=\"_blank\">hier</a>.</p>\
