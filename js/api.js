@@ -52,12 +52,25 @@ function doAPIRequest(target,params,success,fail,always) {
         console.log("Calling the 'always' handler of API request #"+reqId);
         always();
       }
-      for(var i=0;i<APIRequestPool.length;i++) {
-        if(APIRequestPool[i]==c)
-          APIRequestPool.splice(i,1);
+      //Determine if a or c is the XHR object.
+      //Why in fucks name has jQuery decided on jqXHR.always(function(data|jqXHR, textStatus, jqXHR|errorThrown) { }); ?!?!
+      //If someone knows someone who wrote this, please have someone check his mental health.
+      var xhr=(typeof c=="string")?a:c;
+      var k=APIRequestPool.indexOf(xhr);
+      if(k==-1) {
+        console.gerror("api","Request",reqId," has no pool entry!");
+        return;
       }
+      APIRequestPool.splice(k,1);
       $("#poollen").html(APIRequestPool.length);
     });
   APIRequestPool.push(request);
   $("#poollen").html(APIRequestPool.length);
+}
+
+//abort all running API requests
+function cancelAllRequests() {
+  APIRequestPool.forEach(function(e) {
+    e.abort();
+  });
 }
