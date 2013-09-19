@@ -443,7 +443,7 @@ function updateFeed($id,$forceRescrape=false) {
         $log.="\tItem current in DB, ID ".$db["id"]."\n";
       }
     } else {
-      throw new Exception("SQL error: Item ".$row["id"]."/".$guid." has multiple entries!");
+      throw new Exception("SQL error: Item ".$row["id"]."/".$item->guid." has multiple entries!");
     }
   }
   return $log;
