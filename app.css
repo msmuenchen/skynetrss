@@ -292,11 +292,18 @@ background:#fff;
 #feedfooter {
 	margin-top:5px;
 }
-.libblock {
+.libblock table{
 max-height:200px;
 overflow-y:scroll;
+padding-right:20px;
+display:block;
 }
-
+.libblock tr td:first-of-type {
+	padding-right:20px;
+}
+.libblock {
+	display:table; /* for some unknown reason, this prevents 100% width?! */
+}
 /* no tabbing in low-width devices */
 @media screen and (min-width: 1000px){
     .tabcontainer_group {
