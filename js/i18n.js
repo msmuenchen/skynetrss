@@ -59,6 +59,17 @@ function xlateAll() {
   });
 }
 
+//change language
+function xlateChangeLang(key) {
+  if(i18n[key]) {
+    i18n._dict=i18n[key];
+    i18n._lang=key;
+    console.glog("changed language to",key);
+    xlateAll();
+  } else
+    console.gerror("i18n","can't change language to",key);
+}
+
 //register new language
 function xlateAddLang(key,name,dict) {
   i18n[key]=dict;

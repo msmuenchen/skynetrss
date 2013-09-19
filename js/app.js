@@ -503,10 +503,38 @@ function updateSettingsElements() {
           e.attr("checked",false);
       break;
     }
+    e.change();
+  });
+  $("#settingsform-display select").each(function() {
+    var e=$(this);
+    var k=e.data("key");
+    $("option",e).each(function() {
+      var o=$(this);
+      if(userSettings[k]==o.val())
+        o.attr("selected",true);
+    });
+    e.change();
   });
 }
 
-function initLogin() {
+$(document).ready(function() {
+  var lc=$("#settings-display-language").empty();
+
+  i18n._langs.forEach(function(e) {
+    var el=$("<option></option>").val(e.key).html(e.name).appendTo(lc);
+    console.glog("lang","iterating",e.key,i18n._lang)
+    if(e.key==i18n._lang) {
+      el.attr("selected",true);
+      console.glog("lang","selected language",e.key);
+    }
+  });
+  
+  lc.change(function() {
+    xlateChangeLang($(this).val());
+  });
+});
+
+function loadSession() {
   doAPIRequest("getsession",{},function(data) {
     if(data.user) {
       $("#menu .loginshow").show();
@@ -523,6 +551,10 @@ function initLogin() {
     $.extend(defaultSettings,data.default_settings);
     updateSettingsElements();
   });
+}
+
+function initLogin() {
+  loadSession();
   $("#logout-btn").click(function() {
     $(this).attr("disabled","disabled");
     //stop all running AJAX requests
@@ -556,13 +588,7 @@ function initLogin() {
         $("#login-error").show().html(data.msg);
         return;
       }
-      $("#menu .loginshow").show();
-      $("#menu .logoutshow").hide();
-      $(".username").html(data.user.name);
-      if(data.user.source!="")
-        $("#settingsform-account .passwordrow").hide();
-      else
-        $("#settingsform-account .passwordrow").show();
+      loadSession()
       loadFeedList();
       location.hash="index";
     },
@@ -580,13 +606,7 @@ function initLogin() {
         $("#login-error").show().html(data.msg);
         return;
       }
-      $("#menu .loginshow").show();
-      $("#menu .logoutshow").hide();
-      $(".username").html(data.user.name);
-      if(data.user.source!="")
-        $("#settingsform-account .passwordrow").hide();
-      else
-        $("#settingsform-account .passwordrow").show();
+      loadSession();
       loadFeedList();
       location.hash="welcome";
     },
@@ -609,6 +629,11 @@ function initLogin() {
             sobj[k]=0;
         break;
       }
+    });
+    $("#settingsform-display select").each(function() {
+      var e=$(this);
+      var k=e.data("key");
+      sobj[k]=e.val();
     });
     $.extend(userSettings,sobj);
     console.log("saving settings");
@@ -982,9 +1007,7 @@ jQuery(document).ready(function($){
       xlateAll();
     });
   });
-  
 });
-
 
 //Welcome screen
 jQuery(document).ready(function($){
