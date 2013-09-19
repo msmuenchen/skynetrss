@@ -131,7 +131,7 @@ window.onkeydown=function(e) {
     case 36:
 //    default:
       window.parent.postMessage({
-      type:"keypress",
+      type:"keydown",
       ev: {
         keyCode:e.keyCode,
         metaKey:e.metaKey,

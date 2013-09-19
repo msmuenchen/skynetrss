@@ -680,6 +680,12 @@ window.addEventListener('message', function(event) {
     ve.metaKey=event.data.ev.metaKey;
     ve.relayed=true;
     $(window).trigger(ve);
+  } else if(event.data.type=="keydown") {
+    var ve=jQuery.Event("keydown");
+    ve.keyCode=event.data.ev.keyCode;
+    ve.metaKey=event.data.ev.metaKey;
+    ve.relayed=true;
+    $(window).trigger(ve);
   }
 },false);
 
