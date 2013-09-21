@@ -22,6 +22,7 @@
     <script type="text/javascript" src="js/importgr.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/tab.js"></script>
+    <script type="text/javascript" src="js/polyfill.js/srcdoc-polyfill.js"></script>
     
     <script type="text/javascript" src="js/sprintf.js/src/sprintf.js"></script>
     

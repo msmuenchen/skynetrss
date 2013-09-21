@@ -10,3 +10,6 @@
 [submodule "lib/dom-document-charset"]
 	path = lib/dom-document-charset
 	url = https://github.com/glenscott/dom-document-charset.git
+[submodule "js/polyfill.js"]
+	path = js/polyfill.js
+	url = https://github.com/jugglinmike/srcdoc-polyfill.git

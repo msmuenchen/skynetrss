@@ -118,12 +118,13 @@ function openFeedItem(pos, noScroll) {
   }
 
   var ifr=$("<iframe>");
-  ifr.attr("src","about:blank");
   //Browsers like to set an implicit height on iframes (Chrome: 150px)
   //So set it to 0. Upon loading the content, it will automatically scale up again :)
   ifr.height(0);
   ifr.appendTo($(".fullText",newfl));
-  ifr.attr("src","data:text/html;charset=utf-8,"+newfl.data("html"));
+  //ifr.attr("src","data:text/html;charset=utf-8,"+encodeURIComponent(newfl.data("html")));
+  ifr.attr("seamless",true).attr("sandbox","allow-forms allow-scripts allow-popups");
+  srcDoc.set(ifr.get()[0],newfl.data("html"));
   $("#fl-"+pos+" .itemRead").attr("checked",false).change();
 }
 
@@ -305,7 +306,7 @@ function loadFeedData(id,pos,start) {
         sc+=$("#inject-height").html();
         sc+="</scr"+"ipt>\n";
         e.fulltext+=sc;
-        $("#fl-"+e.id).data("html",encodeURIComponent(e.fulltext));
+        $("#fl-"+e.id).data("html",e.fulltext);
         /* Evil hack ends here */
         
         $("#feed_shown").html($(".feedline").length);
