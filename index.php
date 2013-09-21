@@ -112,7 +112,6 @@ window.onload=function() {
 document.addEventListener('DOMContentLoaded',seth);
 
 window.onkeypress=function(a) {
-  //tell parent that a key was pressed (relay SPACE for scrolling)
   window.parent.postMessage({
     type:"keypress",
     ev: {
@@ -121,25 +120,14 @@ window.onkeypress=function(a) {
     },
   },'*');
 }
-//arrow keys are only passed in onkeydown
 window.onkeydown=function(e) {
-  switch(e.keyCode) {
-    case 38:
-    case 40:
-    case 33:
-    case 34:
-    case 35:
-    case 36:
-//    default:
-      window.parent.postMessage({
-      type:"keydown",
-      ev: {
-        keyCode:e.keyCode,
-        metaKey:e.metaKey,
-      },
-    },'*');
-  }
-  return true;
+  window.parent.postMessage({
+    type:"keydown",
+    ev: {
+      keyCode:e.keyCode,
+      metaKey:e.metaKey,
+    },
+  },'*');
 }
     </script>
   </head>
