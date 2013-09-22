@@ -111,4 +111,5 @@ and storage of the full content is a very time- and memory-intensive effort.</p>
   page_nosafariwin:"<p>The Apple Safari browser for Windows is not supported by this application, as Apple has retired the Windows port of Safari and features required by this application are not present.</p>\
 <p>Supported browsers include Mozilla Firefox, Google Chrome, Internet Explorer (versions 10 and later) and Apple Safari (for Mac OS X only) as well as their mobile counterparts.</p>\
 ",
+  page_tsformat:"m/d/yy hh:MM TT",
 });

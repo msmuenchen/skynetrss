@@ -113,4 +113,5 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
 <p>Unterstützte Browser sind z.B. Mozilla Firefox, Google Chrome, Internet Explorer (ab Version 10) und Apple Safari (nur für Mac OS X) sowie deren Handy-Varianten.</p>\
 <p>Weitere Hintergründe finden sich <a href=\"http://www.basicthinking.de/blog/2012/07/26/safari-fur-windows-hat-apple-den-browser-still-und-heimlich-zuruckgezogen/\" target=\"_blank\">hier</a>.</p>\
 ",
+  page_tsformat:"dd.mm.yy HH:mm",
 });

@@ -86,7 +86,7 @@ function loadFeedList() {
     
     //update last-fetch timestamp
     var d=new Date(data.ts*1000);
-    var ds=dateFormat(d,"dd.mm.yyyy HH:MM:ss");
+    var ds=dateFormat(d,_("page_tsformat"));
     $("#flts").html(ds);
   });
 }
@@ -233,12 +233,12 @@ function loadFeedData(id,pos,start) {
       $("#feed_total").html(data.total);
       
       var fd=new Date(data.feed.lastread*1000);
-      var fds=dateFormat(fd,"dd.mm.yyyy HH:MM:ss");
+      var fds=dateFormat(fd,_("page_tsformat"));
       $("#feed_ts").html(fds);
       
       data.items.forEach(function(e) {
         var d=new Date(e.time*1000);
-        var ds=dateFormat(d,"dd.mm.yyyy HH:MM:ss");
+        var ds=dateFormat(d,_("page_tsformat"));
         //if we have scraped fulltext, use it instead
         if(e.scrape_fulltext && e.scrape_fulltext!="")
           e.fulltext=e.scrape_fulltext;
