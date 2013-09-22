@@ -64,6 +64,7 @@ function doAPIRequest(target,params,success,fail,always) {
       APIRequestPool.splice(k,1);
       $("#poollen").html(APIRequestPool.length);
     });
+  request._url=queryUrl;
   APIRequestPool.push(request);
   $("#poollen").html(APIRequestPool.length);
 }
