@@ -1026,9 +1026,10 @@ jQuery(document).ready(function($){
 jQuery(document).ready(function($){
   var n=navigator.appName || "";
   var v=navigator.vendor || "";
+  var u=navigator.userAgent || "";
   
-  var r=/internet explorer/.exec(n.toLowerCase())
-  if(r)
+  var r=/MSIE ([0-9]{1,}[\.0-9]{0,})/.exec(u)
+  if(r && parseFloat(r[1])<10)
     $("#modal-container,#ie-warning").show();
   
   r=/apple computer/.exec(v.toLowerCase())

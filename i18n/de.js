@@ -106,12 +106,11 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_jumponopen:"Beim Öffnen eines Elements nach oben springen",
   page_language:"Sprache",
   page_error:"Fehler",
-  page_noie:"<p>Der Internet Explorer-Browser wird von dieser Anwendung aus technischen Gründen leider nicht unterstützt.</p>\
-<p>Unterstützte Browser sind z.B. Mozilla Firefox, Google Chrome und Apple Safari (nur für Mac OS X) sowie deren Handy-Varianten.</p>\
-<p>Technische Hintergründe finden sich <a href=\"http://msdn.microsoft.com/en-us/library/cc848897%28v=vs.85%29.aspx\" target=\"_blank\">hier</a>.</p>\
+  page_noie:"<p>Ihre Version von Microsoft Internet Explorer ist zu veraltet; unterstützt werden lediglich IE 10 und aufwärts.</p>\
+<p>Unterstützte Browser sind z.B. Mozilla Firefox, Google Chrome, Internet Explorer (ab Version 10) und Apple Safari (nur für Mac OS X) sowie deren Handy-Varianten.</p>\
 ",
   page_nosafariwin:"<p>Der Apple Safari-Browser für Windows wird von dieser Anwendung leider nicht unterstützt, da der Browser von Apple nicht mehr vertrieben wird und nötige Funktionen nicht enthalten sind.</p>\
-<p>Unterstützte Browser sind z.B. Mozilla Firefox, Google Chrome und Apple Safari (nur für Mac OS X) sowie deren Handy-Varianten.</p>\
+<p>Unterstützte Browser sind z.B. Mozilla Firefox, Google Chrome, Internet Explorer (ab Version 10) und Apple Safari (nur für Mac OS X) sowie deren Handy-Varianten.</p>\
 <p>Weitere Hintergründe finden sich <a href=\"http://www.basicthinking.de/blog/2012/07/26/safari-fur-windows-hat-apple-den-browser-still-und-heimlich-zuruckgezogen/\" target=\"_blank\">hier</a>.</p>\
 ",
 });
