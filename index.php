@@ -135,13 +135,16 @@ window.onkeydown=function(e) {
   <div id="menu">
     <ul>
       <li><a href="#index"><span class="i18n" data-key="page_home"></span></a></li>
-      <li class="loginshow"><a href="#op/addnew"><span class="i18n" data-key="page_addfeed"></span></a></li>
-      <li class="loginshow"><a href="#op/addgr"><span class="i18n" data-key="page_addgr"></span></a></li>
-      <li class="logoutshow"><a href="#op/login"><span class="i18n" data-key="page_login"></span></a></li>
-      <li class="loginshow"><a href="#op/logout"><span class="i18n" data-key="page_logout"></span></a></li>
-      <li class="loginshow"><a href="#op/settings"><span class="i18n" data-key="page_settingsfor"></span><span class="username"></span></a></li>
-      <li class="loginshow"><a href="#library"><span class="i18n" data-key="page_library"></span></a></li>
-      <li class="loginshow"><a href="#welcome"><span class="i18n" data-key="page_firststeps"></span></a></li>
+      <li class="groupheader loginshow">Hinzufügen</li>
+      <li class="loginshow groupitem"><a href="#op/addnew"><span class="i18n" data-key="page_addfeed"></span></a></li>
+      <li class="loginshow groupitem"><a href="#op/addgr"><span class="i18n" data-key="page_addgr"></span></a></li>
+      <li class="loginshow groupitem"><a href="#library"><span class="i18n" data-key="page_library"></span></a></li>
+      <li class="groupheader">Konto</li>
+      <li class="logoutshow groupitem"><a href="#op/login"><span class="i18n" data-key="page_login"></span></a></li>
+      <li class="loginshow groupitem"><a href="#op/logout"><span class="i18n" data-key="page_logout"></span></a></li>
+      <li class="loginshow groupitem"><a href="#op/settings"><span class="i18n" data-key="page_settingsfor"></span><span class="username"></span></a></li>
+      <li class="groupheader">Hilfe</li>
+      <li class="groupitem"><a href="#welcome"><span class="i18n" data-key="page_firststeps"></span></a></li>
     </ul>
     <hr />
     <ul id="feedlist">
