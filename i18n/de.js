@@ -115,4 +115,7 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
 ",
   page_tsformat:"dd.mm.yy HH:mm",
   page_font:"Schriftart für Feeds",
+  page_headeradd:"Hinzufügen",
+  page_headeraccount:"Konto",
+  page_headerhelp:"Hilfe",
 });
