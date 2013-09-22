@@ -114,4 +114,5 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
 <p>Weitere Hintergründe finden sich <a href=\"http://www.basicthinking.de/blog/2012/07/26/safari-fur-windows-hat-apple-den-browser-still-und-heimlich-zuruckgezogen/\" target=\"_blank\">hier</a>.</p>\
 ",
   page_tsformat:"dd.mm.yy HH:mm",
+  page_font:"Schriftart für Feeds",
 });

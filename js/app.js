@@ -292,6 +292,21 @@ function loadFeedData(id,pos,start) {
         //Inject a "base" tag to allow for relative links, if we have a link
         if(data.feed.link!="")
           e.fulltext='<base href="'+data.feed.link+'" />\n'+e.fulltext;
+        
+        //Inject custom stylesheet
+        var ss="<style>";
+        var ff=$("#settings-display-font option[data-fn='"+userSettings["font"]+"']");
+        if(ff.length==1)
+          ff=ff.data("fallback");
+        else
+          ff="";
+        
+        ss+="body {\
+          font-family:'"+userSettings["font"]+"'"+ff+";\
+        }",
+        ss+="</style>";
+        e.fulltext=ss+e.fulltext;
+        
         /*
         Evil hack. To provide XSS protection, create an iframe node.
         Then, inject a script which posts a message to our window (lol, this is not covered by same-origin-policy)
@@ -533,6 +548,17 @@ $(document).ready(function() {
   
   lc.change(function() {
     xlateChangeLang($(this).val());
+  });
+  
+  var fc=$("#settings-display-font").empty();
+  appconfig.fonts.forEach(function(e) {
+    var og=$("<optgroup></optgroup>").attr("label",e.title).appendTo(fc);
+    e.elements.forEach(function(f) {
+      var fo=$("<option></option>").appendTo(og);
+      fo.attr("data-fn",f);//use attr so CSS selectors can pick it up
+      fo.data("fallback",e.fallback);
+      fo.html(f).val(f);	
+    });
   });
 });
 

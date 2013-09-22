@@ -112,4 +112,5 @@ and storage of the full content is a very time- and memory-intensive effort.</p>
 <p>Supported browsers include Mozilla Firefox, Google Chrome, Internet Explorer (versions 10 and later) and Apple Safari (for Mac OS X only) as well as their mobile counterparts.</p>\
 ",
   page_tsformat:"m/d/yy hh:MM TT",
+  page_font:"Feed font",
 });

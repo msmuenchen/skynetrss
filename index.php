@@ -233,6 +233,7 @@ window.onkeydown=function(e) {
             <table>
               <tr><th class="i18n" data-key="page_jumponopen"></th><td><input type="checkbox" id="settings-display-jumponopen" data-key="jumponopen" /></td></tr>
               <tr><th class="i18n" data-key="page_language"></th><td><select id="settings-display-language" data-key="language"></select></td></tr>
+              <tr><th class="i18n" data-key="page_font"></th><td><select id="settings-display-font" data-key="font"></select></td></tr>
               <tr><td colspan="2"><button id="settings-display-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
             </table>
             </form>
