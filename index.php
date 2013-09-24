@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="min-width=1000px" />
+    <meta name="google" value="notranslate" />
+    
     <title>SKYRSS Reader</title>
     <link rel="stylesheet" href="app.css" type="text/css" media="all" />
     
