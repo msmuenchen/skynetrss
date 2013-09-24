@@ -33,7 +33,7 @@ $url=$_GET["url"];
 try {
   $raw=CURL::get($url);
 } catch(CURLDownloadException $e) {
-  throw new FileLoadException();
+  throw new FileLoadException("Feed get failed: ".$e->getMessage());
 } catch(PermissionDeniedException $e) {
   try {
     $scheme=parse_url($url,PHP_URL_SCHEME);
@@ -41,7 +41,7 @@ try {
       $url="http://$url";
     $raw=CURL::get($url);
   } catch(Exception $e2) {
-    throw new FileLoadException();
+    throw new FileLoadException("Feed get #2 failed");
   }
 }
 
