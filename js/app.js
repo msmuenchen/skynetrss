@@ -7,6 +7,9 @@ var appstate={
   nextstart:0,
   requestCounter:0, /* keep track of AJAX requests */
   keyscope:0, /* state of the keypress-state-machine, 99: no input accepted */
+  feedlist:[],
+  haveSession:false,
+  haveFeedlist:false,
 }
 
 var userSettings={};
@@ -43,6 +46,8 @@ function loadFeedList() {
     $("#feedlist .loading").hide();
     if(data.items.length==0)
       $("#feedlist .nofeeds,#settings-feeds .nofeeds").show();
+    appstate.feedlist=data.items;
+    appstate.haveFeedlist=true;
     data.items.forEach(function(e){
       if(e.icon=="")
         e.icon=appconfig.feedicon;
@@ -165,10 +170,18 @@ function loadFeed(id,pos) {
     $("#feed_href").removeAttr("href");
     $("#feed_title").html(_("page_loading"));
     $("#feedentries").scrollTop(0); //scroll to top
+//    debugger;
     $("#feedentries li.feedline").remove();
     $("#feedmenu, #feedentries, #feedfooter").hide();
     appstate.selected=0; //reset selector on feedchange
-    loadFeedData(id,pos,0);
+    var i=setInterval(function() {
+      if(!appstate.haveSession || !appstate.haveFeedlist) {
+        console.log("waiting for session and feedlist");
+        return;
+      }
+      clearInterval(i);
+      loadFeedData(id,pos,0);
+    },500);
   } else {
     console.log("appstate fid=id="+id);
     openFeedItem(pos);
@@ -213,8 +226,12 @@ function loadFeedData(id,pos,start) {
   var params={start:start,feed:id,order:$("#feed_sort").val(),ignoreAPIException:true};
   if(!$("#feed_showread").is(":checked"))
     params.noshowread="";
+  $("#feed_addfrompreview").parent().show();
+  appstate.feedlist.forEach(function(e) {
+    if(e.id==id)
+      $("#feed_addfrompreview").parent().hide();
+  });
   doAPIRequest("get",params,function(data) {
-      
       if(data.status!="ok") {
         if(data.type=="PermissionDeniedException") {
           alert(_("apierror_permissiondenied"));
@@ -231,7 +248,26 @@ function loadFeedData(id,pos,start) {
         $("#feed_href").attr("href","");
       
       $("#feed_total").html(data.total);
-      
+      $("#feed_addfrompreview").click(function() {
+        $(this).attr("disabled",true);
+        doAPIRequest("add",{feed:data.feed.url,ignoreAPIException:true},function(data) { //success
+          if(data.status!="ok") {
+            if(data.type=="AlreadyPresentException") {
+              //do nothing
+              return;
+            } else {
+              alert(sprintf(_("apierror_other"),"add"));
+            }
+            return;
+          }
+          loadFeedList();
+          $("#feed_reload").click();
+        },
+        null,
+        function() {
+          $("#feed_addfrompreview").removeAttr("disabled");
+        });
+      });
       var fd=new Date(data.feed.lastread*1000);
       var fds=dateFormat(fd,_("page_tsformat"));
       $("#feed_ts").html(fds);
@@ -578,6 +614,7 @@ function loadSession() {
     $.extend(userSettings,data.user_settings);
     $.extend(defaultSettings,data.default_settings);
     updateSettingsElements();
+    appstate.haveSession=true;
   });
 }
 

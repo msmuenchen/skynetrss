@@ -284,6 +284,7 @@ window.onkeydown=function(e) {
           <span class="item"><button id="feed_reload"><span class="i18n" data-key="page_reload"></span></button></span>
           <span class="item"><button id="feed_update"><span class="i18n" data-key="page_reloadserver"></span></button></span>
           <span class="item"><button id="feed_allread"><span class="i18n" data-key="page_markallasread"></span></button></span>
+          <span class="item"><button id="feed_addfrompreview" class="i18n" data-key="page_add"></button></span>
           <span class="item">
             <select id="feed_sort">
               <option value="desc" class="i18n" data-key="page_newestfirst"></option>
