@@ -116,4 +116,5 @@ and storage of the full content is a very time- and memory-intensive effort.</p>
   page_headeradd:"Add feeds",
   page_headeraccount:"Account",
   page_headerhelp:"Help",
+  page_preview:"Preview",
 });

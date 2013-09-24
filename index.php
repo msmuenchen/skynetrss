@@ -81,6 +81,7 @@
 <tr>
   <td><span title="<%! this.desc %>"><%! this.title %></td></td>
   <td><button class="i18n addfeed" data-key="page_add"></button></td>
+  <td><button class="i18n preview" data-key="page_preview"></button></td>
 </tr>
 ]]>
     </script>    

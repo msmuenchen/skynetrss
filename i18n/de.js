@@ -118,4 +118,5 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_headeradd:"Hinzufügen",
   page_headeraccount:"Konto",
   page_headerhelp:"Hilfe",
+  page_preview:"Vorschau",
 });

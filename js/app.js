@@ -1024,6 +1024,9 @@ jQuery(document).ready(function($){
         e.forEach(function(f) {
           var tr=$($("#tpl-libentry").jqote({title:f.title,desc:f.desc})).appendTo(tbl);
           console.log(tr);
+          $("button.preview",tr).click(function() {
+            location.hash="feed/"+f.id+"/";
+          });
           $("button.addfeed",tr).click(function() {
             doAPIRequest("add",{feed:f.url,ignoreAPIException:true},function(data) { //success
               if(data.status!="ok") {
