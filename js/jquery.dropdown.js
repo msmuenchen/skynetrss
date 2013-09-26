@@ -9,6 +9,7 @@ $.fn.extend({
                                         i.slideUp(500,function() { e.removeClass("open") });
                                 else {
                                         e.addClass("open");
+                                        i.slideUp(0);
                                         i.slideDown(500);
                                 }
                                 
