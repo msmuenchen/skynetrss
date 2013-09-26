@@ -117,4 +117,8 @@ and storage of the full content is a very time- and memory-intensive effort.</p>
   page_headeraccount:"Account",
   page_headerhelp:"Help",
   page_preview:"Preview",
+  page_feedoptions:"Feed options",
+  page_feeddisplay:"Feed display",
+  page_unsubscribe:"Unsubscribe",
+  page_feedsettings:"Feed settings",
 });

@@ -119,4 +119,8 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_headeraccount:"Konto",
   page_headerhelp:"Hilfe",
   page_preview:"Vorschau",
+  page_feedoptions:"Optionen",
+  page_feeddisplay:"Anzeige",
+  page_unsubscribe:"Entfolgen",
+  page_feedsettings:"Feed-Einstellungen",
 });
