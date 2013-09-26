@@ -1115,8 +1115,12 @@ jQuery(document).ready(function($){
     $(".view").hide();
     $("#welcome").show();
   });
-  
 });
+
+$(document).ready(function() {
+  $(".dropdown-container").dropdown();
+});
+
 jQuery(document).ready(function($){
   //read the current hash (e.g. when tab-clicking around or reloading)
   $(window).hashchange();

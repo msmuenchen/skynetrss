@@ -16,6 +16,8 @@
     <script type="text/javascript" src="js/jquery.scrollTo-min.js"></script>
     <script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
     <script type="text/javascript" src="js/jquery.toggleCheckbox.js"></script>
+    <script type="text/javascript" src="js/jquery.dropdown.js"></script>
+    
     <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
     <script type="text/javascript" src="i18n/de.js"></script>
@@ -283,18 +285,34 @@ window.onkeydown=function(e) {
         <a id="feed_href" target="_blank"><h1 id="feed_title"></h1></a>
         <div id="feedmenu">
           <span class="item"><span id="feed_shown"></span>/<span id="feed_total"></span> <span class="i18n" data-key="page_entries"></span></span>
-          <span class="item"><button id="feed_reload"><span class="i18n" data-key="page_reload"></span></button></span>
-          <span class="item"><button id="feed_update"><span class="i18n" data-key="page_reloadserver"></span></button></span>
           <span class="item"><button id="feed_allread"><span class="i18n" data-key="page_markallasread"></span></button></span>
           <span class="item"><button id="feed_addfrompreview" class="i18n" data-key="page_add"></button></span>
           <span class="item">
-            <select id="feed_sort">
-              <option value="desc" class="i18n" data-key="page_newestfirst"></option>
-              <option value="asc" class="i18n" data-key="page_oldestfirst"></option>
-            </select>
+          <div class="dropdown-container">
+            <div class="dropdown-header"><span class="i18n" data-key="page_feedoptions"></span><span class="dropdown-arrow"></span></div>
+            <div class="dropdown-items">
+              <div class="dropdown-item i18n" data-key="page_reload" id="feed_reload"></div>
+              <div class="dropdown-item i18n" data-key="page_reloadserver" id="feed_update"></div>
+              <div class="dropdown-item i18n" data-key="page_unsubscribe" id="feed_unsubscribe"></div>
+              <div class="dropdown-item i18n" data-key="page_feedsettings" id="feed_opensettings"></div>
+            </div>
+          </div>
           </span>
           <span class="item">
-            <input id="feed_showread" checked="checked" type="checkbox"/> <label for="feed_showread"><span class="i18n" data-key="page_showread"></span></label>
+          <div class="dropdown-container">
+            <div class="dropdown-header"><span class="i18n" data-key="page_feeddisplay"></span><span class="dropdown-arrow"></span></div>
+            <div class="dropdown-items">
+              <div class="dropdown-item">
+                <input id="feed_showread" checked="checked" type="checkbox"/> <label for="feed_showread"><span class="i18n" data-key="page_showread"></span></label>
+              </div>
+              <div class="dropdown-item">
+                <select id="feed_sort">
+                  <option value="desc" class="i18n" data-key="page_newestfirst"></option>
+                  <option value="asc" class="i18n" data-key="page_oldestfirst"></option>
+                </select>
+              </div>
+            </div>
+          </div>
           </span>
         </div>
       </div>

@@ -358,3 +358,52 @@ line-height:90%;
 #feedlist {
 margin-top:20px;
 }
+#feedmenu {
+	display:block;
+	position:absolute;
+}
+.dropdown-container {
+    display: inline-block;
+    border: 1px solid red;
+    position: relative;
+    z-index:999;
+background:#fff;
+}
+.dropdown-items {
+    margin: 5px 0px;
+display:none;
+}
+.open .dropdown-items {
+	display:block;
+}
+.dropdown-item {
+    margin: 3px 6px;
+    cursor: pointer;
+}
+.dropdown-header {
+
+    padding:2px;
+    width: 100%;
+    cursor: pointer;
+	box-sizing:border-box;
+}
+.open .dropdown-header {
+    border-bottom: 1px solid red;
+}
+.dropdown-arrow {
+float: right;
+margin-left: 20px;
+margin-right: 5px;
+content:">";
+}
+.open .dropdown-arrow {
+content:"v";
+}
+
+#feedentries {
+margin-top:30px;
+}
+#feedmenu .item {
+	vertical-align:top;
+	display:inline-block;
+}
