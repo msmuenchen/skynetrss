@@ -364,10 +364,8 @@ margin-top:20px;
 }
 .dropdown-container {
     display: inline-block;
-    border: 1px solid red;
     position: relative;
     z-index:999;
-background:#fff;
 }
 .dropdown-items {
     margin: 5px 0px;
@@ -382,22 +380,25 @@ display:none;
 }
 .dropdown-header {
 
-    padding:2px;
     width: 100%;
     cursor: pointer;
 	box-sizing:border-box;
 }
 .open .dropdown-header {
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid blue;
 }
 .dropdown-arrow {
 float: right;
 margin-left: 20px;
-margin-right: 5px;
-content:">";
+padding-left:5px;
+padding-right:5px;
+border-left:1px solid black;
 }
-.open .dropdown-arrow {
-content:"v";
+.dropdown-arrow:after {
+	content:">";
+}
+.open .dropdown-arrow:after {
+	content:"v";
 }
 
 #feedentries {
@@ -406,4 +407,12 @@ margin-top:30px;
 #feedmenu .item {
 	vertical-align:top;
 	display:inline-block;
+}
+
+.feedbarbtn {
+border: 1px solid blue;
+background:#fff;
+border-radius: 5px;
+box-shadow: 3px 3px 3px 0px black;
+padding:2px;
 }

@@ -285,10 +285,10 @@ window.onkeydown=function(e) {
         <a id="feed_href" target="_blank"><h1 id="feed_title"></h1></a>
         <div id="feedmenu">
           <span class="item"><span id="feed_shown"></span>/<span id="feed_total"></span> <span class="i18n" data-key="page_entries"></span></span>
-          <span class="item"><button id="feed_allread"><span class="i18n" data-key="page_markallasread"></span></button></span>
-          <span class="item"><button id="feed_addfrompreview" class="i18n" data-key="page_add"></button></span>
+          <span class="item"><div id="feed_allread" class="i18n feedbarbtn" data-key="page_markallasread"></div></span>
+          <span class="item"><div id="feed_addfrompreview" class="i18n feedbarbtn" data-key="page_add"></div></span>
           <span class="item">
-          <div class="dropdown-container">
+          <div class="dropdown-container feedbarbtn">
             <div class="dropdown-header"><span class="i18n" data-key="page_feedoptions"></span><span class="dropdown-arrow"></span></div>
             <div class="dropdown-items">
               <div class="dropdown-item i18n" data-key="page_reload" id="feed_reload"></div>
@@ -299,7 +299,7 @@ window.onkeydown=function(e) {
           </div>
           </span>
           <span class="item">
-          <div class="dropdown-container">
+          <div class="dropdown-container feedbarbtn">
             <div class="dropdown-header"><span class="i18n" data-key="page_feeddisplay"></span><span class="dropdown-arrow"></span></div>
             <div class="dropdown-items">
               <div class="dropdown-item">
