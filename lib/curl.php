@@ -8,6 +8,7 @@ class CURL {
     curl_setopt($this->c,CURLOPT_FOLLOWLOCATION,true);
     curl_setopt($this->c,CURLOPT_SSL_VERIFYPEER,false);
     curl_setopt($this->c,CURLOPT_SSL_VERIFYHOST,0);
+    curl_setopt($this->c,CURLOPT_USERAGENT,"SKYRSS Reader/Aggregator");
   }
   public static function getInst() {
     if(static::$inst==null)
