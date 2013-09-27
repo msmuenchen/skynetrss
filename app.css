@@ -5,7 +5,6 @@ margin:0;
 html, body {
   height:100%;
   width:100%;
-  min-width:1000px;
 }
 body {
   font-family:Arial;
@@ -332,6 +331,38 @@ display:block;
     }
 }
 
+#menu {
+	box-sizing:border-box;
+height:100%;
+}
+#content {
+	height:100%;
+	box-sizing:border-box;
+	width:calc(100% - 300px); /* menu width */
+}
+@media screen and (max-width:750px) {
+	#menu {
+		width:100%;
+	}
+	#content {
+		width:100%;
+		padding:20px 0px;
+	}
+
+}
+@media screen and (max-width:1000px) {
+	#content {
+		padding:20px 10px;
+	}
+}
+@media screen and (min-width:1200px) {
+	#menu {
+		width:380px;
+	}
+	#content {
+		width:calc(100% - 380px);
+	}
+}
 #welcome_firststeps {
 	padding-left:20px;
 }
