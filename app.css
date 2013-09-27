@@ -410,9 +410,8 @@ display:none;
     cursor: pointer;
 }
 .dropdown-header {
-
     width: 100%;
-    cursor: pointer;
+
 	box-sizing:border-box;
 }
 .open .dropdown-header {
@@ -446,4 +445,5 @@ background:#fff;
 border-radius: 5px;
 box-shadow: 3px 3px 3px 0px black;
 padding:2px;
+    cursor: pointer;
 }
