@@ -447,3 +447,7 @@ box-shadow: 3px 3px 3px 0px black;
 padding:2px;
     cursor: pointer;
 }
+#feed_href, #feed_href:link, #feed_href:active,#feed_href:hover {
+text-decoration:none;
+color:#000;
+}
