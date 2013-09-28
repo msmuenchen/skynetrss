@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="min-width=1000px" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=0,width=320.1" />
     <meta name="google" value="notranslate" />
     
     <title>SKYRSS Reader</title>
