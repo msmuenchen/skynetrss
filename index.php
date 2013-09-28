@@ -116,6 +116,15 @@ window.onload=function() {
 };
 document.addEventListener('DOMContentLoaded',seth);
 
+window.addEventListener("message",function(e) {
+  if(!event.data.type)
+    return;
+  if(event.data.type=="geth") {
+    console.log("got a height request");
+    seth();
+  }
+});
+
 window.onkeypress=function(a) {
   window.parent.postMessage({
     type:"keypress",

@@ -1164,6 +1164,12 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 $(window).resize(function() {
+  if(appstate.view=="feed") {
+    $(".feedline.open iframe").each(function() {
+      if(this.contentWindow && this.contentWindow.postMessage)
+        this.contentWindow.postMessage({type:"geth"},'*');
+    });
+  }
   //http://responsejs.com/labs/dimensions/
   var correctedViewportW = (function (win, docElem) {
     var mM = win['matchMedia'] || win['msMatchMedia'], client = docElem['clientWidth'], inner = win['innerWidth']
@@ -1197,7 +1203,6 @@ $(window).resize(function() {
     appconfig.mobile=true;
       $(window).hashchange(); //check if current hash is menu...
   }
-
 }).resize();
 });
 jQuery(document).ready(function($){
