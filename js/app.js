@@ -133,34 +133,11 @@ function openFeedItem(pos, noScroll) {
   $("#fl-"+pos+" .itemRead").attr("checked",false).change();
 }
 
-//get scroll-related measurement data for a feed item
-function getFeedItemMeasurements(item) {
-  var topOffset=0;
-  var fe=$("#feedentries");
-  
-  //position().top is relative to the document!
-  //"bottom" is ALSO relative to the top of #feedline!
-  topOffset+=fe.position().top+parseInt(fe.css("marginTop"));
-  //"top" is relative to the top of #feedline, i.e. the topmost element has a top of 0, if scrolled all up
-  var top=item.position().top-topOffset;
-  var bottom=top+item.outerHeight();
-  //maxbottom is the maximum bottom that an element may have in order to be fully visible
-  //so, e.g. if an element's bottom is bigger than maxBottom it is not fully visible
-  var maxBottom=fe.height();
-  
-  var st=fe.scrollTop()+top;
-  return {
-    topOffset:topOffset,
-    top:top,
-    bottom:bottom,
-    maxBottom:maxBottom,
-    scrollTop:st,
-    maxScrollTop:fe.get(0).scrollHeight-fe.height(),
-  }
-}
 function isFeedItemVisible(item) {
-  var md=getFeedItemMeasurements(item);
-  return md.bottom<=md.maxBottom;
+  var t=item.position().top;
+  var b=t+item.outerHeight();
+  var mB=$("#feedentries").outerHeight();
+  return b<=mB;
 }
 //load a new feed, or open an item of the current feed
 function loadFeed(id,pos) {
