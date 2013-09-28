@@ -397,6 +397,19 @@ function addFeed() {
   });
 }
 
+$(document).ready(function() {
+  $("#feedentries").scroll(function() {
+    if(!isFeedItemVisible($("#feedmore"))) {
+      return;
+    }    
+    if($("#feedmore").hasClass("more")) {//more items available => click
+      console.glog("scroll","loading next batch of feeditems");
+      $("#feedmore").click();
+    } else {
+      console.glog("scroll","no more feeditems or already loading");
+    }
+  });
+});
 
 jQuery(document).ready(function($){
   //Event handler for the "Read more" in feedlist view
