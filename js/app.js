@@ -350,6 +350,7 @@ function loadFeedData(id,pos,start) {
         $("#feedmore").removeClass().addClass("nomore");
       }
       openFeedItem(pos);
+      $("#feedentries").scroll();
     },
     null, //fail
     function() { //always
