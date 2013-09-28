@@ -11,11 +11,11 @@ function doAPIRequest(target,params,success,fail,always) {
     queryUrl+="&"+key+"="+encodeURIComponent(params[key]);
   }
   logstr=logstr.substring(0,logstr.length-1);
-  console.log("Submitting request to API "+target+" ("+logstr+") with ID "+reqId+", raw query is "+queryUrl);
+  console.glog("api","Submitting request to API "+target+" ("+logstr+") with ID "+reqId+", raw query is "+queryUrl);
   var request=$.getJSON(queryUrl).
     done(function(data) {
-      console.log("Request #"+reqId+" to API "+target+" ("+logstr+") returned OK on network level, data object is:");
-      console.log(data);
+      console.glog("api","Request #"+reqId+" to API "+target+" ("+logstr+") returned OK on network level, data object is:");
+      console.glog("api",data);
       if(!data.status || (data.status!="ok" && !params.ignoreAPIException)) {
         if(!data.message)
           data.message="";
@@ -25,14 +25,14 @@ function doAPIRequest(target,params,success,fail,always) {
           doAPIRequest(target,params,success,fail,always);
         else {
           if(typeof(fail)=="function") {
-            console.log("Calling the 'fail' handler of API request #"+reqId);
+            console.glog("api","Calling the 'fail' handler of API request #"+reqId);
             fail();
           }
         }
         return;
       }
       if(typeof(success)=="function") {
-        console.log("Calling the 'success' handler of API request #"+reqId);
+        console.glog("api","Calling the 'success' handler of API request #"+reqId);
         success(data);
       }
     }).
@@ -43,13 +43,13 @@ function doAPIRequest(target,params,success,fail,always) {
         return; //the request may succeed on retry, so return and do not fire the supplied fail-handler
       }
       if(typeof(fail)=="function") {
-        console.log("Calling the 'fail' handler of API request #"+reqId);
+        console.glog("api","Calling the 'fail' handler of API request #"+reqId);
         fail();
       }
     }).
     always(function(a,b,c) {
       if(typeof(always)=="function") {
-        console.log("Calling the 'always' handler of API request #"+reqId);
+        console.glog("api","Calling the 'always' handler of API request #"+reqId);
         always();
       }
       //Determine if a or c is the XHR object.
