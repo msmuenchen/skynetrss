@@ -1121,6 +1121,85 @@ $(document).ready(function() {
   $(".dropdown-container").dropdown();
 });
 
+
+//mobify hashchange
+$(document).ready(function() {
+  $(window).bind("hashchange",function(e) {
+    var h=location.hash;
+    var r=/menu/.exec(h);
+    var oldUrl;
+    if(e && e.originalEvent && e.originalEvent.oldURL)
+      oldUrl=e.originalEvent.oldURL;
+    else
+      oldUrl=false;
+    
+    var oldHash;
+    if(oldUrl) {
+      //idea from https://gist.github.com/jlong/2428561
+      var p=document.createElement("a");
+      p.href=oldUrl;
+      oldHash=p.hash;
+    } else {
+      oldHash="index";
+    }
+    console.glog("mobify","hashchange from",appstate.lastView,"to",h,"oldhash",oldHash);
+    if(!r) {
+      if(appconfig.mobile==true) {
+        appstate.lastView=oldHash;
+        $("#content").show();
+        $("#menu").hide();
+      }
+      return;
+    }
+
+    if(appconfig.mobile==true) {
+      appstate.lastView=oldHash;
+      $("#content").hide();
+      $("#menu").show();
+    } else {
+      location.hash=oldHash;
+    }
+  });
+});
+
+$(document).ready(function() {
+$(window).resize(function() {
+  //http://responsejs.com/labs/dimensions/
+  var correctedViewportW = (function (win, docElem) {
+    var mM = win['matchMedia'] || win['msMatchMedia'], client = docElem['clientWidth'], inner = win['innerWidth']
+    return mM && client < inner && true === mM('(min-width:' + inner + 'px)')['matches'] ? function () { return win['innerWidth'] } : function () { return docElem['clientWidth'] }
+  }(window, document.documentElement));
+  var correctedViewportH = (function (win, docElem) {
+    var mM = win['matchMedia'] || win['msMatchMedia'], client = docElem['clientHeight'], inner = win['innerHeight']
+    return mM && client < inner && true === mM('(min-height:' + inner + 'px)')['matches'] ? function () { return win['innerHeight'] } : function () { return docElem['clientHeight'] }
+  }(window, document.documentElement));
+  if(correctedViewportW()>appconfig.menuWidthBreakpoint) {
+    if(appconfig.mobile==false) {
+      console.glog("mobify","was in desktop, still in desktop");
+      return;
+    }
+    console.glog("mobify","switching from mobile to desktop");
+    console.glog("mobify","current hash",location.hash);
+    if(location.hash=="#menu") {
+      console.glog("mobify","old location",appstate.lastView);
+      location.hash=appstate.lastView;
+    }
+    appconfig.mobile=false;
+    $("#content,#menu").show();
+  } else {
+    if(appconfig.mobile==true) {
+      console.glog("mobify","was in mobile, still in mobile");
+      return;
+    }
+    console.glog("mobify","switching from desktop to mobile");
+    $("#content").show();
+    $("#menu").hide();
+    appconfig.mobile=true;
+      $(window).hashchange(); //check if current hash is menu...
+  }
+
+}).resize();
+});
 jQuery(document).ready(function($){
   //read the current hash (e.g. when tab-clicking around or reloading)
   $(window).hashchange();

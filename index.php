@@ -340,6 +340,7 @@ window.onkeydown=function(e) {
         <li class="i18n" data-key="page_firststeps_6"></li>
       </ol>
     </div>  
+    <div id="mobile_menu"><a href="#menu">Menü</a></div>
   </div>
   <div id="modal-container">
     <div id="share-content" class="modal-box">

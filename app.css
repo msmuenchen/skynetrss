@@ -335,21 +335,15 @@ display:block;
 	box-sizing:border-box;
 height:100%;
 }
+#mobile_menu {
+	display:none;
+}
 #content {
 	height:100%;
 	box-sizing:border-box;
 	width:calc(100% - 300px); /* menu width */
 }
-@media screen and (max-width:750px) {
-	#menu {
-		width:100%;
-	}
-	#content {
-		width:100%;
-		padding:20px 0px;
-	}
 
-}
 @media screen and (max-width:1000px) {
 	#content {
 		padding:10px;
@@ -362,6 +356,19 @@ height:100%;
 	#content {
 		width:calc(100% - 380px);
 	}
+}
+@media screen and (max-width:750px) {
+	#menu {
+		width:100%;
+	}
+	#content {
+		width:100%;
+		padding:10px 10px 20px 10px;
+	}
+	#mobile_menu {
+		display:block;
+	}
+
 }
 #welcome_firststeps {
 	padding-left:20px;
@@ -450,4 +457,8 @@ padding:2px;
 #feed_href, #feed_href:link, #feed_href:active,#feed_href:hover {
 text-decoration:none;
 color:#000;
+}
+#mobile_menu {
+	position:fixed;
+	bottom:5px;
 }
