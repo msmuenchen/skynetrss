@@ -1,23 +1,46 @@
 //skyrss console extender
 
+console._glog_lastgroup="";
+
 //first argument is group, rest gets forwarded to console.log
 console.glog=function() {
   var grp=arguments[0];
   var args = Array.prototype.slice.call(arguments, 1); //http://stackoverflow.com/a/6808662/1933738
-  if(console.group)
-    console.group(grp);
-  console.log.apply(this,args);
-  if(console.group)
-    console.groupEnd();
+  if(console.group) {
+    if(console._glog_lastgroup!=grp) {
+      console.groupEnd();
+      console._glog_lastgroup=grp;
+      console.group(grp);
+    }
+  }
+  console._glog_native_log.apply(this,args);
 }
 
 //first argument is group, rest gets forwarded to console.error
 console.gerror=function() {
   var grp=arguments[0];
   var args = Array.prototype.slice.call(arguments, 1); //http://stackoverflow.com/a/6808662/1933738
-  if(console.group)
-    console.group(grp);
-  console.error.apply(this,args);
-  if(console.group)
-    console.groupEnd();
+  if(console.group) {
+    if(console._glog_lastgroup!=grp) {
+      console.groupEnd();
+      console._glog_lastgroup=grp;
+      console.group(grp);
+    }
+  }
+  console._glog_native_error.apply(this,args);
+}
+
+console._glog_native_log=console.log;
+
+console.log=function() {
+  var args=arguments;
+  Array.prototype.unshift.call(arguments,"UNGROUPED");
+  console.glog.apply(this,args);
+}
+console._glog_native_error=console.error;
+
+console.error=function() {
+  var args=arguments;
+  Array.prototype.unshift.call(arguments,"UNGROUPED");
+  console.gerror.apply(this,args);
 }
