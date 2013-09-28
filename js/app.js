@@ -730,6 +730,7 @@ window.addEventListener('message', function(event) {
     var fl=$("#fl-"+pid);
     $("iframe",fl).height(h);
     console.log("adjusted height of "+pid+" to "+h);
+    $("#feedentries").scroll();
   } else if(event.data.type=="keypress") {
     var ve=jQuery.Event("keypress");
     ve.keyCode=event.data.ev.keyCode;
@@ -1156,6 +1157,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 $(window).resize(function() {
   if(appstate.view=="feed") {
+    $("#feedentries").scroll();
     $(".feedline.open iframe").each(function() {
       if(this.contentWindow && this.contentWindow.postMessage)
         this.contentWindow.postMessage({type:"geth"},'*');
