@@ -804,16 +804,14 @@ $(window).keydown(function(e) {
       //this happens when the current element is not present (e.g. on the next page)
       appstate.pos=0;
     }
+    
+    var c=$("#fl-"+appstate.pos);
     if(appstate.pos==0) {
       var n=$(".feedline").first();
-      var c=$("#feedentries");
     } else {
       var n=$("#fl-"+appstate.pos).next();
-      var c=$("#fl-"+appstate.pos);
     }
-    console.log("next is ");
-    console.log(n);
-    if(!isFeedItemVisible(c)) { //current element is not fully visible, just scroll down
+    if(c.length==1 && !isFeedItemVisible(c)) { //current element is not fully visible, just scroll down
       console.log("current element is not fully visible");
       newScroll+=delta;
     } else { //current element is fully visible, open the next element
