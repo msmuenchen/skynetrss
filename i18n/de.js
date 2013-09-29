@@ -123,4 +123,5 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_feeddisplay:"Anzeige",
   page_unsubscribe:"Entfolgen",
   page_feedsettings:"Feed-Einstellungen",
+  page_infinitescroll:"Automatisches Nachladen von Feed-Items",
 });

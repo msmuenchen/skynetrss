@@ -400,6 +400,8 @@ function addFeed() {
 
 $(document).ready(function() {
   $("#feedentries").scroll(function() {
+    if(userSettings.infinitescroll && userSettings.infinitescroll!=1)
+      return;
     if(!isFeedItemVisible($("#feedmore"))) {
       return;
     }    
