@@ -159,6 +159,8 @@ function loadFeed(id,pos) {
       clearInterval(i);
       loadFeedData(id,pos,0);
     },500);
+    appstate.feed=id;
+    appstate.pos=pos;
   } else {
     console.log("appstate fid=id="+id);
     openFeedItem(pos);
@@ -208,6 +210,7 @@ function loadFeedData(id,pos,start) {
     if(e.id==id)
       $("#feed_addfrompreview").parent().hide();
   });
+  $("#feedmore").addClass("loading"); //prevent infinite-scroll from loading
   doAPIRequest("get",params,function(data) {
       if(data.status!="ok") {
         if(data.type=="PermissionDeniedException") {
@@ -215,6 +218,10 @@ function loadFeedData(id,pos,start) {
         } else {
           alert(sprintf(_("apierror_other"),"get"));
         }
+        return;
+      }
+      if(data.feed.id!=appstate.feed) {
+        console.gerror("feed_get","discarding data of feed",data.feed.id,", active feed is",appstate.feed);
         return;
       }
       $("#feedmenu, #feedentries, #feedfooter").show();
@@ -340,8 +347,6 @@ function loadFeedData(id,pos,start) {
         $("#feed_shown").html($(".feedline").length);
         
       });
-      appstate.feed=id;
-      appstate.pos=pos;
       if(data.next) {
         appstate.nextstart=data.next;
         $("#feedmore").removeClass().addClass("more");
