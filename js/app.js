@@ -453,6 +453,27 @@ jQuery(document).ready(function($){
       return;
     $(".view").hide();
     $("#index").show();
+    $("#index-news .news").remove();
+    $("#index-news-status").show().html(_("page_loading"));
+    
+    //we likely dont have settings at the moment...
+    var it=setInterval(function() {
+      if(userSettings.language) {
+        clearInterval(it);
+      } else {
+        console.glog("getnews","waiting for session/language");
+        return;
+      }
+      doAPIRequest("news",{lang:userSettings.language},function(data) {
+        $("#index-news-status").hide();
+        data.items.forEach(function(e) {
+          var tpl=$($("#tpl-newsitem").jqote(e)).appendTo($("#index-news"));
+        });
+      },
+      function() {
+        $("#index-news-status").html(_("page_error"));
+      });
+    },500);
     appstate.view="index";
   });
   

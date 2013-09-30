@@ -70,6 +70,9 @@ try {
     case "createaccount":
       require("api/api.createaccount.php");
     break;
+    case "news":
+      require("api/api.news.php");
+    break;
     default:
       throw new APIWrongCallException("Ungültige Aktion angegeben");
   }

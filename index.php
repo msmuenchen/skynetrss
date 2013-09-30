@@ -29,6 +29,16 @@
     <script type="text/javascript" src="js/polyfill.js/srcdoc-polyfill.js"></script>
     
     <script type="text/javascript" src="js/sprintf.js/src/sprintf.js"></script>
+
+    <!-- jqote template for a news item -->
+    <script type="text/html" id="tpl-newsitem">
+<![CDATA[
+    <div class="news">
+      <h3 class="title"><%= this.title %></h3>
+      <div class="content"><%= this.text %></div>
+    </div>
+]]>
+    </script>
     
     <!-- jqote template for a feed item line -->
     <script type="text/html" id="tpl-feedline">
@@ -288,7 +298,12 @@ window.onkeydown=function(e) {
       </div>
     </div>
     <div class="view" id="index">
-      <span class="i18n" data-key="page_startsite"></span>
+      <h1><span class="i18n" data-key="page_skyrss"></span></h1>
+      <p><span class="i18n" data-key="page_startsite"></span></p>
+      <h2><span class="i18n" data-key="page_news"></span></h2>
+      <div id="index-news">
+      </div>
+      <div id="index-news-status"></div>
     </div>
     <div class="view" id="feed">
       <div id="feedbar">

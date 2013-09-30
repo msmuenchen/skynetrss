@@ -74,6 +74,20 @@ CREATE TABLE `feeds` (
   KEY `idx_getfeedsquery` (`id`,`title`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `news`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sk` varchar(30) NOT NULL,
+  `lang` varchar(10) NOT NULL,
+  `title` text NOT NULL,
+  `text` text NOT NULL,
+  `ts` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sk_uniq` (`sk`,`lang`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_feeds`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

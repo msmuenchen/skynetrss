@@ -122,4 +122,6 @@ and storage of the full content is a very time- and memory-intensive effort.</p>
   page_unsubscribe:"Unsubscribe",
   page_feedsettings:"Feed settings",
   page_infinitescroll:"Automatic loading of new feed items",
+  page_skyrss:"SkyRSS",
+  page_news:"Project news",
 });
