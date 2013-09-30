@@ -16,10 +16,10 @@ float: left;
 width: 300px;
 border-right: 2px solid blueviolet;
 padding: 20px 30px;
-height:calc(100% - 2 * 20px);
 overflow-y:scroll;
 }
 #menu a {
+width: -webkit-calc(100% - 40px);
 width: calc(100% - 40px); /* give the unread_count approx.40px */
 text-overflow: ellipsis;
 white-space: nowrap;
@@ -45,8 +45,6 @@ margin:2px 0px;
 #content {
 float:left;
 padding:40px;
-height:calc(100% - 2 * 40px);
-width:calc(100% - 300px - 2 * 30px - 2 * 40px - 2px);
 }
 .view {
   display:none;
@@ -55,6 +53,7 @@ width:calc(100% - 300px - 2 * 30px - 2 * 40px - 2px);
   overflow-y:auto;
 }
 #feedentries {
+height:-webkit-calc(100% - 49px - 5px - 5px - 16px);
 height:calc(100% - 49px - 5px - 5px - 16px); /* height of feedbar - top margin feedentries - top margin footer - footer height */
 overflow-y:scroll;
 margin-top:5px;
@@ -230,6 +229,7 @@ display:none;
 height: 250px;
 background-color: white;
 position: relative;
+top: -webkit-calc(50% - (250px / 2));
 top: calc(50% - (250px / 2));
 border-radius: 12px;
 padding: 15px;
@@ -341,6 +341,7 @@ height:100%;
 #content {
 	height:100%;
 	box-sizing:border-box;
+	width:-webkit-calc(100% - 300px);
 	width:calc(100% - 300px); /* menu width */
 }
 
@@ -354,6 +355,7 @@ height:100%;
 		width:380px;
 	}
 	#content {
+		width:-webkit-calc(100% - 380px);
 		width:calc(100% - 380px);
 	}
 }
@@ -461,4 +463,9 @@ color:#000;
 #mobile_menu {
 	position:fixed;
 	bottom:5px;
+}
+@media screen and (max-height:720px) and (min-width:1000px){
+	#content {
+		padding:10px 5px;
+	}
 }
