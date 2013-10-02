@@ -17,6 +17,7 @@ width: 300px;
 border-right: 2px solid blueviolet;
 padding: 20px 30px;
 overflow-y:scroll;
+padding-right:10px;
 }
 #menu a {
 width: -webkit-calc(100% - 40px);
