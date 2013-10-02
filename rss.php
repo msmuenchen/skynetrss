@@ -428,7 +428,11 @@ function updateFeed($id,$forceRescrape=false) {
       if($row["scrape_data"]!="")
         $full=scrapeFeed($item->link,$row["scrape_data"]);
       if(is_array($full)) { $log.="Scrape fail at new item\n"; $item->text.="<br />(Scrape-Fehler: ".$full[0].")"; $full=""; }
-      $q=new DB_Query("INSERT INTO `db_rss`.`feed_items` (`feed_id`, `id`, `guid`, `title`, `time`, `link`, `fulltext`,`author`, `scrape_fulltext`) VALUES (?, NULL, ?, ?, ?, ?, ?, ?,?);",$row["id"],$item->guid,$item->title,$item->time,$item->link,$item->text,$item->author,$full);
+      if($full=="")
+        $excerpt=prepareExcerpt($item->text);
+      else
+        $excerpt=prepareExcerpt($full);
+      $q=new DB_Query("INSERT INTO `db_rss`.`feed_items` (`feed_id`, `id`, `guid`, `title`, `time`, `link`, `fulltext`,`author`, `scrape_fulltext`,`excerpt`) VALUES (?, NULL, ?, ?, ?, ?, ?, ?,?,?);",$row["id"],$item->guid,$item->title,$item->time,$item->link,$item->text,$item->author,$full,$excerpt);
       $log.="\tItem added to DB, ID ".$q->insertId."\n";
     } elseif($q->numRows==1) {
       $db=$q->fetch();
@@ -437,7 +441,11 @@ function updateFeed($id,$forceRescrape=false) {
         if($row["scrape_data"]!="")
           $full=scrapeFeed($item->link,$row["scrape_data"]);
         if(is_array($full)) { $log.="Scrape fail at item ".$db["id"]."\n"; $item->text.="<br />(Scrape-Fehler: ".$full[0].")"; $full=""; }
-        $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=?,`scrape_fulltext`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$full,$row["id"],$db["id"]);
+        if($full=="")
+          $excerpt=prepareExcerpt($item->text);
+        else
+          $excerpt=prepareExcerpt($full);
+        $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=?,`scrape_fulltext`=?,`excerpt`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$full,$excerpt,$row["id"],$db["id"]);
         $log.="\tItem updated in DB, ID ".$db["id"]."\n";
         $q=new DB_Query("DELETE FROM feed_read WHERE feed_id=? and item_id=?",$row["id"],$db["id"]);
       } else {
@@ -451,6 +459,24 @@ function updateFeed($id,$forceRescrape=false) {
   return $log;
 }
 
+function prepareExcerpt($text) {
+  $len=240;
+  libxml_use_internal_errors(true);
+  $doc=new DOMDocument();
+  $doc->loadHTML($text);
+  libxml_use_internal_errors(false);
+  
+  $txt=$doc->textContent;
+  if(mb_strlen($txt,"UTF-8")>$len) {
+    $spp=mb_strpos($txt," ",$len,"UTF-8");
+    if($spp===FALSE) {
+      $txt=mb_substr($txt,0,$len,"UTF-8")."...";
+    } else {
+      $txt=mb_substr($txt,0,$spp,"UTF-8")."...";
+    }
+  }
+  return $txt;
+}
 //load a HTML document and try to get the innerHTML of the node selected by xpath
 //if return===false, then scrape failed
 function scrapeFeed($link,$data) {

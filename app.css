@@ -493,7 +493,9 @@ cursor:pointer;
 #index-mostrecent .item:first-of-type {
 	margin-top:8px;
 }
-
+#index-mostrecent .feed {
+	max-width:650px;
+}
 #index-mostrecent div {
 width: -webkit-fit-content;
 width: -moz-fit-content;

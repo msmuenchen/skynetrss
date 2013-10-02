@@ -126,7 +126,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
 <![CDATA[
       <div class="item">
         <h4><%! this.title %></h4>
-        <div class="text"></div>
+        <div class="text"><%! this.excerpt %></div>
       </div>
 ]]>
     </script>
@@ -290,6 +290,7 @@ window.onkeydown=function(e) {
               <tr><th class="i18n" data-key="page_infinitescroll"></th><td><input type="checkbox" id="settings-display-infinitescroll" data-key="infinitescroll" /></td></tr>
               <tr><th class="i18n" data-key="page_language"></th><td><select id="settings-display-language" data-key="language"></select></td></tr>
               <tr><th class="i18n" data-key="page_font"></th><td><select id="settings-display-font" data-key="font"></select></td></tr>
+              <tr><th class="i18n" data-key="page_showsnacks"></th><td><input type="checkbox" id="settings-display-showsnacks" data-key="showsnacks" /></td></tr>
               <tr><td colspan="2"><button id="settings-display-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
             </table>
             </form>

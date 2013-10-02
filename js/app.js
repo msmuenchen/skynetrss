@@ -480,25 +480,29 @@ jQuery(document).ready(function($){
       function() {
         $("#index-news-status").html(_("page_error"));
       });
-    },500);
-    doAPIRequest("getsnacks",{},function(data) {
-      $("#index-mostrecent-status").hide();
-      data.feeds.forEach(function(e) {
-        var tpl=$($("#tpl-snackblock").jqote(e)).appendTo($("#index-mostrecent"));
-        tpl.click(function(ev) {
-          ev.stopPropagation();
-          location.hash="feed/"+e.id+"/";
-        });
-        var c=$(".content",tpl);
-        e.items.forEach(function(e2) {
-          var tpl2=$($("#tpl-snackitem").jqote(e2)).appendTo(c);
-          tpl2.click(function(ev) {
+      doAPIRequest("getsnacks",{},function(data) {
+        $("#index-mostrecent-status").hide();
+        data.feeds.forEach(function(e) {
+          var tpl=$($("#tpl-snackblock").jqote(e)).appendTo($("#index-mostrecent"));
+          tpl.click(function(ev) {
             ev.stopPropagation();
-            location.hash="feed/"+e.id+"/"+e2.id+"/";
+            location.hash="feed/"+e.id+"/";
+          });
+          var c=$(".content",tpl);
+          e.items.forEach(function(e2) {
+            var tpl2=$($("#tpl-snackitem").jqote(e2)).appendTo(c);
+            if(userSettings.showsnacks!=1)
+              $(".text",tpl2).hide();
+            tpl2.click(function(ev) {
+              ev.stopPropagation();
+              location.hash="feed/"+e.id+"/"+e2.id+"/";
+            });
           });
         });
       });
-    });
+    },500);
+    
+    
     appstate.view="index";
   });
   

@@ -127,4 +127,5 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_skyrss:"SkyRSS",
   page_news:"Projekt-Neuigkeiten",
   page_mostrecent:"Neueste Nachrichten",
+  page_showsnacks:"Anrisstexte auf Startseite anzeigen",
 });
