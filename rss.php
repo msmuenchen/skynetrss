@@ -11,6 +11,7 @@ function parseTimestamp($ts) {
     DateTime::RFC822,  //RFC 822  D, d M y H:i:s O
     "d M Y H:i:s O",   //RFC 1123 without text day name (taz.de)
   );
+  $ts=trim($ts);
   foreach($formats as $format) {
     $d=DateTime::createFromFormat($format,$ts);
     if($d!==false)
