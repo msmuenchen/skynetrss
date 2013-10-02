@@ -70,6 +70,7 @@ CREATE TABLE `feeds` (
   `ttl` int(11) NOT NULL,
   `scrape_data` text NOT NULL,
   `lastread` int(11) NOT NULL,
+  `mostrecent_ts` int(11) NOT NULL COMMENT 'timestamp of most recent item',
   PRIMARY KEY (`id`),
   KEY `idx_getfeedsquery` (`id`,`title`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

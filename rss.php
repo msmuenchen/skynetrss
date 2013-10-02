@@ -417,7 +417,7 @@ function updateFeed($id,$forceRescrape=false) {
   }
   $log.=print_r($feed,true);
   $log.="Items:\n";
-  $q2=new DB_Query("UPDATE `db_rss`.`feeds` SET `title`=?, `desc`=?, `link`=?, `ttl`=?, `lastread`=UNIX_TIMESTAMP(NOW()),`icon`=? where id=?;",$feed->title,$feed->desc,$feed->link,$feed->ttl,$feed->icon,$id);
+  
   $i=0;
   foreach($feed->items as $item) {
     //check if we have an element with this guid (and if it needs updating)
@@ -447,6 +447,7 @@ function updateFeed($id,$forceRescrape=false) {
       throw new Exception("SQL error: Item ".$row["id"]."/".$item->guid." has multiple entries!");
     }
   }
+  $q2=new DB_Query("UPDATE `db_rss`.`feeds` SET `title`=?, `desc`=?, `link`=?, `ttl`=?, `lastread`=UNIX_TIMESTAMP(NOW()),`icon`=?,`mostrecent_ts`=(SELECT MAX(feed_items.time) FROM feed_items WHERE feed_items.feed_id=feeds.id) where id=?;",$feed->title,$feed->desc,$feed->link,$feed->ttl,$feed->icon,$id);
   return $log;
 }
 
