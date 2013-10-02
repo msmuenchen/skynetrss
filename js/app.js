@@ -10,6 +10,8 @@ var appstate={
   feedlist:[],
   haveSession:false,
   haveFeedlist:false,
+  mobile:false, //split between menu view and other views
+  lastView:"", //last view when switching to menu view (to allow back-switching when resizing to desktop)
 }
 
 var userSettings={};
