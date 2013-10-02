@@ -478,3 +478,33 @@ color:#000;
 #index-mostrecent h3, #index-mostrecent h4 {
 cursor:pointer;
 }
+#index-mostrecent .unread {
+	color:#666;
+}
+#index-mostrecent .feed, #index-news .news {
+	margin-top:22px;
+}
+#index-mostrecent .feed:first-of-type, #index-news .news:first-of-type {
+	margin-top:14px;
+}
+#index-mostrecent .item {
+	margin-top:6px;
+}
+#index-mostrecent .item:first-of-type {
+	margin-top:8px;
+}
+
+#index-mostrecent div {
+width: -webkit-fit-content;
+width: -moz-fit-content;
+width: fit-content;
+}
+
+#index h2 {
+	margin-top:25px;
+}
+
+p {
+	margin-bottom:4px;
+	margin-top:2px;
+}

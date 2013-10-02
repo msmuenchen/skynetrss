@@ -115,7 +115,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/html" id="tpl-snackblock">
 <![CDATA[
       <div class="feed">
-        <h3 title="<%! this.desc %>"><%! this.title %> (<span class="unread"><%= this.unread %></span>)</h3>
+        <h3 title="<%! this.desc %>"><%! this.title %> <span class="unread">(<%= this.unread %>)</span></h3>
         <div class="content"></div>
       </div>
 ]]>
