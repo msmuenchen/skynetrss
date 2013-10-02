@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=0,width=320.1" />
     <meta name="google" value="notranslate" />
+<?
+if(isset($_GET["debug"]) && $config["debugurl"]!="")
+  echo '<script src="'.$config["debugurl"].'"></script>';
+?>
     
     <title>SKYRSS Reader</title>
     <link rel="stylesheet" href="app.css" type="text/css" media="all" />

@@ -9,3 +9,4 @@ $config["twitter"]["consumer_key"]="";
 $config["twitter"]["consumer_secret"]="";
 $config["facebook"]["app_id"]="";
 $config["facebook"]["app_secret"]="";
+$config["debugurl"]="";
