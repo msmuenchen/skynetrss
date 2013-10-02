@@ -110,7 +110,27 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
 </tr>
 ]]>
     </script>    
-
+    
+    <!-- jqote template for a snack block -->
+    <script type="text/html" id="tpl-snackblock">
+<![CDATA[
+      <div class="feed">
+        <h3 title="<%! this.desc %>"><%! this.title %> (<span class="unread"><%= this.unread %></span>)</h3>
+        <div class="content"></div>
+      </div>
+]]>
+    </script>
+    
+    <!-- jqote template for a snack item -->
+    <script type="text/html" id="tpl-snackitem">
+<![CDATA[
+      <div class="item">
+        <h4><%! this.title %></h4>
+        <div class="text"></div>
+      </div>
+]]>
+    </script>
+    
     <script type="text/plain" id="inject-height">
 // This script gets injected into the content iframes.
 // It tells the parent its inner height so that the iframe can be exactly fit
@@ -311,9 +331,11 @@ window.onkeydown=function(e) {
     <div class="view" id="index">
       <h1><span class="i18n" data-key="page_skyrss"></span></h1>
       <p><span class="i18n" data-key="page_startsite"></span></p>
+      <h2 class="i18n" data-key="page_mostrecent"></h2>
+      <div id="index-mostrecent"></div>
+      <div id="index-mostrecent-status"></div>
       <h2><span class="i18n" data-key="page_news"></span></h2>
-      <div id="index-news">
-      </div>
+      <div id="index-news"></div>
       <div id="index-news-status"></div>
     </div>
     <div class="view" id="feed">

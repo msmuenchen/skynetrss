@@ -455,8 +455,8 @@ jQuery(document).ready(function($){
       return;
     $(".view").hide();
     $("#index").show();
-    $("#index-news .news").remove();
-    $("#index-news-status").show().html(_("page_loading"));
+    $("#index-news .news,#index-mostrecent .feed").remove();
+    $("#index-news-status,#index-mostrecent-status").show().html(_("page_loading"));
     
     //we likely dont have settings at the moment...
     var it=setInterval(function() {
@@ -481,6 +481,24 @@ jQuery(document).ready(function($){
         $("#index-news-status").html(_("page_error"));
       });
     },500);
+    doAPIRequest("getsnacks",{},function(data) {
+      $("#index-mostrecent-status").hide();
+      data.feeds.forEach(function(e) {
+        var tpl=$($("#tpl-snackblock").jqote(e)).appendTo($("#index-mostrecent"));
+        tpl.click(function(ev) {
+          ev.stopPropagation();
+          location.hash="feed/"+e.id+"/";
+        });
+        var c=$(".content",tpl);
+        e.items.forEach(function(e2) {
+          var tpl2=$($("#tpl-snackitem").jqote(e2)).appendTo(c);
+          tpl2.click(function(ev) {
+            ev.stopPropagation();
+            location.hash="feed/"+e.id+"/"+e2.id+"/";
+          });
+        });
+      });
+    });
     appstate.view="index";
   });
   

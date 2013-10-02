@@ -475,3 +475,6 @@ color:#000;
 		padding:10px 5px;
 	}
 }
+#index-mostrecent h3, #index-mostrecent h4 {
+cursor:pointer;
+}

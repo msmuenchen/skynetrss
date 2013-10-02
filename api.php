@@ -39,6 +39,7 @@ try {
     case "library":
     case "createaccount":
     case "news":
+    case "getsnacks":
       require("api/api.$action.php");
     break;
     default:

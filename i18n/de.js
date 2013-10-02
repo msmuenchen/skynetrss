@@ -125,5 +125,6 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_feedsettings:"Feed-Einstellungen",
   page_infinitescroll:"Automatisches Nachladen von Feed-Items",
   page_skyrss:"SkyRSS",
-  page_news:"Neuigkeiten",
+  page_news:"Projekt-Neuigkeiten",
+  page_mostrecent:"Neueste Nachrichten",
 });
