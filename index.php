@@ -1,4 +1,11 @@
-<!doctype html>
+<?
+require("config.php");
+if(strtolower($_SERVER["SERVER_NAME"])!=$config["url"]["host"]) {
+  header("HTTP/1.1 301 Moved Permanently");
+  header("Location: ".$config["url"]["defaultscheme"]."://".$config["url"]["host"]);
+  exit(0);
+}
+?><!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
