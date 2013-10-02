@@ -679,6 +679,8 @@ function initLogin() {
         $("#login-error").show().html(data.msg);
         return;
       }
+      $("#menu .logoutshow").hide();
+      $("#menu .loginshow").show();
       loadSession()
       loadFeedList();
       location.hash="index";
