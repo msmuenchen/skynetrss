@@ -460,13 +460,18 @@ jQuery(document).ready(function($){
     
     //we likely dont have settings at the moment...
     var it=setInterval(function() {
-      if(userSettings.language) {
+      if(appstate.haveSession==true) {
         clearInterval(it);
       } else {
         console.glog("getnews","waiting for session/language");
         return;
       }
-      doAPIRequest("news",{lang:userSettings.language},function(data) {
+      var p={};
+      if(userSettings.language)
+        p.lang=userSettings.language;
+      else
+        p.lang=i18n._lang;
+      doAPIRequest("news",p,function(data) {
         $("#index-news-status").hide();
         data.items.forEach(function(e) {
           var tpl=$($("#tpl-newsitem").jqote(e)).appendTo($("#index-news"));
@@ -631,9 +636,9 @@ function loadSession() {
     } else {
       $("#menu .logoutshow").show();
     }
+    $.extend(defaultSettings,data.default_settings);
     $.extend(userSettings,defaultSettings);
     $.extend(userSettings,data.user_settings);
-    $.extend(defaultSettings,data.default_settings);
     updateSettingsElements();
     appstate.haveSession=true;
   });
