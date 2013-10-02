@@ -10,3 +10,7 @@ $config["twitter"]["consumer_secret"]="";
 $config["facebook"]["app_id"]="";
 $config["facebook"]["app_secret"]="";
 $config["debugurl"]="";
+$config["site"]["name"]="SKYRSS";
+$config["url"]["defaultscheme"]="http";
+$config["url"]["host"]="example.tld";
+$config["url"]["base"]="/skyrss";

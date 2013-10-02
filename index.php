@@ -16,7 +16,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
   echo '<script src="'.$config["debugurl"].'"></script>';
 ?>
     
-    <title>SKYRSS Reader</title>
+    <title><?= $config["site"]["name"] ?></title>
     <link rel="stylesheet" href="app.css" type="text/css" media="all" />
     
     <script type="text/javascript" src="js/console.js"></script>
