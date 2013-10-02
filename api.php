@@ -23,55 +23,23 @@ try {
   
   switch($action) {
     case "add": //add new feed to DB
-      require("api/api.add.php");
-    break;
     case "update": //force update/DB load
-      require("api/api.update.php");
-    break;
     case "get":
-      require("api/api.get.php");
-    break;
     case "getfeeds":
-      require("api/api.getfeeds.php");
-    break;
     case "importgr":
-      require("api/api.importgr.php");
-    break;
     case "setreadstate":
-      require("api/api.setreadstate.php");
-    break;
     case "markallasread":
-      require("api/api.markallasread.php");
-    break;
     case "login":
-      require("api/api.login.php");
-    break;
     case "logout":
-      require("api/api.logout.php");
-    break;
     case "getsession":
-      require("api/api.getsession.php");
-    break;
     case "unsubscribe":
-      require("api/api.unsubscribe.php");
-    break;
     case "changepwd":
-      require("api/api.changepwd.php");
-    break;
     case "discover":
-      require("api/api.discover.php");
-    break;
     case "updatesettings":
-      require("api/api.updatesettings.php");
-    break;
     case "library":
-      require("api/api.library.php");
-    break;
     case "createaccount":
-      require("api/api.createaccount.php");
-    break;
     case "news":
-      require("api/api.news.php");
+      require("api/api.$action.php");
     break;
     default:
       throw new APIWrongCallException("Ungültige Aktion angegeben");
