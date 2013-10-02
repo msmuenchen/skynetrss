@@ -1234,6 +1234,10 @@ $(window).resize(function() {
 }).resize();
 });
 jQuery(document).ready(function($){
+
   //read the current hash (e.g. when tab-clicking around or reloading)
   $(window).hashchange();
+  if(location.hash=="" || location.hash=="#")
+    location.hash="index";
 });
+
