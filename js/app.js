@@ -1031,6 +1031,12 @@ $(window).keypress(function(e) {
     break;
     case 102: //f
       $("#feed").toggleClass("fullscreen");
+      $(".feedline.open iframe").each(function() {
+        if(this.contentWindow && this.contentWindow.postMessage) {
+          $(this).height(0);
+          this.contentWindow.postMessage({type:"geth"},'*');
+        }
+      });
     break;
   }
 });
