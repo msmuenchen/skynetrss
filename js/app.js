@@ -914,6 +914,7 @@ n/p select next/previous item but dont open it
 o/<return> open/close selected item
 1 open all
 2 close all
+f open feedlist in fullscreen mode
 */
 $(window).keypress(function(e) {
   if(appstate.view!="feed")
@@ -924,7 +925,7 @@ $(window).keypress(function(e) {
   if(appstate.keyscope==99)
     return;
   //check if keycode is allowed at all
-  if($.inArray(e.keyCode,[13,49,50,106,107,110,111,112])==-1)
+  if($.inArray(e.keyCode,[13,49,50,106,107,110,111,112,102])==-1)
     return;
   
   //no meta-key (alt,ctrl, etc) combos
@@ -1027,6 +1028,9 @@ $(window).keypress(function(e) {
       var nId=n.attr("id");
       var r=/fl-([0-9]*)/.exec(nId);
       location.hash="feed/"+appstate.feed+"/"+r[1];
+    break;
+    case 102: //f
+      $("#feed").toggleClass("fullscreen");
     break;
   }
 });

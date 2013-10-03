@@ -510,3 +510,17 @@ p {
 	margin-bottom:4px;
 	margin-top:2px;
 }
+#feed.fullscreen #feedentries {
+position: absolute;
+top: 0;
+left: 0;
+margin: 0;
+padding: 0;
+height: 100%;
+width: 100%;
+background: #fff;
+}
+
+#feed.fullscreen #feedbar, #feed.fullscreen #feedfooter {
+display:none;
+}
