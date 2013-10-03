@@ -330,7 +330,7 @@ window.onkeydown=function(e) {
       </div>
     </div>
     <div class="view" id="index">
-      <h1><span class="i18n" data-key="page_skyrss"></span></h1>
+      <h1><?= $config["site"]["name"] ?></h1>
       <p><span class="i18n" data-key="page_startsite"></span></p>
       <h2 class="i18n" data-key="page_mostrecent"></h2>
       <div id="index-mostrecent"></div>
