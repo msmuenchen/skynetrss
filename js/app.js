@@ -163,6 +163,7 @@ function loadFeed(id,pos) {
     },500);
     appstate.feed=id;
     appstate.pos=pos;
+    appstate.nextstart=0;
   } else {
     console.log("appstate fid=id="+id);
     openFeedItem(pos);
