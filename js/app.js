@@ -35,8 +35,6 @@ function updateFeed(id) {
 //load a list of all feeds from server
 function loadFeedList() {
   //remove all old feed items
-  $("#feedlist .feed").remove();
-  $("#feedlist li").hide();
   $("#feedlist .loading").show();
   
   //settings view
@@ -45,6 +43,8 @@ function loadFeedList() {
   $("#feedlist .nofeeds,#settings-feeds .nofeeds").hide();
   
   doAPIRequest("getfeeds",{feed:0},function(data) { //success
+    $("#feedlist .feed").remove();
+    $("#feedlist li").hide();
     $("#feedlist .loading").hide();
     if(data.items.length==0)
       $("#feedlist .nofeeds,#settings-feeds .nofeeds").show();
