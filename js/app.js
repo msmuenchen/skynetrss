@@ -266,6 +266,11 @@ function loadFeedData(id,pos,start) {
         if(e.scrape_fulltext && e.scrape_fulltext!="")
           e.fulltext=e.scrape_fulltext;
         
+        if($("#fl-"+e.id).length!=0) {
+          console.gerror("loadFeedData","discarding already present item",e.id);
+          return;
+        }
+        
         var obj={
           id:e.id,
           title:e.title,
