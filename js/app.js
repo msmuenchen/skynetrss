@@ -296,10 +296,11 @@ function loadFeedData(id,pos,start) {
         });
         el.attr("title",e.id);
         $(".share",el).click(function() {
+          var extUrl=appconfig.base+appconfig.exturl+"?f="+id+"&i="+e.id;
           $("#modal-container").show();
           $("#share-content").show().focus();
-          $("#share-twitter").attr("href","https://twitter.com/intent/tweet?url="+encodeURIComponent(e.link));
-          $("#share-fb").attr("href","https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(e.link));
+          $("#share-twitter").attr("href","https://twitter.com/intent/tweet?url="+encodeURIComponent(extUrl));
+          $("#share-fb").attr("href","https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(extUrl));
         });
         
         //Set the initial state of the checkbox
