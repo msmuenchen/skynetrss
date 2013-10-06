@@ -17,7 +17,7 @@ $start=0;
 if(isset($_GET["start"])) {
   $start=(int)$_GET["start"];
 }
-$len=20;
+$len=25;
 if(isset($_GET["len"])) {
   $len=(int)$_GET["len"];
 }
