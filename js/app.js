@@ -200,18 +200,17 @@ function markAsRead(fid,pid,read) {
     return;
   doAPIRequest("setreadstate",{feed:fid,item:pid,state:state},function(data) {
     console.log("updated readstate of "+fid+"/"+pid+" to "+state);
-    if(appstate.feed==fid) { //it may be that we switched to another feed when the AJAX returns
-      if(read)
-        $("#fl-"+pid+" .title").removeClass("unread");
-      else
-        $("#fl-"+pid+" .title").addClass("unread");
-    }
     if(data.affected==1) {
       var old=parseInt($("#fi-"+fid+" .unread_count").html());
-      if(read)
+      if(read) {
+        if(appstate.feed==fid)
+          $("#fl-"+pid+" .title").removeClass("unread");
         old--;
-      else
+      } else {
+        if(appstate.feed==fid)
+          $("#fl-"+pid+" .title").addClass("unread");
         old++;
+      }
       $("#fi-"+fid+" .unread_count").html(old);
       if(old==0)
         $("#fi-"+fid).removeClass("hasunread");
