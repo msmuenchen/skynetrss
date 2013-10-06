@@ -146,6 +146,7 @@ function loadFeed(id,pos) {
   pos=pos||0;
   if(appstate.feed!=id) {
     console.log("appstate fid="+appstate.feed+", id="+id);
+    $("#feedmore").removeClass().addClass("loading"); //prevent infinite-scroll from loading
     $("#feed_href").removeAttr("href");
     $("#feed_title").html(_("page_loading"));
     $("#feedentries").scrollTop(0); //scroll to top
@@ -213,7 +214,7 @@ function loadFeedData(id,pos,start) {
     if(e.id==id)
       $("#feed_addfrompreview").parent().hide();
   });
-  $("#feedmore").addClass("loading"); //prevent infinite-scroll from loading
+  $("#feedmore").removeClass().addClass("loading"); //prevent infinite-scroll from loading
   doAPIRequest("get",params,function(data) {
       if(data.status!="ok") {
         if(data.type=="PermissionDeniedException") {
