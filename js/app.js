@@ -99,6 +99,7 @@ function loadFeedList() {
 }
 
 //open a feed item in the list (pos: db id of the item)
+//noscroll: used by open-all, don't scroll anywhere and don't remove old iframes
 function openFeedItem(pos, noScroll) {
   if(typeof noScroll=="undefined")
     noScroll=false;
@@ -107,6 +108,11 @@ function openFeedItem(pos, noScroll) {
   if(newfl.hasClass("open")) //nothing to do here
     return;
   
+  var oldPos=newfl.position();
+  var oldTop=0;
+  if(oldPos && oldPos.top)
+    oldTop=oldPos.top;
+    
   //clean up the old item(s) so that the DOM resources are free'd
   if(!noScroll)
     $(".feedline iframe").remove();
@@ -122,6 +128,16 @@ function openFeedItem(pos, noScroll) {
   if(!noScroll) {
     if(userSettings.jumponopen && userSettings.jumponopen==1)
       $("#feedentries").scrollTo(newfl);
+    else {
+      var newTop=newfl.position().top;
+      if(oldTop!=newTop) { //new element was below old opened element
+        var delta=Math.abs(oldTop)+Math.abs(newTop);
+        var cSt=$("#feedentries").scrollTop();
+        var nSt=cSt-delta;
+        $("#feedentries").scrollTop(nSt);
+        console.glog("openFeedItem","old top",oldTop,"newTop",newTop,"delta",delta,"cSt",cSt,"delta",delta,"nSt",nSt);
+      }
+    }
   }
 
   var ifr=$("<iframe>");
