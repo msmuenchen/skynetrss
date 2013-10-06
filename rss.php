@@ -217,6 +217,14 @@ class RDFFeed extends Feed {
     $this->ttl=15;
     $this->icon="";
     
+    if(property_exists($channel,"image")) {
+      $img=$channel->image->attributes($namespaces["rdf"]);
+      if(property_exists($img,"resource")) {
+        $this->icon=(string)$img->resource;
+        echo "set icon to ".$this->icon."\n";
+      }
+    }
+
     foreach($tree->item as $index=>$item) {
       $itemObj=new FeedItem();
       
@@ -239,7 +247,7 @@ class RDFFeed extends Feed {
       } else {
         throw new MalformedFeedException("Item $index does not have TITLE or DESCRIPTION");
       }
-      
+
       //Try to get fulltext. Take content, description or the title as last resort
       //This is disabled, it doesnt work -...-
     /*    if(false && property_exists($item,"content")) {
@@ -412,6 +420,7 @@ function updateFeed($id,$forceRescrape=false) {
       $mt="application/octet-stream";//@mime_content_type($icon);
       $feed->icon=sprintf("data:%s;base64,%s",$mt,base64_encode($data));
     } catch(CURLDownloadException $e) {
+      $log.="Icon download failed for URL '".$icon."'!\n";
       $feed->icon="";
     }
   }
