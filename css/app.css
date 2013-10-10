@@ -204,10 +204,10 @@ height:22px;
 width:150px;
 }
 #logintw {
-	background:url("assets/signin_twitter.png");
+	background:url("../assets/signin_twitter.png");
 }
 #loginfb {
-	background:url("assets/signin_facebook.png");
+	background:url("../assets/signin_facebook.png");
 }
 #logintw:hover,#loginfb:hover {
 	background-position:0 46px;
