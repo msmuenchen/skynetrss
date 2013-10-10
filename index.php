@@ -18,6 +18,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     
     <title><?= $config["site"]["name"] ?></title>
     <link rel="stylesheet" href="css/app.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.css" type="text/css" media="all" />
     
     <script type="text/javascript" src="js/console.js"></script>
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
@@ -28,6 +29,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
     <script type="text/javascript" src="js/jquery.toggleCheckbox.js"></script>
     <script type="text/javascript" src="js/jquery.dropdown.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
     
     <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
