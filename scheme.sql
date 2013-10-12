@@ -109,6 +109,7 @@ CREATE TABLE `user_feeds` (
   `user_id` int(11) NOT NULL,
   `feed_id` int(11) NOT NULL,
   `dir_id` int(11) NOT NULL,
+  `order` int(11) NOT NULL,
   UNIQUE KEY `user_id` (`user_id`,`feed_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
