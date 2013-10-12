@@ -407,7 +407,7 @@ function updateFeed($id,$forceRescrape=false) {
   //check if the feed is in the database already
   $q=new DB_Query("select * from feeds where id=?",$id);
   if($q->numRows!=1)
-    throw new Exception("Feed $feed not in DB! Call Feed Add before Feed Update!");
+    throw new Exception("Feed $id not in DB! Call Feed Add before Feed Update!");
   $row=$q->fetch();
   
   $log="Updating feed ".$row["url"]."\n";
