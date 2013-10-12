@@ -29,6 +29,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
     <script type="text/javascript" src="js/jquery.toggleCheckbox.js"></script>
     <script type="text/javascript" src="js/jquery.dropdown.js"></script>
+    <script type="text/javascript" src="js/jquery.alterclass.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
     
     <script type="text/javascript" src="config.js"></script>
