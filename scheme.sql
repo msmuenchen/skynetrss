@@ -90,12 +90,25 @@ CREATE TABLE `news` (
   UNIQUE KEY `sk_uniq` (`sk`,`lang`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `user_dirs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_dirs` (
+  `user_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL,
+  `label` varchar(120) NOT NULL,
+  `order` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_feeds`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_feeds` (
   `user_id` int(11) NOT NULL,
   `feed_id` int(11) NOT NULL,
+  `dir_id` int(11) NOT NULL,
   UNIQUE KEY `user_id` (`user_id`,`feed_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
