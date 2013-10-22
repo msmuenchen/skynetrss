@@ -2,6 +2,14 @@
 //and support retrying of requests
 var APIRequestPool=[];
 
+//when this is set to true, don't whine about API errors
+//all requests will be canceled and their error() events fired upon unload!
+var isUnloading=false;
+window.addEventListener("beforeunload",function() {
+  console.log("unloading page!");
+  isUnloading=true;
+});
+
 function doAPIRequest(target,params,success,fail,always) {
   var logstr="";
   var queryUrl=appconfig.apiurl+"?action="+target;
@@ -37,6 +45,10 @@ function doAPIRequest(target,params,success,fail,always) {
       }
     }).
     fail(function() {
+      if(isUnloading) {
+        console.error("Request #"+reqId+" to API "+target+" ("+logstr+") failed because of page unload!");
+        return;
+      }
       console.error("Request #"+reqId+" to API "+target+" ("+logstr+") failed on network level");
       if(confirm(sprintf(_("apierror_confirm"),target))) {
         doAPIRequest(target,params,success,fail,always);
