@@ -11,7 +11,7 @@ window.addEventListener("beforeunload",function() {
 });
 
 function doAPIRequest(target,params,success,fail,always) {
-  if(typeof appcacheIsReady!="undefined" && appcacheIsReady==false) {
+  if(window.applicationCache && window.applicationCache.status!=window.applicationCache.IDLE) {
     console.glog("api","postponing request to "+target+" because appcache is not ready yet");
     setTimeout(function() {
       doAPIRequest(target,params,success,fail,always);
