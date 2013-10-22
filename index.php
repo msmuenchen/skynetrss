@@ -82,7 +82,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <!-- jqote template for a feed list entry -->
     <script type="text/html" id="tpl-feedlist">
 <![CDATA[
-<li class="feed <%= this.liclass %>" id="fi-<%= this.id %>" title="<%! this.desc %>">
+<li class="<%= this.liclass %>" title="<%! this.desc %>">
 <% if(this.icon!="") { %>
   <img src="<%! this.icon %>" class="icon" />
 <% } %>
@@ -133,6 +133,41 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
       </div>
 ]]>
     </script>
+    
+    
+    <!-- jqote template for a settings feed line -->
+    <script type="text/html" id="tpl-settings-feed">
+<![CDATA[
+      <tr class="feed">
+        <td class="icon">
+        <% if(this.icon!="") { %>
+          <img src="<%! this.icon %>" class="icon" />
+        <% } %>
+        </td>
+        <td class="theid"><%= this.id %></td>
+        <td><a href="<%! this.link %>" target="_blank"><%! this.link %></a></td>
+        <td><%! this.title %></td>
+        <td><button class="del"><%= _("page_delete") %></button></td>
+        <td><%= this.order %></td>
+      </tr>
+]]>
+    </script>
+    
+    <!-- jqote template for a settings directory line -->
+    <script type="text/html" id="tpl-settings-dir">
+<![CDATA[
+      <tr class="dir">
+        <td class="icon">
+          <% if(this.icon!="") { %>
+            <img src="<%! this.icon %>" class="icon" />
+          <% } %>
+        </td>
+        <td colspan="4"><%! this.title %></td>
+        <td><%= this.order %></td>
+      </td>
+]]>
+    </script>
+    
     
     <script type="text/plain" id="inject-height">
 // This script gets injected into the content iframes.
@@ -276,8 +311,9 @@ window.onkeydown=function(e) {
           <div class="tab tab-feeds active">
             <table id="settings-feeds">
               <thead>
-                <tr><th><span class="i18n" data-key="page_feedid"></span></th><th><span class="i18n" data-key="page_feedurl"></span></th><th><span class="i18n" data-key="page_feedtitle"></span></th><th><span class="i18n" data-key="page_action"></span></th></tr>
-                <tr class="nofeeds"><td colspan="4"><span class="i18n" data-key="page_nofeeds"></span></td></tr>
+                <tr><th></th><th><span class="i18n" data-key="page_feedid"></span></th><th><span class="i18n" data-key="page_feedurl"></span></th><th><span class="i18n" data-key="page_feedtitle"></span></th><th><span class="i18n" data-key="page_action"></span></th><th>OID</th></tr>
+                <tr class="nofeeds"><td colspan="5"><span class="i18n" data-key="page_nofeeds"></span></td></tr>
+                <tr class="ddhelper"><td></td><td colspan="5" class="h"></td></tr>
               </thead>
               <tbody>
               </tbody>

@@ -10,6 +10,8 @@ $q=new DB_Query("SELECT f.id,
                         f.icon,
                         f.desc,
                         f.url,
+                        uf.dir_id,
+                        uf.order,
                         (SELECT COUNT(DISTINCT fi.id)
                           FROM feed_items AS fi
                           WHERE fi.feed_id=f.id)
@@ -29,3 +31,8 @@ while($r=$q->fetch()) {
   $ret["items"][]=$r;
 }
 $ret["ts"]=time();
+
+$q2=new DB_Query("select * from user_dirs where user_id=?",$uid);
+$ret["dirs"]=array(array("user_id"=>$uid,"id"=>0,"parent_id"=>0,"label"=>"Alle","order"=>0));
+while($r=$q2->fetch())
+  $ret["dirs"][]=$r;
