@@ -52,4 +52,4 @@ try {
   $ret["message"]=$e->getMessage();
   $ret["type"]=get_class($e);
 }
-echo json_encode($ret,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP);
+echo pretty_json(json_encode($ret,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
