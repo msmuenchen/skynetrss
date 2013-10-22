@@ -14,10 +14,11 @@ $v=array();
 exec("git ls-files js/*",$v);
 exec("git ls-files assets/*",$v);
 exec("git ls-files i18n/*",$v);
+exec("git ls-files css/*",$v);
 $v[]="index.php";
-$v[]="app.css";
 $v[]="js/sprintf.js/src/sprintf.js";
-
+$v[]="config.js";
+$v[]="js/polyfill.js/srcdoc-polyfill.js";
 foreach($v as $f) {
   if(!is_file($f))
     continue;
