@@ -11,6 +11,13 @@ window.addEventListener("beforeunload",function() {
 });
 
 function doAPIRequest(target,params,success,fail,always) {
+  if(typeof appcacheIsReady!="undefined" && appcacheIsReady==false) {
+    console.glog("api","postponing request to "+target+" because appcache is not ready yet");
+    setTimeout(function() {
+      doAPIRequest(target,params,success,fail,always);
+    },1000);
+    return;
+  }
   var logstr="";
   var queryUrl=appconfig.apiurl+"?action="+target;
   var reqId=appstate.requestCounter++;
