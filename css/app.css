@@ -147,16 +147,43 @@ display:block;
   background-color:#0ff;
 padding: 1px 4px;
 }
-.feed.hasicon {
+#feedlist .hasicon {
   list-style-type:none;
   position:relative;
 }
-.feed .icon {
+#feedlist .icon {
   max-height:20px;
   max-width:20px;
   position:absolute;
   left:-25px;
 }
+#settings-feeds .icon {
+  max-height:20px;
+  max-width:20px;
+
+}
+#settings-feeds .lv1 td:first-of-type {
+	padding-left:10px;
+}
+#settings-feeds .lv2 td:first-of-type {
+	padding-left:20px;
+}
+#settings-feeds .ddhelper {
+display:none;
+}
+#settings-feeds .ddhelper td.h {
+	border:2px dashed grey;
+	border-radius:5px;
+	background-color:aqua;
+	height:20px;
+}
+#feedlist .lv1 {
+	margin-left:10px;
+}
+#feedlist .lv2 {
+	margin-left:20px;
+}
+
 .fullText iframe {
   width:100%;
   border:none;
@@ -368,6 +395,7 @@ height:100%;
 @media screen and (max-width:750px) {
 	#menu {
 		width:100%;
+		border-right:none;
 	}
 	#content {
 		width:100%;
@@ -400,6 +428,8 @@ text-transform: uppercase;
 #menu li.groupitem {
 font-size:90%;
 line-height:90%;
+padding-left: 30px;
+list-style: none;
 }
 #feedlist {
 margin-top:20px;
@@ -492,9 +522,6 @@ cursor:pointer;
 }
 #index-mostrecent .item:first-of-type {
 	margin-top:8px;
-}
-#index-mostrecent .feed {
-	max-width:650px;
 }
 #index-mostrecent div {
 width: -webkit-fit-content;
