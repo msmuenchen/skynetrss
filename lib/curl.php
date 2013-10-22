@@ -17,6 +17,8 @@ class CURL {
   }
   public static function get($url) {
     $scheme=parse_url($url,PHP_URL_SCHEME);
+//TODO THIS IS UGLY
+    if($scheme=="") { $scheme="http"; $url="http:".$url; }//protocol-relative URLs default to http
     if(!in_array($scheme,array("http","https","ftp")))
       throw new PermissionDeniedException("Ungültige URL");
     
