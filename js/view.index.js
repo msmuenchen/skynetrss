@@ -10,6 +10,13 @@ $(document).on("skyrss_view_index",function() {
   $("#index").show();
   $("#index-news-status,#index-mostrecent-status").show().html(_("page_loading"));
 
+  appstate.news={};
+  appstate.news.loaded=false;
+  appstate.news.object={};
+  appstate.snacks={};
+  appstate.snacks.loaded=false;
+  appstate.snacks.object={};
+
   if(appstate.online==true) {
     (function () {
       if(!appstate.settings.loaded) {
@@ -24,12 +31,6 @@ $(document).on("skyrss_view_index",function() {
     loadSnacksFromLSO();
     loadNewsFromLSO();
   }
-  appstate.news={};
-  appstate.news.loaded=false;
-  appstate.news.object={};
-  appstate.snacks={};
-  appstate.snacks.loaded=false;
-  appstate.snacks.object={};
 });
 
 function loadSnacksFromServer() {
