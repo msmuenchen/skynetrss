@@ -49,6 +49,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/component.feedlist.js"></script>
     <script type="text/javascript" src="js/component.nav.js"></script>
     <script type="text/javascript" src="js/component.mobify.js"></script>
+    <script type="text/javascript" src="js/component.browserbark.js"></script>
     <script type="text/javascript" src="js/view.index.js"></script>
     <script type="text/javascript" src="js/view.login.js"></script>
     <script type="text/javascript" src="js/view.logout.js"></script>
