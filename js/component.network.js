@@ -4,7 +4,6 @@ if(typeof appstate!="object")
 
 //check if we're connected
 function checkNetworkConnection() {
-  $("#offline-box").show();
   console.glog("checkNetworkConnection","checking online status, current online=",appstate.online);
   doAPIRequest("onlinecheck",{ignoreNetworkException:true},function() { //success
     console.glog("checkNetworkConnection","we're online");
@@ -24,6 +23,7 @@ function checkNetworkConnection() {
       $(document).trigger("skyrss_netoffline");
     } else
       appstate.online=false;
+    $("#offline-box").show();
   },
   null //always
   );
@@ -33,6 +33,6 @@ function checkNetworkConnection() {
 $(document).ready(function() {
   appstate.online=null; //not true/false, so that the check always fires a trigger on first execution
   checkNetworkConnection();
-  setInterval(checkNetworkConnection,1000*5); //check every two minutes if we're online
+  setInterval(checkNetworkConnection,1000*30); //check every two minutes if we're online
   $("#offline-box").click(checkNetworkConnection);
 });
