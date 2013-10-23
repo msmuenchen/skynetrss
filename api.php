@@ -42,6 +42,9 @@ try {
     case "getsnacks":
       require("api/api.$action.php");
     break;
+    case "onlinecheck":
+      //this is a dummy action used to check if we're online or on appcache
+    break;
     default:
       throw new APIWrongCallException("Ungültige Aktion angegeben");
   }
