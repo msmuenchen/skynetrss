@@ -23,6 +23,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/console.js"></script>
     
     <!-- jquery and plugins -->
+    <script type="text/javascript" src="js/modernizr.js"></script>
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript">
 if(window.applicationCache) {
