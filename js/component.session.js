@@ -9,7 +9,7 @@ $(document).ready(function() {
   appstate.session.object={};
 });
 
-$(document).on("skyrss_netonline",function() {
+$(document).on("skyrss_netonline skyrss_login skyrss_logout",function() {
   console.glog("component.session","loading session from server");
   doAPIRequest("getsession",{},function(data) {
     console.glog("component.session","got session from server, data is",data);
