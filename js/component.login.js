@@ -17,7 +17,13 @@ $(document).ready(function() {
     $(this).attr("disabled","disabled");
     $("#login-error").hide();
     //todo: autocomplete?
-    doAPIRequest("login",{username:$("#login-username").val(),password:$("#login-password").val()},function(data) {
+    doAPIRequest("login",{ignoreAPIException:true,username:$("#login-username").val(),password:$("#login-password").val()},function(data) {
+      //todo: unify exception handling!
+      if(data.status!="ok") {
+        console.gerror("component.login","api error",data.message);
+        $("#login-error").show().html(data.message);
+        return;
+      }
       if(data.login!="ok") {
         console.gerror("component.login","login failed:",data.msg);
         $("#login-error").show().html(data.msg);
