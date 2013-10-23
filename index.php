@@ -315,10 +315,10 @@ window.onkeydown=function(e) {
   <div id="menu">
     <ul>
       <li class="groupheader"><a href="#index" class="i18n" data-key="page_home"></a></li>
-      <li class="groupheader loginshow i18n connectedshow" data-key="page_headeradd"></li>
+      <li class="groupheader loginshow i18n" data-key="page_headeradd"></li>
       <li class="loginshow groupitem connectedshow"><a href="#addnew"><span class="i18n" data-key="page_addfeed"></span></a></li>
       <li class="loginshow groupitem connectedshow"><a href="#addgr"><span class="i18n" data-key="page_addgr"></span></a></li>
-      <li class="loginshow groupitem connectedshow"><a href="#library"><span class="i18n" data-key="page_library"></span></a></li>
+      <li class="loginshow groupitem"><a href="#library"><span class="i18n" data-key="page_library"></span></a></li>
       <li class="groupheader i18n connectedshow" data-key="page_headeraccount"></li>
       <li class="logoutshow groupitem connectedshow"><a href="#login"><span class="i18n" data-key="page_login"></span></a></li>
       <li class="loginshow groupitem connectedshow"><a href="#logout"><span class="i18n" data-key="page_logout"></span></a></li>
