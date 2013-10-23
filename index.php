@@ -556,6 +556,10 @@ window.onkeydown=function(e) {
       <h2 class="i18n" data-key="page_error"></h2>
       <span class="i18n" data-key="page_nosafariwin"></span>
     </div>
+    <div id="manifest-progress" class="modal-box">
+      <h2 class="i18n" data-key="page_loading"></h2>
+      <span id="manifest-label"></span>
+    </div>
   </div>
   </body>
 </html>
