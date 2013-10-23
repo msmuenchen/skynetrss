@@ -56,6 +56,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/view.welcome.js"></script>
     <script type="text/javascript" src="js/view.settings.js"></script>
     <script type="text/javascript" src="js/view.library.js"></script>
+    <script type="text/javascript" src="js/view.feed.js"></script>
     
     <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
