@@ -14,11 +14,13 @@ $(document).ready(function() {
 $(document).on("skyrss_session_load",function() {
   var s=appstate.session.object;
   console.glog("component.settings","updating with new settings",s);
-  $("#settingsform-account .username").html(s.user.name);
-  if(s.user.source!="") {
-    $("#settingsform-account .passwordrow").hide();
-  } else {
-    $("#settingsform-account .passwordrow").show();
+  if(s.user) {
+    $("#settingsform-account .username").html(s.user.name);
+    if(s.user.source!="") {
+      $("#settingsform-account .passwordrow").hide();
+    } else {
+      $("#settingsform-account .passwordrow").show();
+    }
   }
   appstate.settings.default=s.default_settings;
   appstate.settings.user=s.user_settings;
