@@ -117,6 +117,13 @@ if(window.applicationCache) {
     <script type="text/javascript" src="js/component.logout.js"></script>
     <script type="text/javascript" src="js/component.createaccount.js"></script>
     <script type="text/javascript" src="js/component.feedlist.js"></script>
+    <script type="text/javascript" src="js/component.nav.js"></script>
+    <script type="text/javascript" src="js/view.index.js"></script>
+    <script type="text/javascript" src="js/view.login.js"></script>
+    <script type="text/javascript" src="js/view.logout.js"></script>
+    <script type="text/javascript" src="js/view.welcome.js"></script>
+    <script type="text/javascript" src="js/view.settings.js"></script>
+    <script type="text/javascript" src="js/view.library.js"></script>
     
     <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
