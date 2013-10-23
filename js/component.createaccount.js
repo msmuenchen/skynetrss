@@ -29,8 +29,8 @@ $(document).ready(function() {
         $("#login-error").show().html(data.msg);
         return;
       }
-      $(document).trigger("skyrss_login");
       $(document).trigger("skyrss_createaccount");
+      $(document).trigger("skyrss_login");
     },
     null, //fail
     function() { //always
