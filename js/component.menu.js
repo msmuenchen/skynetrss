@@ -35,6 +35,10 @@ $(document).on("skyrss_feedlist_load",function() {
   $("#feedlist .feed,#feedlist .dir").remove();
   $("#feedlist li,#feedlist .loading").hide();
   var c=$("#feedlist");
+  if(data.items.length==0) {
+    $("#feedlist .nofeeds").show();
+    return;
+  }
   data.dirs.forEach(function(e) {
     e.icon=appconfig.diricon;
     var obj={
