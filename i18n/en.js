@@ -42,7 +42,7 @@ xlateAddLang("en","English",{
   page_shareontwitter:"Share on Twitter",
   page_shareonfb:"Share on Facebook",
   page_loading:"Loading...",
-  page_startsite:"Please choose a feed in the menu...",
+  page_startsite:"Please choose a feed in the menu.",
   page_addnewintro:"Paste any website or RSS/ATOM/RDF feed URL into the box and SkyRSS will do the rest for you",
   page_logoutwarning:"this step will delete all synchronized elements from this computer!",
   page_warning:"Warning",

@@ -43,7 +43,7 @@ xlateAddLang("de","Deutsch",{
   page_shareontwitter:"Auf Twitter teilen",
   page_shareonfb:"Auf Facebook teilen",
   page_loading:"Lade...",
-  page_startsite:"Bitte wählen Sie links einen Feed aus...",
+  page_startsite:"Bitte wählen Sie links einen Feed aus.",
   page_addnewintro:"Sie können in die Box die Adresse einer beliebigen Website oder eines RSS/ATOM/RDF-Feeds einfügen, den Rest erledigt SkyRSS",
   page_logoutwarning:"dieser Schritt löscht sämtliche synchronisierten Elemente von Ihrem Rechner!",
   page_warning:"Achtung",
