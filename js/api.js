@@ -10,6 +10,9 @@ window.addEventListener("beforeunload",function() {
   isUnloading=true;
 });
 
+//do an API request
+//param.ignoreNetworkException=true: do not report to the user that the request failed on network level, but still call s/f/a handlers
+//param.ignoreAPIException=true: do not prompt the user for retry of request, still call s/f/a handlers
 function doAPIRequest(target,params,success,fail,always) {
   if(window.applicationCache && window.applicationCache.status!=window.applicationCache.IDLE) {
     console.glog("api","postponing request to "+target+" because appcache is not ready yet");
@@ -34,7 +37,7 @@ function doAPIRequest(target,params,success,fail,always) {
       if(!data.status || (data.status!="ok" && !params.ignoreAPIException)) {
         if(!data.message)
           data.message="";
-        console.error("Request #"+reqId+" to API "+target+" ("+logstr+") returned error on API level: '"+data.message+"'");
+        console.gerror("api","Request #"+reqId+" to API "+target+" ("+logstr+") returned error on API level: '"+data.message+"'");
         //See if the user wants to retry, don't fail silently
         if(confirm(sprintf(_("apierror_confirm"),target)))
           doAPIRequest(target,params,success,fail,always);
@@ -53,7 +56,7 @@ function doAPIRequest(target,params,success,fail,always) {
     }).
     fail(function() {
       if(isUnloading) {
-        console.error("Request #"+reqId+" to API "+target+" ("+logstr+") failed because of page unload!");
+        console.gerror("api","Request #"+reqId+" to API "+target+" ("+logstr+") failed because of page unload!");
         return;
       }
       console.error("Request #"+reqId+" to API "+target+" ("+logstr+") failed on network level");
