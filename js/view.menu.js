@@ -1,14 +1,14 @@
-//SkyRSS app component: menu display
+//SkyRSS menu view
 if(typeof appstate!="object")
   appstate={};
 
 $(document).ready(function() {
-  console.glog("component.menu","initializing");
+  console.glog("view.menu","initializing");
   $("#feedlist .loading").show();
 });
 
 $(document).on("skyrss_session_load",function() {
-  console.glog("component.menu","have got session data");
+  console.glog("view.menu","have got session data");
   var data=appstate.session.object;
   $("#menu .loginshow,#menu .logoutshow,#menu .connectedshow,#menu .offlineshow").show();
   //show the menu entries depending on login state
@@ -30,7 +30,7 @@ $(document).on("skyrss_session_load",function() {
 //add menu items
 $(document).on("skyrss_feedlist_load",function() {
   var data=appstate.feedlist.object;
-  console.glog("component.menu","inserting feedlist",data);
+  console.glog("view.menu","inserting feedlist",data);
   $("#feedlist .nofeeds").hide();
   $("#feedlist .feed,#feedlist .dir").remove();
   $("#feedlist li,#feedlist .loading").hide();
@@ -98,7 +98,7 @@ $(document).on("skyrss_feedlist_load",function() {
     if(de.length==1) {
       el.addClass("lv"+(de.data("lv")+1));
     } else {
-      console.gerror("component.menu","directory",e.dir_id,"has no matching element");
+      console.gerror("view.menu","directory",e.dir_id,"has no matching element");
     }
     var lastOfDir=$(".dir-"+e.dir_id,"#feedlist").last();
     if(lastOfDir.length==1) {

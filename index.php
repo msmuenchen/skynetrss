@@ -41,7 +41,6 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <!-- application components -->
     <script type="text/javascript" src="js/component.network.js"></script>
     <script type="text/javascript" src="js/component.session.js"></script>
-    <script type="text/javascript" src="js/component.menu.js"></script>
     <script type="text/javascript" src="js/component.settings.js"></script>
     <script type="text/javascript" src="js/component.login.js"></script>
     <script type="text/javascript" src="js/component.logout.js"></script>
@@ -50,6 +49,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/component.nav.js"></script>
     <script type="text/javascript" src="js/component.mobify.js"></script>
     <script type="text/javascript" src="js/component.browserbark.js"></script>
+    <script type="text/javascript" src="js/view.menu.js"></script>
     <script type="text/javascript" src="js/view.index.js"></script>
     <script type="text/javascript" src="js/view.login.js"></script>
     <script type="text/javascript" src="js/view.logout.js"></script>
