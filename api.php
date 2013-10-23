@@ -38,7 +38,7 @@ try {
     case "updatesettings":
     case "library":
     case "createaccount":
-    case "news":
+    case "getnews":
     case "getsnacks":
       require("api/api.$action.php");
     break;
