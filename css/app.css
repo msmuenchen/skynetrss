@@ -551,3 +551,11 @@ background: #fff;
 #feed.fullscreen #feedbar, #feed.fullscreen #feedfooter {
 display:none;
 }
+#offline-box {
+position:absolute;
+top:0px;
+background-color:beige;
+left:10px;
+padding:5px 10px;
+z-index:9999;
+}
