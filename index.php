@@ -116,6 +116,7 @@ if(window.applicationCache) {
     <script type="text/javascript" src="js/component.login.js"></script>
     <script type="text/javascript" src="js/component.logout.js"></script>
     <script type="text/javascript" src="js/component.createaccount.js"></script>
+    <script type="text/javascript" src="js/component.feedlist.js"></script>
     
     <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
