@@ -113,6 +113,9 @@ if(window.applicationCache) {
     <script type="text/javascript" src="js/component.session.js"></script>
     <script type="text/javascript" src="js/component.menu.js"></script>
     <script type="text/javascript" src="js/component.settings.js"></script>
+    <script type="text/javascript" src="js/component.login.js"></script>
+    <script type="text/javascript" src="js/component.logout.js"></script>
+    <script type="text/javascript" src="js/component.createaccount.js"></script>
     
     <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
