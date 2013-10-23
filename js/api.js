@@ -64,10 +64,14 @@ function doAPIRequest(target,params,success,fail,always) {
         console.gerror("api","Request #"+reqId+" to API "+target+" ("+logstr+") failed because of page unload!");
         return;
       }
-      console.error("Request #"+reqId+" to API "+target+" ("+logstr+") failed on network level");
-      if(confirm(sprintf(_("apierror_confirm"),target))) {
-        doAPIRequest(target,params,success,fail,always);
-        return; //the request may succeed on retry, so return and do not fire the supplied fail-handler
+      console.gerror("api","Request #"+reqId+" to API "+target+" ("+logstr+") failed on network level");
+      if(params.ignoreNetworkException && params.ignoreNetworkException==true) {
+        console.glog("api","Not showing failure to user, override specified");
+      } else {
+        if(confirm(sprintf(_("apierror_confirm"),target))) {
+          doAPIRequest(target,params,success,fail,always);
+          return; //the request may succeed on retry, so return and do not fire the supplied fail-handler
+        }
       }
       if(typeof(fail)=="function") {
         console.glog("api","Calling the 'fail' handler of API request #"+reqId);
