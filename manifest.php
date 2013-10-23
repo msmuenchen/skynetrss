@@ -19,6 +19,8 @@ $v[]="index.php";
 $v[]="js/sprintf.js/src/sprintf.js";
 $v[]="config.js";
 $v[]="js/polyfill.js/srcdoc-polyfill.js";
+$v[]="js/IndexedDBShim/dist/IndexedDBShim.js";
+$v[]="js/jquery-indexeddb/dist/jquery.indexeddb.js";
 foreach($v as $f) {
   if(!is_file($f))
     continue;

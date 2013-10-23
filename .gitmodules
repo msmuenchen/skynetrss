@@ -16,3 +16,6 @@
 [submodule "js/IndexedDBShim"]
 	path = js/IndexedDBShim
 	url = https://github.com/axemclion/IndexedDBShim
+[submodule "js/jquery-indexeddb"]
+	path = js/jquery-indexeddb
+	url = https://github.com/axemclion/jquery-indexeddb.git

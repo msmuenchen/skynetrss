@@ -37,6 +37,8 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/jquery.alterclass.js"></script>
     <script type="text/javascript" src="js/jquery.dataselector.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
+    <script type="text/javascript" src="js/IndexedDBShim/dist/IndexedDBShim.js"></script>
+    <script type="text/javascript" src="js/jquery-indexeddb/dist/jquery.indexeddb.js"></script>
     
     <!-- application components -->
     <script type="text/javascript" src="js/component.network.js"></script>
