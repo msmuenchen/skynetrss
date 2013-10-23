@@ -21,6 +21,11 @@ function doAPIRequest(target,params,success,fail,always) {
     },1000);
     return;
   }
+  if(appstate.online!=true && (typeof params.ignoreNetworkException=="undefined" || params.ignoreNetworkException!=true)) {
+    console.gerror("api","tried to submit a request to "+target+" in offline mode");
+    alert("tried to submit an api request while offline?!");
+    return;
+  }
   var logstr="";
   var queryUrl=appconfig.apiurl+"?action="+target;
   var reqId=appstate.requestCounter++;
