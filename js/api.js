@@ -2,9 +2,14 @@
 //and support retrying of requests
 var APIRequestPool=[];
 
+if(typeof appstate!="object")
+  appstate={};
+appstate.requestCounter=0;
+
 //when this is set to true, don't whine about API errors
 //all requests will be canceled and their error() events fired upon unload!
 var isUnloading=false;
+
 window.addEventListener("beforeunload",function() {
   console.log("unloading page!");
   isUnloading=true;
