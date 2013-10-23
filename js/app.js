@@ -12,40 +12,11 @@ var appstate={
   haveFeedlist:false,
   mobile:false, //split between menu view and other views
   lastView:"", //last view when switching to menu view (to allow back-switching when resizing to desktop)
-  online:false,
 }
 
 var userSettings={};
 var defaultSettings={};
 
-
-//check if we're connected
-function checkNetworkConnection() {
-  $("#offline-box").show();
-  doAPIRequest("onlinecheck",{ignoreNetworkException:true},function() { //success
-    console.glog("checkNetworkConnection","we're online");
-    if(appstate.online==false) {
-      console.log("checkNetworkConnection","going online");
-      $(document).trigger("skyrss_netonline");
-    }
-    appstate.online=true;
-    $("#offline-box").hide();
-  },
-  function() { //fail
-    console.glog("checkNetworkConnection","we're apparently offline");
-    if(appstate.online==true) {
-      console.log("checkNetworkConnection","going offline");
-      $(document).trigger("skyrss_netoffline");
-    }
-    appstate.online=false;
-  },
-  null //always
-  );
-}
-
-//the first thing we have to do is to check if we're online!
-$(document).ready(function() {
-  checkNetworkConnection();
 });
 
 //tell server to reload a specific feed from upstream server

@@ -21,6 +21,8 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.css" type="text/css" media="all" />
     
     <script type="text/javascript" src="js/console.js"></script>
+    
+    <!-- jquery and plugins -->
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript">
 if(window.applicationCache) {
@@ -105,6 +107,8 @@ if(window.applicationCache) {
     <script type="text/javascript" src="js/jquery.dataselector.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
     
+    <!-- application components -->
+    <script type="text/javascript" src="js/component.network.js"></script>
     <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
     <script type="text/javascript" src="i18n/de.js"></script>
