@@ -50,7 +50,7 @@ function loadSnacksFromServer() {
   });
 }
 function loadSnacksFromLSO() {
-  console.glog("loading snacks from LSO");
+  console.glog("view.index","loading snacks from LSO");
   if(!Modernizr.localstorage || !window.localStorage) {
     console.gerror("view.index","cannot load offline, no support for LSO");
     return;
@@ -82,7 +82,7 @@ function loadNewsFromServer() {
   });
 }
 function loadNewsFromLSO() {
-  console.glog("loading news from LSO");
+  console.glog("view.index","loading news from LSO");
   if(!Modernizr.localstorage || !window.localStorage) {
     console.gerror("view.index","cannot load offline, no support for LSO");
     return;
