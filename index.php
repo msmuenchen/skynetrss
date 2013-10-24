@@ -61,6 +61,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/view.settings.js"></script>
     <script type="text/javascript" src="js/view.library.js"></script>
     <script type="text/javascript" src="js/view.feed.js"></script>
+    <script type="text/javascript" src="js/view.feed_keypress.js"></script>
     <script type="text/javascript" src="js/view.modal.js"></script>
     
     <script type="text/javascript" src="config.js"></script>
