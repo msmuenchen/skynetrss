@@ -99,9 +99,9 @@ $(document).on("skyrss_settings_load",function() {
     switch(e.attr("type")) {
       case "checkbox":
         if(appstate.settings.user[k]==1)
-          e.attr("checked",true);
+          e.prop("checked",true);
         else
-          e.attr("checked",false);
+          e.prop("checked",false);
       break;
     }
     e.change();
@@ -112,7 +112,7 @@ $(document).on("skyrss_settings_load",function() {
     $("option",e).each(function() {
       var o=$(this);
       if(appstate.settings.user[k]==o.val())
-        o.attr("selected",true);
+        o.prop("selected",true);
     });
     e.change();
   });

@@ -188,9 +188,9 @@ $(document).on("skyrss_feed_data_done",function(ev,data) {
     
     //Set the initial state of the checkbox
     if(e.timestamp===null)
-      $(".itemRead",el).attr("checked",true);
+      $(".itemRead",el).prop("checked",true);
     else
-      $(".itemRead",el).attr("checked",false);
+      $(".itemRead",el).prop("checked",false);
 
     $(".itemRead",el).change(function() {
       var v=$(this).is(":checked");
@@ -300,7 +300,7 @@ function openFeedItem(pos, noScroll) {
   //ifr.attr("src","data:text/html;charset=utf-8,"+encodeURIComponent(newfl.data("html")));
   ifr.attr("seamless",true).attr("sandbox","allow-forms allow-scripts allow-popups");
   srcDoc.set(ifr.get()[0],newfl.data("html"));
-  $("#fl-"+pos+" .itemRead").attr("checked",false).change();
+  $("#fl-"+pos+" .itemRead").prop("checked",false).change();
 }
 
 function isFeedItemVisible(item) {
