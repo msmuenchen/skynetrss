@@ -30,6 +30,19 @@ $(document).ready(function() {
       alert("cannot load more items when offline!");
     }
   });
+  $("#feedentries").scroll(function() {
+    if(appstate.settings.user.infinitescroll && appstate.settings.user.infinitescroll!=1)
+      return;
+    if(!isFeedItemVisible($("#feedmore"))) {
+      return;
+    }    
+    if($("#feedmore").hasClass("more")) {//more items available => click
+      console.glog("scroll","loading next batch of feeditems");
+      $("#feedmore").click();
+    } else {
+      console.glog("scroll","no more feeditems or already loading");
+    }
+  });
 });
 
 $(document).on("skyrss_feed_update",function(ev,a) {
