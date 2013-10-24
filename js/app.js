@@ -94,6 +94,7 @@ $(document).ready(function(){
   //prevent selections
   $("body").disableSelection();
   $("#poolinfo").click(function() {
+    console.glog("api","dumping API request pool");
     APIRequestPool.forEach(function(e) {
       console.glog("api",e._url,e.readyState);
     });
