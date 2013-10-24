@@ -18,7 +18,7 @@ $(document).ready(function() {
   
   $("#feed .dropdown-container").dropdown();
   $("#feed_update").click(function() {
-    $(document).trigger("skyrss_feed_update",{feed:appstate.feed.id});
+    $(document).trigger("skyrss_feed_requestupdate",{feed:appstate.feed.id});
   });
   $("#feedmore").click(function() {
     if(!$("#feedmore").hasClass("more"))
@@ -44,28 +44,7 @@ $(document).ready(function() {
     }
   });
   $("#feed_allread").click(function() {
-    $(document).trigger("skyrss_item_readstate",{feed:appstate.feed.id,item:0,read:true});
-  });
-});
-
-$(document).on("skyrss_feed_update",function(ev,a) {
-  if(appstate.online==null) {
-    setTimeout(arguments.callee.bind(this,ev,args),500);
-    console.glog("view.library","waiting for online status");
-    return;
-  }
-  if(appstate.online==false) {
-    alert("can not reload a feed while offline!");
-    return;
-  }
-  $(document).trigger("skyrss_feed_update_begin",a);
-  doAPIRequest("update",{feed:a.feed,rescrape:true},function() {
-    if(appstate.feed.id==a.feed)
-      $(document).trigger("skyrss_view_feed",{args:appstate.feed.id,reload:true});
-  },
-  null,
-  function() {
-    $(document).trigger("skyrss_feed_update_done",a);
+    $(document).trigger("skyrss_item_readstate_requestcommit",{feed:appstate.feed.id,item:0,read:true});
   });
 });
 
@@ -76,6 +55,7 @@ $(document).on("skyrss_feed_update_begin",function() {
 $(document).on("skyrss_feed_update_done",function() {
   $("#feed_update").attr("disabled","disabled");
 });
+
 $(document).on("skyrss_view_feed",function(ev,args) {
   if(appstate.online==null || appstate.session.loaded!=true || appstate.settings.loaded!=true) {
     setTimeout(arguments.callee.bind(this,ev,args),500);
@@ -153,12 +133,12 @@ function loadFeedFromServer(id,start,len) {
       console.gerror("view.feed","discarding data of feed",data.feed.id,", active feed is",appstate.feed.id);
       return;
     }
-    $(document).trigger("skyrss_feed_data",data);
+    $(document).trigger("skyrss_feed_data_done",data);
   });
 }
 function loadFeedFromDB(id,start,len) {
 }
-$(document).on("skyrss_feed_data",function(ev,data) {
+$(document).on("skyrss_feed_data_done",function(ev,data) {
   console.glog("view.feed","inserting",data);
   $("#feedmenu, #feedentries, #feedfooter").show();
   $("#feed_title").html(data.feed.title);
@@ -245,7 +225,7 @@ $(document).on("skyrss_feed_data",function(ev,data) {
 
     $(".itemRead",el).change(function() {
       var v=$(this).is(":checked");
-      $(document).trigger("skyrss_item_readstate",{feed:data.feed.id,item:e.id,read:!v});
+      $(document).trigger("skyrss_item_readstate_requestcommit",{feed:data.feed.id,item:e.id,read:!v});
     });
     
     //Insert the element before the "Read more..." list entry
@@ -360,37 +340,8 @@ function isFeedItemVisible(item) {
   var mB=$("#feedentries").outerHeight();
   return b<=mB;
 }
-$(document).on("skyrss_item_readstate",function(e,a) {
-  console.glog("component.feeditem","got a readstate change event for",a);
-  if(appstate.online==true)
-    setItemReadstateServer(a);
-  else
-    setItemReadstateDB(a);
-});
 
-function setItemReadstateDB(a) {
-  return;
-}
-function setItemReadstateServer(a) {
-  var state=(a.read==true)?"read":"unread";
-  if(a.item==0) {
-    console.glog("component.feeditem","setting readstate of all feed items of",a.feed,"to read on server");
-    doAPIRequest("markallasread",{feed:a.feed},function(data) {
-      console.glog("component.feeditem","set readstate of all feed items of",a.feed,"to read on server");
-      if(data.affected>0)
-        $(document).trigger("skyrss_item_readstate_update",a);
-    });
-  } else {
-    console.glog("component.feeditem","setting readstate of",a.feed,"/",a.item,"to",state,"on server");
-    doAPIRequest("setreadstate",{feed:a.feed,item:a.item,state:state},function(data) {
-      console.glog("component.feeditem","set readstate of",a.feed,"/",a.item,"to",state,"on server");
-      if(data.affected==1)
-        $(document).trigger("skyrss_item_readstate_update",a);
-    });
-  }
-}
-
-$(document).on("skyrss_item_readstate_update",function(e,a) {
+$(document).on("skyrss_item_readstate_updated",function(e,a) {
   console.glog("view.feed","got a readstate_update event for",a);
   var old=parseInt($("#fi-"+a.feed+" .unread_count").html());
   if(a.item!=0) {
