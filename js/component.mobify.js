@@ -6,7 +6,8 @@ if(typeof appconfig!="object")
 
 $(document).ready(function() {
   console.glog("component.mobify","initializing");
-  appconfig.mobile=false;
+  appstate.mobile=false;
+  appstate.lastView="";
   $(window).hashchange(function(e) {
     var h=location.hash;
     var r=/menu/.exec(h);
