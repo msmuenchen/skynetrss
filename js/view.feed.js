@@ -43,6 +43,9 @@ $(document).ready(function() {
       console.glog("scroll","no more feeditems or already loading");
     }
   });
+  $("#feed_allread").click(function() {
+    $(document).trigger("skyrss_item_readstate",{feed:appstate.feed.id,item:0,read:true});
+  });
 });
 
 $(document).on("skyrss_feed_update",function(ev,a) {
@@ -371,27 +374,45 @@ function setItemReadstateDB(a) {
 }
 function setItemReadstateServer(a) {
   var state=(a.read==true)?"read":"unread";
-  if(a.item==0)
-    return;
-  console.glog("component.feeditem","setting readstate of",a.feed,"/",a.item,"to",state,"on server");
-  doAPIRequest("setreadstate",{feed:a.feed,item:a.item,state:state},function(data) {
-    console.glog("component.feeditem","set readstate of",a.feed,"/",a.item,"to",state,"on server");
-    if(data.affected==1)
-      $(document).trigger("skyrss_item_readstate_update",a);
-  });
+  if(a.item==0) {
+    console.glog("component.feeditem","setting readstate of all feed items of",a.feed,"to read on server");
+    doAPIRequest("markallasread",{feed:a.feed},function(data) {
+      console.glog("component.feeditem","set readstate of all feed items of",a.feed,"to read on server");
+      if(data.affected>0)
+        $(document).trigger("skyrss_item_readstate_update",a);
+    });
+  } else {
+    console.glog("component.feeditem","setting readstate of",a.feed,"/",a.item,"to",state,"on server");
+    doAPIRequest("setreadstate",{feed:a.feed,item:a.item,state:state},function(data) {
+      console.glog("component.feeditem","set readstate of",a.feed,"/",a.item,"to",state,"on server");
+      if(data.affected==1)
+        $(document).trigger("skyrss_item_readstate_update",a);
+    });
+  }
 }
 
 $(document).on("skyrss_item_readstate_update",function(e,a) {
   console.glog("view.feed","got a readstate_update event for",a);
   var old=parseInt($("#fi-"+a.feed+" .unread_count").html());
-  if(a.read) {
-    if(appstate.feed.id==a.feed)
-      $("#fl-"+a.item+" .title").removeClass("unread");
-    old--;
-  } else {
-    if(appstate.feed.id==a.feed)
-      $("#fl-"+a.item+" .title").addClass("unread");
-    old++;
+  if(a.item!=0) {
+    if(a.read) {
+      if(appstate.feed.id==a.feed)
+        $("#fl-"+a.item+" .title").removeClass("unread");
+      old--;
+    } else {
+      if(appstate.feed.id==a.feed)
+        $("#fl-"+a.item+" .title").addClass("unread");
+      old++;
+    }
+  } else { //set all
+    if(a.read) {
+      old=0;
+      if(appstate.feed.id==a.feed)
+        $(".feedline .title").removeClass("unread");
+    } else {
+      if(appstate.feed.id==a.feed)
+        $(".feedline").addClass("unread");
+    }
   }
   $("#fi-"+a.feed+" .unread_count").html(old);
   if(old==0)
