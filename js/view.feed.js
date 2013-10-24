@@ -233,6 +233,8 @@ $(document).on("skyrss_feed_data",function(ev,data) {
     $("#feedmore").removeClass().addClass("nomore");
   }
   $("#feedentries").scroll();
+  if(appstate.feed.pos!=0)
+    openFeedItem(appstate.feed.pos);
 });
 
 //open a feed item in the list (pos: db id of the item)
