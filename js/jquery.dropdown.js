@@ -18,14 +18,18 @@ $.fn.extend({
                                 
                         });
                 });
+                if(!$.fn.dropdown.runOnce) {
                 $(document).click(function() {
                         console.glog("dropdown","document clicked");
                         dd.forEach(function(e) {
-                                console.glog("dropdown","collapsing",e);
                                 var i=$(".dropdown-items",e);
-                                if(e.hasClass("open"))
+                                if(e.hasClass("open")) {
+                                        console.glog("dropdown","collapsing",e);
                                         i.slideUp(500,function() { e.removeClass("open") });
+                                }
                         });
                 });
+                }
+                $.fn.dropdown.runOnce=true;
         }
 });
