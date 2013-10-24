@@ -417,3 +417,30 @@ $(document).on("skyrss_item_readstate_update",function(e,a) {
   if(old==0)
     $("#fi-"+a.feed).removeClass("hasunread");
 });
+
+//event listener for messages from the feeditem-iframes
+window.addEventListener('message', function(event) {
+  //check if it's a mesage from us
+  if(!event.data.type)
+    return;
+  if(event.data.type=="seth") {
+    var pid=event.data.myId;
+    var h=event.data.scrollHeight;
+    var fl=$("#fl-"+pid);
+    $("iframe",fl).height(h);
+    console.log("adjusted height of "+pid+" to "+h);
+    $("#feedentries").scroll();
+  } else if(event.data.type=="keypress") {
+    var ve=jQuery.Event("keypress");
+    ve.keyCode=event.data.ev.keyCode;
+    ve.metaKey=event.data.ev.metaKey;
+    ve.relayed=true;
+    $(window).trigger(ve);
+  } else if(event.data.type=="keydown") {
+    var ve=jQuery.Event("keydown");
+    ve.keyCode=event.data.ev.keyCode;
+    ve.metaKey=event.data.ev.metaKey;
+    ve.relayed=true;
+    $(window).trigger(ve);
+  }
+},false);
