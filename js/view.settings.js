@@ -91,7 +91,25 @@ $(document).on("skyrss_settings_load",function() {
     $("#settingsform-account .username").html(_("page_anonymous"));
     $("#settingsform-account .passwordrow").hide();
   }
-  
+  //exception from "no server comm in view"...
+  $("#settings-accountbtn-save").click(function() {
+    if(appstate.online!=true) {
+      alert(_("page_notonline"));
+      return;
+    }
+    $("#settings-accountbtn-save").attr("disabled","disabled");
+    var pwd=$("#setings-password").val();
+    if(pwd=="") {
+      alert(_("error_nopassgiven"));
+      return;
+    }
+    doAPIRequest("changepwd",{password:pwd},null, //success
+    null, //fail
+    function() {
+      $("#settings-accountbtn-save").removeAttr("disabled");
+    });
+  });
+
   //tab 3:display
   $("#settingsform-display input").each(function() {
     var e=$(this);
