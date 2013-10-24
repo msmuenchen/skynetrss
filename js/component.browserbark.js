@@ -11,9 +11,9 @@ jQuery(document).ready(function($){
   
   var r=/MSIE ([0-9]{1,}[\.0-9]{0,})/.exec(u)
   if(r && parseFloat(r[1])<10)
-    $("#modal-container,#ie-warning").show();
+    $(document).trigger("skyrss_modal_show",{id:"#ie-warning"});  
   
   r=/apple computer/.exec(v.toLowerCase())
   if(r && navigator.platform && navigator.platform.toLowerCase()=="win32")
-    $("#modal-container,#safariwin-warning").show();
+    $(document).trigger("skyrss_modal_show",{id:"#safariwin-warning"});
 });

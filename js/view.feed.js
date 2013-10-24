@@ -232,8 +232,7 @@ $(document).on("skyrss_feed_data",function(ev,data) {
     el.attr("title",e.id);
     $(".share",el).click(function() {
       var extUrl=appconfig.base+appconfig.exturl+"?f="+data.feed.id+"&i="+e.id;
-      $("#modal-container").show();
-      $("#share-content").show().focus();
+      $(document).trigger("skyrss_modal_show",{id:"#share-content"});
       $("#share-twitter").attr("href","https://twitter.com/intent/tweet?url="+encodeURIComponent(extUrl));
       $("#share-fb").attr("href","https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(extUrl));
     });
