@@ -21,6 +21,5 @@ $(document).on("skyrss_session_load",function() {
   
   $.extend(appstate.settings.current,appstate.settings.user);
   appstate.settings.loaded=true;
+  $(document).trigger("skyrss_settings_load");
 });
-
-  
