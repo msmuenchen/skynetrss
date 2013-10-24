@@ -445,7 +445,16 @@ function updateFeed($id,$forceRescrape=false) {
       $log.="\tItem added to DB, ID ".$q->insertId."\n";
     } elseif($q->numRows==1) {
       $db=$q->fetch();
-      if($db["title"]!=$item->title || $db["link"]!=$item->link || $db["fulltext"]!=$item->text || $db["author"]!=$item->author || $forceRescrape) {
+      $hasChanged="";
+      if($db["title"]!=$item->title)
+        $hasChanged.="title ";
+      if($db["link"]!=$item->link)
+        $hasChanged.="link ";
+      if($db["fulltext"]!=$item->text)
+        $hasChanged.="text ";
+      if($db["author"]!=$item->author)
+        $hasChanged.="author ";
+      if($hasChanged!="" || $forceRescrape) {
         $full="";
         if($row["scrape_data"]!="")
           $full=scrapeFeed($item->link,$row["scrape_data"]);
@@ -454,9 +463,18 @@ function updateFeed($id,$forceRescrape=false) {
           $excerpt=prepareExcerpt($item->text);
         else
           $excerpt=prepareExcerpt($full);
-        $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=?,`scrape_fulltext`=?,`excerpt`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$full,$excerpt,$row["id"],$db["id"]);
-        $log.="\tItem updated in DB, ID ".$db["id"]."\n";
-        $q=new DB_Query("DELETE FROM feed_read WHERE feed_id=? and item_id=?",$row["id"],$db["id"]);
+        if($db["excerpt"]!=$excerpt)
+          $hasChanged.="excerpt ";
+        if($db["scrape_fulltext"]!=$full)
+          $hasChanged.="fulltext ";
+        if($hasChanged!="") {
+          $q=new DB_Query("UPDATE feed_items SET `title`=?,`time`=?,`link`=?,`fulltext`=?,`author`=?,`scrape_fulltext`=?,`excerpt`=? WHERE `feed_id`=? AND `id`=?",$item->title,$item->time,$item->link,$item->text,$item->author,$full,$excerpt,$row["id"],$db["id"]);
+          $log.="\tItem updated in DB, ID ".$db["id"]."\n";
+          $log.="\tItem has changed properties: $hasChanged, resetting read counts\n";
+          $q=new DB_Query("DELETE FROM feed_read WHERE feed_id=? and item_id=?",$row["id"],$db["id"]);
+        } else {
+          $log.="\tRescrape forced, item still current in DB, ID ".$db["id"]."\n";
+        }
       } else {
         $log.="\tItem current in DB, ID ".$db["id"]."\n";
       }
