@@ -42,9 +42,10 @@ $(document).on("skyrss_view_settings",function() {
   $("#opsettings").show();
 });
 
-$(document).on("skyrss_session_load",function() {
+$(document).on("skyrss_settings_load",function() {
   var s=appstate.session.object;
   
+  //tab 1: account
   if(s.user) {
     $("#settingsform-account .username").html(s.user.name);
     if(s.user.source!="") {
@@ -52,7 +53,35 @@ $(document).on("skyrss_session_load",function() {
     } else {
       $("#settingsform-account .passwordrow").show();
     }
+  } else {
+    $("#settingsform-account .username").html(_("page_anonymous"));
+    $("#settingsform-account .passwordrow").hide();
   }
+  
+  //tab 3:display
+  $("#settingsform-display input").each(function() {
+    var e=$(this);
+    var k=e.data("key");
+    switch(e.attr("type")) {
+      case "checkbox":
+        if(appstate.settings.user[k]==1)
+          e.attr("checked",true);
+        else
+          e.attr("checked",false);
+      break;
+    }
+    e.change();
+  });
+  $("#settingsform-display select").each(function() {
+    var e=$(this);
+    var k=e.data("key");
+    $("option",e).each(function() {
+      var o=$(this);
+      if(appstate.settings.user[k]==o.val())
+        o.attr("selected",true);
+    });
+    e.change();
+  });
 });
 
 //add feeds to list
