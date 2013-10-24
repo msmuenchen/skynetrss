@@ -77,9 +77,9 @@ $(document).on("skyrss_feed_update_done",function() {
   $("#feed_update").attr("disabled","disabled");
 });
 $(document).on("skyrss_view_feed",function(ev,args) {
-  if(appstate.online==null) {
+  if(appstate.online==null || appstate.session.loaded!=true || appstate.settings.loaded!=true) {
     setTimeout(arguments.callee.bind(this,ev,args),500);
-    console.glog("view.library","waiting for online status");
+    console.glog("view.feed","waiting for preconditions");
     return;
   }
   if(appstate.online==false && !Modernizr.indexeddb) {
