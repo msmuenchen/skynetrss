@@ -35,6 +35,40 @@ $(document).ready(function() {
       fo.html(f).val(f);	
     });
   });
+
+  $("#settings-display-save").click(function(ev) {
+    ev.preventDefault();
+    var sobj={};
+    $("#settingsform-display input").each(function() {
+      var e=$(this);
+      var k=e.data("key");
+      switch(e.attr("type")) {
+        case "checkbox":
+          if(e.is(":checked"))
+            sobj[k]=1;
+          else
+            sobj[k]=0;
+        break;
+      }
+    });
+    $("#settingsform-display select").each(function() {
+      var e=$(this);
+      var k=e.data("key");
+      sobj[k]=e.val();
+    });
+    $.extend(appstate.settings.user,sobj);
+    console.glog("view.settings","saving settings",sobj);
+    if(appstate.online==true) {
+      $("#settings-display-save").attr("disabled","disabled");
+      doAPIRequest("updatesettings",sobj,null, //success
+      null, //fail
+      function() { //always
+        $("#settings-display-save").removeAttr("disabled");
+      });
+    } else {
+      alert("Can not save settings while online!");
+    }
+  });
 });
 
 $(document).on("skyrss_view_settings",function() {
