@@ -9,7 +9,13 @@ $(document).ready(function() {
   appstate.feed.next=0;
   $("#feed_reload").click(function() {
     $(document).trigger("skyrss_view_feed",{args:appstate.feed.id,reload:true});
+    $(this).trigger("blur");
   });
+  $("#feed_showread,#feed_sort").change(function() {
+    $(document).trigger("skyrss_view_feed",{args:appstate.feed.id,reload:true});
+    $(this).trigger("blur");
+  });
+  
   $("#feed .dropdown-container").dropdown();
   $("#feed_update").click(function() {
     $(document).trigger("skyrss_feed_update",{feed:appstate.feed.id});
@@ -106,6 +112,8 @@ $(document).on("skyrss_view_feed",function(ev,args) {
 function loadFeedFromServer(id,start,len) {
   start=start||0;
   var params={start:start,feed:id,order:$("#feed_sort").val(),ignoreAPIException:true};
+  if(!$("#feed_showread").is(":checked")) //todo, refactor the API?
+    params.noshowread="";
   console.glog("view.feed","requesting feed data from server for feed",id,"starting at",start);
   /*
   $("#feed_addfrompreview").parent().show();
