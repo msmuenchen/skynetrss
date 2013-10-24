@@ -52,6 +52,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/component.nav.js"></script>
     <script type="text/javascript" src="js/component.mobify.js"></script>
     <script type="text/javascript" src="js/component.browserbark.js"></script>
+    <script type="text/javascript" src="js/component.feed.js"></script>
     <script type="text/javascript" src="js/view.menu.js"></script>
     <script type="text/javascript" src="js/view.index.js"></script>
     <script type="text/javascript" src="js/view.login.js"></script>
@@ -60,6 +61,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/view.settings.js"></script>
     <script type="text/javascript" src="js/view.library.js"></script>
     <script type="text/javascript" src="js/view.feed.js"></script>
+    <script type="text/javascript" src="js/view.modal.js"></script>
     
     <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
