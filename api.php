@@ -44,6 +44,10 @@ try {
     break;
     case "onlinecheck":
       //this is a dummy action used to check if we're online or on appcache
+header('Cache-Control: no-cache, must-revalidate');
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Content-Type: text/cache-manifest');
+
     break;
     default:
       throw new APIWrongCallException("Ungültige Aktion angegeben");
