@@ -24,7 +24,8 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     
     <!-- jquery and plugins -->
     <script type="text/javascript" src="js/modernizr.js"></script>
-    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="js/jquery-migrate-1.2.1.js"></script>
     <!-- load this ASAP -->
     <script type="text/javascript" src="js/component.offline.js"></script>
     <script type="text/javascript" src="js/jquery.ba-hashchange.min.js"></script>
