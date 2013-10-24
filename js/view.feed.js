@@ -14,6 +14,16 @@ $(document).ready(function() {
   $("#feed_update").click(function() {
     $(document).trigger("skyrss_feed_update",{feed:appstate.feed.id});
   });
+  $("#feedmore").click(function() {
+    if(!$("#feedmore").hasClass("more"))
+      return;
+    $("#feedmore").removeClass().addClass("loading");
+    if(appstate.online==true) {
+      loadFeedFromServer(appstate.feed.id,appstate.feed.next,0);
+    } else {
+      alert("cannot load more items when offline!");
+    }
+  });
 });
 
 $(document).on("skyrss_feed_update",function(ev,a) {
