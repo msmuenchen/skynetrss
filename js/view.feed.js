@@ -7,6 +7,10 @@ $(document).ready(function() {
   appstate.feed.pos=0;
   appstate.feed.selected=0; //the highlighted item
   appstate.feed.next=0;
+  $("#feed_reload").click(function() {
+    $(document).trigger("skyrss_view_feed",{args:appstate.feed.id,reload:true});
+  });
+  $("#feed .dropdown-container").dropdown();
 });
 
 $(document).on("skyrss_view_feed",function(ev,args) {
@@ -33,7 +37,7 @@ $(document).on("skyrss_view_feed",function(ev,args) {
   appstate.feed.id=nf;
   appstate.feed.pos=np;
   console.gerror("view.feed","requested feed",nf,"with position",np);
-  if(cf!=nf) {
+  if(cf!=nf || (args.reload && args.reload==true)) {
     console.glog("view.feed","feed change from",cf,"to",nf,":",np);
     $("#feedmore").removeClass().addClass("loading"); //prevent infinite-scroll from loading
     $("#feed_href").removeAttr("href");
@@ -53,8 +57,6 @@ $(document).on("skyrss_view_feed",function(ev,args) {
     if(cp!=np) {
       console.glog("view.feed","pos change from",cp,"to",np);
       openFeedItem(np);
-    } else {
-      $("#feed_reload").removeAttr("disabled");
     }
   }
 
