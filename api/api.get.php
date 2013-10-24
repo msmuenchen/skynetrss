@@ -48,7 +48,7 @@ $ret["msg"]=$sql;
 $q=new DB_Query($sql,$uid,$feed);
 $ret["items"]=array();
 while($r=$q->fetch()) {
-  if(isset($_GET["noshowread"]) && $r["timestamp"]!==null)
+  if(isset($_GET["ignoreread"]) && $_GET["ignoreread"]=="true" && $r["timestamp"]!==null)
     continue;
   $ret["items"][]=$r;
 }
