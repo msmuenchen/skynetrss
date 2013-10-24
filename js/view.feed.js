@@ -11,8 +11,39 @@ $(document).ready(function() {
     $(document).trigger("skyrss_view_feed",{args:appstate.feed.id,reload:true});
   });
   $("#feed .dropdown-container").dropdown();
+  $("#feed_update").click(function() {
+    $(document).trigger("skyrss_feed_update",{feed:appstate.feed.id});
+  });
 });
 
+$(document).on("skyrss_feed_update",function(ev,a) {
+  if(appstate.online==null) {
+    setTimeout(arguments.callee.bind(this,ev,args),500);
+    console.glog("view.library","waiting for online status");
+    return;
+  }
+  if(appstate.online==false) {
+    alert("can not reload a feed while offline!");
+    return;
+  }
+  $(document).trigger("skyrss_feed_update_begin",a);
+  doAPIRequest("update",{feed:a.feed,rescrape:true},function() {
+    if(appstate.feed.id==a.feed)
+      $(document).trigger("skyrss_view_feed",{args:appstate.feed.id,reload:true});
+  },
+  null,
+  function() {
+    $(document).trigger("skyrss_feed_update_done",a);
+  });
+});
+
+$(document).on("skyrss_feed_update_begin",function() {
+  $("#feed_update").removeAttr("disabled");
+});
+
+$(document).on("skyrss_feed_update_done",function() {
+  $("#feed_update").attr("disabled","disabled");
+});
 $(document).on("skyrss_view_feed",function(ev,args) {
   if(appstate.online==null) {
     setTimeout(arguments.callee.bind(this,ev,args),500);
@@ -242,7 +273,8 @@ $(document).on("skyrss_feed_data",function(ev,data) {
 function openFeedItem(pos, noScroll) {
   if(typeof noScroll=="undefined")
     noScroll=false;
-
+  
+  console.glog("view.feed","opening feed item",pos);
   var newfl=$("#fl-"+pos);
   if(newfl.hasClass("open")) //nothing to do here
     return;
