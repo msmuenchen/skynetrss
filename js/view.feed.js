@@ -301,6 +301,12 @@ function openFeedItem(pos, noScroll) {
   ifr.attr("seamless",true).attr("sandbox","allow-forms allow-scripts allow-popups");
   srcDoc.set(ifr.get()[0],newfl.data("html"));
   $("#fl-"+pos+" .itemRead").prop("checked",false).change();
+  
+  //if opening a single item only, make it the currently selected one
+  if(!noScroll) {
+    appstate.feed.selected=pos;
+    $("#fl-"+pos).removeClass("selected");
+  }
 }
 
 function isFeedItemVisible(item) {
