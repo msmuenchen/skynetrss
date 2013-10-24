@@ -280,7 +280,7 @@ window.onkeydown=function(e) {
     <hr />
     <ul id="debug_extra">
       <li id="flts"></li>
-      <li>Pool: <span id="poollen"></span> Items</li>
+      <li id="poolinfo">Pool: <span id="poollen"></span> Items</li>
     </ul>
   </div>
   <div id="content">
