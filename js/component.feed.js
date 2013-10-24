@@ -6,6 +6,7 @@ $(document).on("skyrss_feed_requestupdate",function(ev,a) {
     console.glog("view.library","waiting for online status");
     return;
   }
+  console.glog("component.feed","got an update request for",a);
   if(appstate.online==false) {
     alert("can not reload a feed while offline!");
     return;
@@ -22,7 +23,7 @@ $(document).on("skyrss_feed_requestupdate",function(ev,a) {
 });
 
 $(document).on("skyrss_item_readstate_requestcommit",function(e,a) {
-  console.glog("component.feeditem","got a readstate change event for",a);
+  console.glog("component.feeditem","got a readstate commit for",a);
   if(appstate.online==true)
     setItemReadstateServer(a);
   else
@@ -49,4 +50,32 @@ function setItemReadstateServer(a) {
         $(document).trigger("skyrss_item_readstate_updated",a);
     });
   }
+}
+
+$(document).on("skyrss_feed_data_request",function(e,a) {
+  console.glog("component.feed","got a data request for",a);
+  if(appstate.online==true) {
+    loadFeedFromServer(a);
+  } else {
+    alert("no feed loading in offline mode");
+  }
+});
+
+function loadFeedFromServer(a) {
+  var params={start:a.start,feed:a.feed,order:a.order,ignoreread:a.ignoreread,ignoreAPIException:true};
+  console.glog("view.feed","requesting feed data from server for feed",a.id,"starting at",a.start);
+  doAPIRequest("get",params,function(data) {
+    console.glog("view.feed","data arrived from server");
+    if(data.status!="ok") {
+      if(data.type=="PermissionDeniedException") {
+        alert(_("apierror_permissiondenied"));
+      } else {
+        alert(sprintf(_("apierror_other"),"get"));
+      }
+      return;
+    }
+    $(document).trigger("skyrss_feed_data_done",data);
+  });
+}
+function loadFeedFromDB(id,start,len) {
 }

@@ -24,11 +24,7 @@ $(document).ready(function() {
     if(!$("#feedmore").hasClass("more"))
       return;
     $("#feedmore").removeClass().addClass("loading");
-    if(appstate.online==true) {
-      loadFeedFromServer(appstate.feed.id,appstate.feed.next,0);
-    } else {
-      alert("cannot load more items when offline!");
-    }
+    $(document).trigger("skyrss_feed_data_request",{feed:appstate.feed.id,start:appstate.feed.next,len:0,order:$("#feed_sort").val(),ignoreread:!$("#feed_showread").is(":checked")});
   });
   $("#feedentries").scroll(function() {
     if(appstate.settings.user.infinitescroll && appstate.settings.user.infinitescroll!=1)
@@ -90,11 +86,7 @@ $(document).on("skyrss_view_feed",function(ev,args) {
     $("#feedmenu, #feedentries, #feedfooter").hide();
     appstate.feed.selected=0;
     appstate.feed.next=0;
-    if(appstate.online==true) {
-      loadFeedFromServer(nf,appstate.feed.next,0);
-    } else {
-      alert("no feed loading in offline mode");
-    }
+    $(document).trigger("skyrss_feed_data_request",{feed:nf,start:appstate.feed.next,len:0,order:$("#feed_sort").val(),ignoreread:!$("#feed_showread").is(":checked")});
   } else {
     console.glog("view.feed","feed still",cf);
     if(cp!=np) {
@@ -102,15 +94,14 @@ $(document).on("skyrss_view_feed",function(ev,args) {
       openFeedItem(np);
     }
   }
-
 });
 
-function loadFeedFromServer(id,start,len) {
-  start=start||0;
-  var params={start:start,feed:id,order:$("#feed_sort").val(),ignoreAPIException:true};
-  if(!$("#feed_showread").is(":checked")) //todo, refactor the API?
-    params.noshowread="";
-  console.glog("view.feed","requesting feed data from server for feed",id,"starting at",start);
+$(document).on("skyrss_feed_data_done",function(ev,data) {
+  console.glog("view.feed","inserting",data);
+  if(data.feed.id!=appstate.feed.id) {
+    console.gerror("view.feed","discarding data of feed",data.feed.id,", active feed is",appstate.feed.id);
+    return;
+  }
   /*
   $("#feed_addfrompreview").parent().show();
   appstate.feedlist.forEach(function(e) {
@@ -118,28 +109,6 @@ function loadFeedFromServer(id,start,len) {
       $("#feed_addfrompreview").parent().hide();
   });
   */
-  $("#feedmore").removeClass().addClass("loading"); //prevent infinite-scroll from loading
-  doAPIRequest("get",params,function(data) {
-    console.glog("view.feed","data arrived from server");
-    if(data.status!="ok") {
-      if(data.type=="PermissionDeniedException") {
-        alert(_("apierror_permissiondenied"));
-      } else {
-        alert(sprintf(_("apierror_other"),"get"));
-      }
-      return;
-    }
-    if(data.feed.id!=appstate.feed.id) {
-      console.gerror("view.feed","discarding data of feed",data.feed.id,", active feed is",appstate.feed.id);
-      return;
-    }
-    $(document).trigger("skyrss_feed_data_done",data);
-  });
-}
-function loadFeedFromDB(id,start,len) {
-}
-$(document).on("skyrss_feed_data_done",function(ev,data) {
-  console.glog("view.feed","inserting",data);
   $("#feedmenu, #feedentries, #feedfooter").show();
   $("#feed_title").html(data.feed.title);
   if(data.feed.link!="")
