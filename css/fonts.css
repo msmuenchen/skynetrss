@@ -1,0 +1,63 @@
+/* DIN */
+@font-face {
+	font-family:'DIN';
+	src:url('fonts/din-normal.ttf');
+	font-weight:400;
+	font-style:normal;
+}
+@font-face {
+	font-family:'DIN';
+	src:url('fonts/din-light.ttf');
+	font-weight:300;
+	font-style:normal;
+}
+@font-face {
+	font-family:'DIN';
+	src:url('fonts/din-bold.ttf');
+	font-weight:700;
+	font-style:normal;
+}
+@font-face {
+	font-family:'DIN';
+	src:url('fonts/din-bolder.ttf');
+	font-weight:800;
+	font-style:normal;
+}
+@font-face {
+	font-family:'DIN';
+	src:url('fonts/din-black.ttf');
+	font-weight:900;
+	font-style:normal;
+}
+
+/* DIN Alternate */
+@font-face {
+	font-family:'DIN Alternate';
+	src:url('fonts/din-alternate-normal.ttf');
+	font-weight:400;
+	font-style:normal;
+}
+@font-face {
+	font-family:'DIN Alternate';
+	src:url('fonts/din-alternate-light.ttf');
+	font-weight:300;
+	font-style:normal;
+}
+@font-face {
+	font-family:'DIN Alternate';
+	src:url('fonts/din-alternate-bold.ttf');
+	font-weight:700;
+	font-style:normal;
+}
+@font-face {
+	font-family:'DIN Alternate';
+	src:url('fonts/din-alternate-bolder.ttf');
+	font-weight:800;
+	font-style:normal;
+}
+@font-face {
+	font-family:'DIN Alternate';
+	src:url('fonts/din-alternate-black.ttf');
+	font-weight:900;
+	font-style:normal;
+}
