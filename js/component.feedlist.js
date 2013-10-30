@@ -7,11 +7,22 @@ $(document).ready(function() {
   appstate.feedlist={};
   appstate.feedlist.loaded=false;
   appstate.feedlist.object={};
+  //auto-refresh
+  setInterval(function() {
+    //don't update if we haven't had at least one fetch before
+    if(appstate.feedlist.loaded!=true)
+      return;
+    //don't update in offline mode (only thing that can change
+    //while offline is the readcounts, and setread takes care of that)
+    if(appstate.online!=true)
+      return;
+    loadFeedsFromServer();
+  },1000*60*5); //5 min lifetime
 });
 
 $(document).on("skyrss_session_load",function() {
   if(appstate.online)
-    loadFeedsFromServer()
+    loadFeedsFromServer();
   else
     loadFeedsFromLSO();
 });
