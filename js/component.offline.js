@@ -1,8 +1,16 @@
 //SkyRSS component "offline"
+
+if(typeof appstate=="undefined")
+  appstate={}
+
+//assume online by default, to work around 
+//https://code.google.com/p/chromium/issues/detail?id=258191
+appstate.cacheIsOnline=true;
 if(window.applicationCache) {
   //start: check if we have a manifest
   window.applicationCache.addEventListener("checking",function() {
     console.glog("cache","checking appcache");
+    appstate.cacheIsOnline=false;
     $(document).ready(function() {
       $("#modal-container,#manifest-progress").show();
       $("#manifest-label").html("Checking application cache");
@@ -14,6 +22,7 @@ if(window.applicationCache) {
       $("#modal-container,#manifest-progress").hide();
     });
     console.glog("cache","no appcache update available");
+    appstate.cacheIsOnline=true;
   });
   //manifest has updates, ready to begin downloading
   window.applicationCache.addEventListener("downloading",function() {
@@ -52,6 +61,7 @@ if(window.applicationCache) {
       $("#modal-container,#manifest-progress").hide();
     });
     console.glog("cache","got a cached event");
+    appstate.cacheIsOnline=true;
   });
   //appcache update is done => reload the page!
   window.applicationCache.addEventListener("updateready",function() {
@@ -67,5 +77,8 @@ if(window.applicationCache) {
       $("#modal-container,#manifest-progress").hide();
     });
     console.glog("cache","got a obsolete event");
+    appstate.cacheIsOnline=true;
   });
+} else {
+  console.glog("cache","don't have appcache at all");
 }
