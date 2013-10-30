@@ -169,6 +169,7 @@ $(window).keypress(function(e) {
     case 50: //2
       $(".feedline.open").removeClass("open");
       $(".feedline iframe").remove();
+      location.hash="feed/"+appstate.feed.id+"/";
     break;
     case 106: //j
       if(appstate.feed.pos!=0 && !$("#fl-"+appstate.feed.pos).length) {
