@@ -10,6 +10,7 @@ $q=new DB_Query("SELECT f.id,
                         f.icon,
                         f.desc,
                         f.url,
+                        f.lastread,
                         uf.dir_id,
                         uf.order,
                         (SELECT COUNT(DISTINCT fi.id)
