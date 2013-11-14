@@ -7,7 +7,6 @@ else
 
 $q=new DB_Query("SELECT f.id,
                         f.title,
-                        f.icon,
                         f.desc,
                         f.url,
                         f.lastread,
@@ -29,6 +28,7 @@ $q=new DB_Query("SELECT f.id,
 
 $ret["items"]=array();
 while($r=$q->fetch()) {
+  $r["icon"]="";
   $ret["items"][]=$r;
 }
 $ret["ts"]=time();
