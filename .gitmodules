@@ -19,3 +19,6 @@
 [submodule "js/jquery-indexeddb"]
 	path = js/jquery-indexeddb
 	url = https://github.com/axemclion/jquery-indexeddb.git
+[submodule "js/rusha.js"]
+	path = js/rusha.js
+	url = https://github.com/srijs/rusha.git
