@@ -116,3 +116,11 @@ $(document).on("skyrss_feedlist_load",function() {
   var ds=dateFormat(d,_("page_tsformat"));
   $("#flts").html(ds);
 });
+
+$(document).on("skyrss_feedicons_update",function() {
+  var lso=JSON.parse(localStorage["skyrss.feedicons"]);
+  for(var k in lso) {
+    var d=lso[k];
+    $(".icon","#fi-"+k).attr("src",d);
+  }
+});
