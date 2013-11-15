@@ -40,6 +40,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
     <script type="text/javascript" src="js/IndexedDBShim/dist/IndexedDBShim.js"></script>
     <script type="text/javascript" src="js/jquery-indexeddb/dist/jquery.indexeddb.js"></script>
+    <script type="text/javascript" src="js/rusha.js/rusha.js"></script>
     
     <!-- application components -->
     <script type="text/javascript" src="js/component.network.js"></script>
@@ -53,6 +54,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/component.mobify.js"></script>
     <script type="text/javascript" src="js/component.browserbark.js"></script>
     <script type="text/javascript" src="js/component.feed.js"></script>
+    <script type="text/javascript" src="js/component.feedicons.js"></script>
     <script type="text/javascript" src="js/view.menu.js"></script>
     <script type="text/javascript" src="js/view.index.js"></script>
     <script type="text/javascript" src="js/view.login.js"></script>
