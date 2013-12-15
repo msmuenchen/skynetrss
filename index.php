@@ -22,6 +22,16 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     
     <script type="text/javascript" src="js/console.js"></script>
     
+    <!-- web app -->
+    <meta name="apple-mobile-web-app-capable" content="yes" /><!-- Crapple iOS -->
+    <meta name="mobile-web-app-capable" content="yes"><!-- Chrome on Android -->
+    <link rel="shortcut icon" sizes="196x196" href="assets/readme_196.png"> <!-- standard -->
+    <link rel="apple-touch-icon" sizes="196x196" href="assets/readme_196.png"> <!-- Fapple iOS -->
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="128x128" href=".png"> -->
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="<?= $config["site"]["name"] ?>">
+    
     <!-- jquery and plugins -->
     <script type="text/javascript" src="js/modernizr.js"></script>
     <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
