@@ -218,6 +218,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
 // It tells the parent its inner height so that the iframe can be exactly fit
 // and also tells the parent key presses to allow space-scrolling.
 // This is not possible from outside because of same-origin policy.
+var skyrss_timer_id=-1;
 function seth() {
   //tell parent our height
   window.parent.postMessage({
@@ -225,11 +226,15 @@ function seth() {
     scrollHeight:document.body.scrollHeight,
     myId:theId,
   },'*');
+  if(skyrss_timer_id==-1) {
+    skyrss_timer_id=setInterval(seth,500);
+  }
 }
 //Fire on onLoad as well as on DOMReady, so that the text can be read, even if not all images are loaded
 //This is especially needed on mobile and other slow links
 window.onload=function() {
   seth();
+  clearInterval(skyrss_timer_id);
   var links=document.getElementsByTagName("a");
   for(var i=0;i<links.length;i++) {
     var link=links[i];
