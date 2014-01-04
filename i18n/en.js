@@ -126,4 +126,5 @@ and storage of the full content is a very time- and memory-intensive effort.</p>
   page_news:"Project news",
   page_mostrecent:"Most recent news",
   page_showsnacks:"Show article excerpts on homepage",
+  page_savepassword:"Save password?",
 });

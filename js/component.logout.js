@@ -17,6 +17,11 @@ $(document).ready(function() {
     $(this).attr("disabled","disabled");
     doAPIRequest("logout",{},function(data) {
       $(document).trigger("skyrss_logout");
+      //delete stored login
+      if(Modernizr.localstorage && window.localStorage.removeItem) {
+        window.localStorage.removeItem("skyrss.user");
+        window.localStorage.removeItem("skyrss.pass");
+      }
     },
     null,
     function() {

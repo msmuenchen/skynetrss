@@ -14,10 +14,18 @@ $(document).ready(function() {
       alert(_("error_alreadyloggedin"));
       return;
     }
+    
+    var u=$("#login-username").val();
+    var p=$("#login-password").val();
+    if(Modernizr.localstorage && confirm(_("page_savepassword"))) {
+      localStorage["skyrss.user"]=u;
+      localStorage["skyrss.pass"]=p;
+    }
+    
     $(this).attr("disabled","disabled");
     $("#login-error").hide();
     //todo: autocomplete?
-    doAPIRequest("login",{ignoreAPIException:true,username:$("#login-username").val(),password:$("#login-password").val()},function(data) {
+    doAPIRequest("login",{ignoreAPIException:true,username:u,password:p},function(data) {
       //todo: unify exception handling!
       if(data.status!="ok") {
         console.gerror("component.login","api error",data.message);

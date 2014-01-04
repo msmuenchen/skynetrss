@@ -128,4 +128,5 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_news:"Projekt-Neuigkeiten",
   page_mostrecent:"Neueste Nachrichten",
   page_showsnacks:"Anrisstexte auf Startseite anzeigen",
+  page_savepassword:"Passwort speichern?",
 });
