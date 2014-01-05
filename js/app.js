@@ -58,4 +58,20 @@ $(document).ready(function(){
       console.glog("api",e._url,e.readyState);
     });
   });
+
+//http://stackoverflow.com/a/14325681/2362837
+//don't display the iframe overlay on non-touch devices
+//as it's only there to enable touch scrolling
+// Webkit detection script
+Modernizr.addTest('webkit', function(){
+  return RegExp(" AppleWebKit").test(navigator.userAgent);
+});
+
+// Mobile Webkit
+Modernizr.addTest('mobile', function(){
+  //Test for "Android" too, see e.g. Galaxy Tab:
+  //"Mozilla/5.0 (Linux; U; Android 4.1.2; de-de; GT-P3110 Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30"
+  var t1=RegExp(" Mobile").test(navigator.userAgent);
+  var t2=RegExp(" Android").test(navigator.userAgent);
+  return t1 || t2;
 });
