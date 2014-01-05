@@ -6,6 +6,7 @@ jQuery(document).ready(function($){
   $(".modal-close").click(function() {
     console.glog("view.modal","detected click on modal-close button");
     $("#modal-container").hide(); //hide the overlay
+    $("#content,#menu").attr("aria-hidden","false");
     $(this).parent().hide(); //and hide the container the button belongs to
     appstate.keyscope=0;
   });
@@ -18,6 +19,7 @@ jQuery(document).ready(function($){
       return;
     console.glog("view.modal","detected esc-key press");
     $("#modal-container,.modal-box").hide();
+    $("#content,#menu").attr("aria-hidden","false");
     appstate.keyscope=0;
   });
 });
@@ -29,5 +31,6 @@ $(document).on("skyrss_modal_show",function(e,a) {
     return;
   }
   $("#modal-container,"+a.id).show();
+  $("#content,#menu").attr("aria-hidden","true");
   appstate.keyscope=99;
 });
