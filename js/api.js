@@ -19,8 +19,8 @@ window.addEventListener("beforeunload",function() {
 //param.ignoreNetworkException=true: do not report to the user that the request failed on network level, but still call s/f/a handlers
 //param.ignoreAPIException=true: do not prompt the user for retry of request, still call s/f/a handlers
 function doAPIRequest(target,params,success,fail,always) {
-  if(window.applicationCache && window.applicationCache.status!=window.applicationCache.IDLE) {
-    console.glog("api","postponing request to "+target+" because appcache is not ready yet");
+  if(appstate.cacheIsOnline==false) {
+    console.glog("api","postponing request to "+target+" because appcache is not ready yet (state:"+window.applicationCache.status+")");
     setTimeout(function() {
       doAPIRequest(target,params,success,fail,always);
     },1000);
