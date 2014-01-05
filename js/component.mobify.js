@@ -8,6 +8,11 @@ $(document).ready(function() {
   console.glog("component.mobify","initializing");
   appstate.mobile=false;
   appstate.lastView="";
+  //hide address bar on mobile
+  setTimeout(function() {
+    window.scrollTo(0, 1);
+  }, 100);
+  
   $(window).hashchange(function(e) {
     var h=location.hash;
     var r=/menu/.exec(h);
