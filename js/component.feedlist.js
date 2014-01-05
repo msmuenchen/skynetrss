@@ -3,57 +3,46 @@ if(typeof appstate!="object")
   appstate={};
 
 $(document).ready(function() {
-  console.glog("component.feedlist","initializing");
-  appstate.feedlist={};
-  appstate.feedlist.loaded=false;
-  appstate.feedlist.object={};
-  //auto-refresh
-  setInterval(function() {
-    //don't update if we haven't had at least one fetch before
-    if(appstate.feedlist.loaded!=true)
-      return;
-    //don't update in offline mode (only thing that can change
-    //while offline is the readcounts, and setread takes care of that)
-    if(appstate.online!=true)
-      return;
-    loadFeedsFromServer();
-  },1000*60*5); //5 min lifetime
+  console.glog("component.feedlist::onReady","initializing");
+  appstate.feedlist={loaded:false,object:{}};
 });
 
-$(document).on("skyrss_session_load",function() {
+$(document).on("skyrss_feedlist_load_request",function() {
   if(appstate.online)
     loadFeedsFromServer();
-  else
+  else if(appstate.online!=true && appstate.offlineEnabled==true)
     loadFeedsFromLSO();
+  else {
+    console.glog("component.feedlist::onRequestLoad","offline, but no offline support enabled");
+    alert(_("page_error_offline"));
+  }
 });
 
 function loadFeedsFromServer() {
-  console.glog("component.feedlist","loading feedlist from server");
+  console.glog("component.feedlist::loadFeedsFromServer","loading feedlist from server");
   doAPIRequest("getfeeds",{},function(data) {
-    console.glog("component.feedlist","got feedlist from server, data is",data);
+    console.glog("component.feedlist::loadFeedsFromServer","got feedlist from server");
     appstate.feedlist.loaded=true;
     appstate.feedlist.object=data;
-    if(!Modernizr.localstorage || !window.localStorage) {
-      console.gerror("component.feedlist","cannot store feedlist in LSO, no support!");
-    } else {
-      window.localStorage["skyrss.feedlist"]=JSON.stringify(data);
-    }
-    $(document).trigger("skyrss_feedlist_load");
+    $(document).trigger("skyrss_feedlist_load_done");
+    $(document).trigger("skyrss_feedlist_persist");
   });
 }
 
 function loadFeedsFromLSO() {
-  console.glog("component.feedlist","loading feedlist from LSO");
-  if(!Modernizr.localstorage || !window.localStorage) {
-    console.gerror("component.feedlist","cannot load offline, no support for LSO");
-    return;
-  }
+  console.glog("component.feedlist::loadFeedsFromLSO","loading feedlist from LSO");
   var lso=window.localStorage["skyrss.feedlist"];
   if(!lso) {
     console.gerror("component.feedlist","cannot load offline, LSO got deleted or never created?");
+    alert(_("page_error_neveronline"));
     return;
   }
   appstate.feedlist.object=JSON.parse(lso);
   appstate.feedlist.loaded=true;
-  $(document).trigger("skyrss_feedlist_load");
+  $(document).trigger("skyrss_feedlist_load_done");
 }
+
+$(document).on("skyrss_feedlist_persist",function() {
+  console.glog("component.feedlist::onPersist","storing feedlist in LSO");
+  window.localStorage["skyrss.feedlist"]=JSON.stringify(appstate.feedlist.object);
+});
