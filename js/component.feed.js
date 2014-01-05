@@ -10,29 +10,42 @@ $(document).ready(function() {
     return;
   }
   appstate.feedDB.supported=true;
+  var dbScheme="v5";
+  if(!localStorage["skyrss.idbscheme"] || localStorage["skyrss.idbscheme"]!=dbScheme) {
+    console.gwarn("component.feed","wiping database");
+    $.indexedDB("skyrss").deleteDatabase().done(function(){
+      localStorage["skyrss.idbscheme"]=dbScheme;
+      location.reload();
+    });
+  } else {
+    console.glog("component.feed","DB scheme current at",dbScheme,", proceeding to open");
+    IDBInit();
+  }
+});
+
+function IDBInit() {
+  console.glog("component.feed::IDBInit","initializing database");
   $.indexedDB("skyrss",{
-    version:2,
+    version:1,
     schema:{
       1:function(t) {
-        console.glog("component.feed","creating database");
+        console.glog("component.feed::IDBInit","creating database");
         t.createObjectStore("feeds",{keyPath:"id"});
-        t.createObjectStore("feeditems",{keyPath:["id","feed_id"]});
-      },
-      2:function(t) {
-        console.glog("component.feed","creating lookup index for timestamp");
+        t.createObjectStore("feeditems",{keyPath:["feed_id","id"]});
         var os=t.objectStore("feeditems");
-        os.createIndex("idx_ts",["id","feed_id","time"]);
+        os.createIndex(["feed_id","id","time"],"idx_ts");
+        os.createIndex("feed_id","idx_feedid");
       },
     }
   }).done(function() {
-    console.glog("component.feed","database opened");
+    console.glog("component.feed::IDBInit","database opened");
     appstate.feedDB.ready=true;
   }).progress(function() {
-    console.glog("component.feed","db open in progress");
+    console.glog("component.feed::IDBInit","db open in progress");
   }).fail(function(err,e) {
-    console.gerror("component.feed","db open failed:",err,e);
+    console.gerror("component.feed::IDBInit","db open failed:",err,e);
   });
-});
+}
 
 $(document).on("skyrss_feed_requestupdate",function(ev,a) {
   if(appstate.online==null) {
@@ -138,30 +151,37 @@ function loadFeedFromDB(a) {
   if(!appstate.feedDB.supported)
     return;
   //todo this sucks
-  if(appstate.feedlist.loaded!=true) {
-    setTimeout(arguments.callee.bind(this,ev,args),500);
+  if(appstate.feedlist.loaded!=true || appstate.feedDB.ready!=true) {
+    setTimeout(arguments.callee.bind(this),500);
     console.glog("component.feed","waiting for preconditions");
-    return;
-  }
-  if(!appstate.feedDB.ready) {
-    console.gerror("component.feed","cannot read from DB, not opened yet");
     return;
   }
 
 //todo: implement paging, unread, sort, start, len
   console.glog("component.feed","requesting DB data for feed",a.feed);
-  var tp=$.indexedDB("skyrss").transaction("feeditems");
+  var tp=$.indexedDB("skyrss").transaction(["feeditems","feeds"]);
   var ret=[];
   tp.progress(function(t) {
-    var os=t.objectStore("feeditems");
-    os.each(function(item) {
-      if(item.value.feed_id!=a.feed)
-        return;
-      ret.push(item.value);
+    var os_feeds=t.objectStore("feeds");
+    var os_items=t.objectStore("feeditems");
+    var idx=os_feeds.index("idx_feedid");
+    //get all items of this feed
+    var retItems=[];
+    var rp_items=idx.each(function(item) {
+      retItems.push(item);
+    },IDBKeyRange.only(a.feed));
+    //get the feed item
+    var rp_feed=os_feeds.get(IDBKeyRange.only(a.feed));
+    $.when(rp_feed,rp_items).done(function(a_feed,a_items){
+      console.gerror("component.feed::loadFromDB","both requests returned",a_feed,a_items);
+    }).fail(function(a,b,c,d) {
+      console.gerror("component.feed::loadFromDB","one db request failed",a,b,c,d);
     });
+    
   }).fail(function(e) {
     console.gerror("component.feed","read txn failed",e);
   }).done(function() {
+/*
     console.glog("component.feed","read txn done",ret);
     var fo=null;
     appstate.feedlist.object.items.forEach(function(e){
@@ -181,6 +201,32 @@ function loadFeedFromDB(a) {
     };
     console.log("retobj",retObj);
     $(document).trigger("skyrss_feed_data_done",retObj);
+    */
   });
 }
 
+//persist feedlist into the IDB
+//yes, this is double storage and stupid
+//todo make the events flow like
+//res_request => online => load, when loaded fire res_done and res_persist
+//               offline => load, when loaded fire res_done
+$(document).on("skyrss_feedlist_load",function() {
+  if(!appstate.feedDB.supported)
+    return;
+  if(appstate.feedDB.ready!=true) {
+    setTimeout(arguments.callee.bind(this),5000);
+    console.glog("component.feed::onFeedlistLoad","waiting for preconditions");
+    return;
+  }
+  var tp=$.indexedDB("skyrss").transaction("feeds");
+  var data=appstate.feedlist.object.items;
+  console.glog("component.feed::onFeedlistLoad","inserting feed list into database",data);
+  tp.progress(function(t) {
+    var os=t.objectStore("feeds");
+    data.forEach(function(e) {
+      os.put(e);
+    });
+  }).fail(function(e) {
+    console.gerror("component.feed::onFeedlistLoad","feedlist insert txn failed");
+  });
+});

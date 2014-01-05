@@ -42,6 +42,12 @@ $(document).ready(function() {
   $("#feed_allread").click(function() {
     $(document).trigger("skyrss_item_readstate_requestcommit",{feed:appstate.feed.id,item:0,read:true});
   });
+  $("#feed_openactionmenu").click(function() {
+    $("#feedmenu").addClass("mob_open");
+  });
+  $("#feed_actionmenuclose").click(function() {
+    $("#feedmenu").removeClass("mob_open");
+  });
 });
 
 $(document).on("skyrss_feed_update_begin",function() {
@@ -92,7 +98,8 @@ $(document).on("skyrss_view_feed",function(ev,args) {
     if(cp!=np) {
       console.glog("view.feed","pos change from",cp,"to",np);
       openFeedItem(np);
-    }
+    } else
+      $("#feedentries").scrollTop(0); //scroll to top
   }
 });
 
@@ -213,8 +220,10 @@ $(document).on("skyrss_feed_data_done",function(ev,data) {
       ff="";
     
     ss+="body {\
-      font-family:'"+appstate.settings.user.font+"'"+ff+";\
+      font-family:'"+appstate.settings.user.font+"',"+ff+";\
     }",
+    
+    ss+="* { max-width:100%; }";
     ss+="</style>";
     e.fulltext=ss+e.fulltext;
     
@@ -231,7 +240,7 @@ $(document).on("skyrss_feed_data_done",function(ev,data) {
     sc+="var theId="+e.id+";";
     sc+=$("#inject-height").html();
     sc+="</scr"+"ipt>\n";
-    e.fulltext+=sc;
+    e.fulltext=sc+e.fulltext;
     $("#fl-"+e.id).data("html",e.fulltext);
     /* Evil hack ends here */
     
