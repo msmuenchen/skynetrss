@@ -111,7 +111,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
   <div class="feedDetails" id="data-<%= this.id %>">
     <div><a class="fullLink" target="_blank" href="<%! this.href %>"><%= _("page_openlink") %></a></div>
     <div class="author"><%! this.author %></div>
-    <div class="fullText"></div>
+    <div class="fullText" role="article"></div>
   </div>
   <table class="bottomRow">
     <tr>
@@ -273,31 +273,31 @@ window.onkeydown=function(e) {
 }
     </script>
   </head>
-  <body>
+  <body role="application">
   <div id="offline-box" class="i18n" data-key="page_offline"></div>
-  <div id="menu">
+  <div id="menu" role="menu">
     <ul>
-      <li class="groupheader"><a href="#index" class="i18n" data-key="page_home"></a></li>
-      <li class="groupheader loginshow i18n" data-key="page_headeradd"></li>
-      <li class="loginshow groupitem connectedshow"><a href="#addnew"><span class="i18n" data-key="page_addfeed"></span></a></li>
-      <li class="loginshow groupitem connectedshow"><a href="#addgr"><span class="i18n" data-key="page_addgr"></span></a></li>
-      <li class="loginshow groupitem"><a href="#library"><span class="i18n" data-key="page_library"></span></a></li>
-      <li class="groupheader i18n connectedshow" data-key="page_headeraccount"></li>
-      <li class="logoutshow groupitem connectedshow"><a href="#login"><span class="i18n" data-key="page_login"></span></a></li>
-      <li class="loginshow groupitem connectedshow"><a href="#logout"><span class="i18n" data-key="page_logout"></span></a></li>
-      <li class="loginshow groupitem connectedshow"><a href="#settings"><span class="i18n" data-key="page_settingsfor"></span><span class="username"></span></a></li>
-      <li class="groupheader i18n" data-key="page_headerhelp"></li>
-      <li class="groupitem"><a href="#welcome"><span class="i18n" data-key="page_firststeps"></span></a></li>
+      <li role="menuitem" class="groupheader"><a href="#index" class="i18n" data-key="page_home"></a></li>
+      <li role="menuitem" class="groupheader loginshow i18n" data-key="page_headeradd"></li>
+      <li role="menuitem" class="loginshow groupitem connectedshow"><a href="#addnew"><span class="i18n" data-key="page_addfeed"></span></a></li>
+      <li role="menuitem" class="loginshow groupitem connectedshow"><a href="#addgr"><span class="i18n" data-key="page_addgr"></span></a></li>
+      <li role="menuitem" class="loginshow groupitem"><a href="#library"><span class="i18n" data-key="page_library"></span></a></li>
+      <li role="menuitem" class="groupheader i18n connectedshow" data-key="page_headeraccount"></li>
+      <li role="menuitem" class="logoutshow groupitem connectedshow"><a href="#login"><span class="i18n" data-key="page_login"></span></a></li>
+      <li role="menuitem" class="loginshow groupitem connectedshow"><a href="#logout"><span class="i18n" data-key="page_logout"></span></a></li>
+      <li role="menuitem" class="loginshow groupitem connectedshow"><a href="#settings"><span class="i18n" data-key="page_settingsfor"></span><span class="username"></span></a></li>
+      <li role="menuitem" class="groupheader i18n" data-key="page_headerhelp"></li>
+      <li role="menuitem" class="groupitem"><a href="#welcome"><span class="i18n" data-key="page_firststeps"></span></a></li>
     </ul>
     <hr />
     <ul id="feedlist">
-      <li class="loading"><span class="i18n" data-key="page_loading"></span></li>
-      <li class="nofeeds"><span class="i18n" data-key="page_nofeeds"></span></li>
+      <li role="menuitem" class="loading"><span class="i18n" data-key="page_loading"></span></li>
+      <li role="menuitem" class="nofeeds"><span class="i18n" data-key="page_nofeeds"></span></li>
     </ul>
     <hr />
     <ul id="debug_extra">
-      <li id="flts"></li>
-      <li id="poolinfo">Pool: <span id="poollen"></span> Items</li>
+      <li role="menuitem" id="flts"></li>
+      <li role="menuitem" id="poolinfo">Pool: <span id="poollen"></span> Items</li>
     </ul>
   </div>
   <div id="content">
@@ -431,11 +431,13 @@ window.onkeydown=function(e) {
     <div class="view" id="feed">
       <div id="feedbar">
         <a id="feed_href" target="_blank"><h1 id="feed_title"></h1></a>
-        <div id="feedmenu">
-          <span class="item"><span id="feed_shown"></span>/<span id="feed_total"></span> <span class="i18n" data-key="page_entries"></span></span>
-          <span class="item"><div id="feed_allread" class="i18n feedbarbtn" data-key="page_markallasread"></div></span>
-          <span class="item"><div id="feed_addfrompreview" class="i18n feedbarbtn" data-key="page_add"></div></span>
-          <span class="item">
+        <div id="feedmenu" role="menubar">
+          <span class="btn" id="feed_openactionmenu">Aktionen</span>
+          <span class="close" id="feed_actionmenuclose">X</span>
+          <span class="item" role="menuitem"><span id="feed_shown"></span>/<span id="feed_total"></span> <span class="i18n" data-key="page_entries"></span></span>
+          <span class="item" role="menuitem"><div id="feed_allread" class="i18n feedbarbtn" data-key="page_markallasread"></div></span>
+          <span class="item" role="menuitem"><div id="feed_addfrompreview" class="i18n feedbarbtn" data-key="page_add"></div></span>
+          <span class="item" role="menuitem">
           <div class="dropdown-container feedbarbtn">
             <div class="dropdown-header"><span class="i18n" data-key="page_feedoptions"></span><span class="dropdown-arrow"></span></div>
             <div class="dropdown-items">
@@ -446,7 +448,7 @@ window.onkeydown=function(e) {
             </div>
           </div>
           </span>
-          <span class="item">
+          <span class="item" role="menuitem">
           <div class="dropdown-container feedbarbtn">
             <div class="dropdown-header"><span class="i18n" data-key="page_feeddisplay"></span><span class="dropdown-arrow"></span></div>
             <div class="dropdown-items">
