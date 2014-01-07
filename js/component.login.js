@@ -17,7 +17,7 @@ $(document).ready(function() {
     
     var u=$("#login-username").val();
     var p=$("#login-password").val();
-    if(Modernizr.localstorage && confirm(_("page_savepassword"))) {
+    if(Modernizr.localstorage && !!!localStorage["skyrss.user"] && confirm(_("page_savepassword"))) {
       localStorage["skyrss.user"]=u;
       localStorage["skyrss.pass"]=p;
     }
