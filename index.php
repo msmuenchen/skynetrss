@@ -51,6 +51,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/IndexedDBShim/dist/IndexedDBShim.js"></script>
     <script type="text/javascript" src="js/jquery-indexeddb/src/jquery.indexeddb.js"></script>
     <script type="text/javascript" src="js/rusha.js/rusha.js"></script>
+    <script type="text/javascript" src="js/jquery.ajax-progress.js/js/jquery.ajax-progress.js"></script>
     
     <!-- application components -->
     <script type="text/javascript" src="js/component.network.js"></script>

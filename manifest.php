@@ -22,6 +22,7 @@ $v[]="js/polyfill.js/srcdoc-polyfill.js";
 $v[]="js/IndexedDBShim/dist/IndexedDBShim.js";
 $v[]="js/jquery-indexeddb/src/jquery.indexeddb.js";
 $v[]="js/rusha.js/rusha.js";
+$v[]="js/jquery.ajax-progress.js/js/jquery.ajax-progress.js";
 foreach($v as $f) {
   if(!is_file($f))
     continue;

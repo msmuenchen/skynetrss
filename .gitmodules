@@ -22,3 +22,6 @@
 [submodule "js/rusha.js"]
 	path = js/rusha.js
 	url = https://github.com/srijs/rusha.git
+[submodule "js/jquery.ajax-progress.js"]
+	path = js/jquery.ajax-progress.js
+	url = https://github.com/englercj/jquery-ajax-progress.git
