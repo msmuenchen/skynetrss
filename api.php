@@ -1,5 +1,7 @@
 <?
+ini_set("zlib.output_compression","on");
 header("Content-Type:application/json; charset=utf-8");
+
 require("core.php");
 
 $ret=array();
