@@ -26,7 +26,7 @@ $q=new DB_Query("SELECT f.id,
 
 $ret["feeds"]=array();
 while($r=$q->fetch()) {
-  $sql="SELECT	fi.*,
+  $sql="SELECT	fi.id,fi.excerpt,fi.title,
                 (SELECT fr.timestamp
                  FROM feed_read AS fr
                  WHERE fr.feed_id=fi.feed_id
