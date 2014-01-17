@@ -129,4 +129,8 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_mostrecent:"Neueste Nachrichten",
   page_showsnacks:"Anrisstexte auf Startseite anzeigen",
   page_savepassword:"Passwort speichern?",
+  page_shownotifications:"Desktop-Benachrichtigungen",
+  page_enable:"Aktivieren",
+  page_disable:"Deaktivieren",
+  page_notifyreenable:"In Browser-Seiteneinstellungen aktivieren",
 });

@@ -373,16 +373,17 @@ window.onkeydown=function(e) {
         <div class="tabcontainer tab-display">
           <h2 class="tabheader tab-display tabgroup-settings"><span class="i18n" data-key="page_displaysettings"></span></h2>
           <div class="tab tab-display">
-            <form id="settingsform-display">
             <table>
+            <form id="settingsform-display">
               <tr><th class="i18n" data-key="page_jumponopen"></th><td><input type="checkbox" id="settings-display-jumponopen" data-key="jumponopen" /></td></tr>
               <tr><th class="i18n" data-key="page_infinitescroll"></th><td><input type="checkbox" id="settings-display-infinitescroll" data-key="infinitescroll" /></td></tr>
               <tr><th class="i18n" data-key="page_language"></th><td><select id="settings-display-language" data-key="language"></select></td></tr>
               <tr><th class="i18n" data-key="page_font"></th><td><select id="settings-display-font" data-key="font"></select></td></tr>
               <tr><th class="i18n" data-key="page_showsnacks"></th><td><input type="checkbox" id="settings-display-showsnacks" data-key="showsnacks" /></td></tr>
               <tr><td colspan="2"><button id="settings-display-save"><span class="i18n" data-key="page_save"></span></button></td></tr>
-            </table>
             </form>
+              <tr><th class="i18n" data-key="page_shownotifications"></th><td><button id="settings-display-togglenotification"></button></td></tr>
+            </table>
           </div>
         </div>
       </div>

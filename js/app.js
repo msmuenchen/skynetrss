@@ -75,3 +75,7 @@ Modernizr.addTest('mobile', function(){
   var t2=RegExp(" Android").test(navigator.userAgent);
   return t1 || t2;
 });
+
+Modernizr.addTest('html5Notification',function() {
+  return !!window.Notification;
+});

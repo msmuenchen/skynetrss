@@ -69,6 +69,44 @@ $(document).ready(function() {
       alert("Can not save settings while online!");
     }
   });
+  
+  var nbtn=$("#settings-display-togglenotification");
+  if(!Modernizr.html5notification || !Modernizr.localstorage)
+    nbtn.attr("disabled","disabled").html(_("page_notsupported"));
+  else {
+    var n=window.Notification;
+    if(n.permission=="granted") {
+      if(window.localStorage["skyrss.useNotifications"]=="true")
+        nbtn.html(_("page_disable"));
+      else
+        nbtn.html(_("page_enable"));
+    } else if(n.permission=="denied") {
+      nbtn.attr("disabled","disabled").html(_("page_notifyreenable"));
+    } else {
+      nbtn.html(_("page_enable"));
+    }
+    
+    nbtn.click(function() {
+      if(n.permission=="granted") {
+        if(window.localStorage["skyrss.useNotifications"]=="true") {
+          window.localStorage["skyrss.useNotifications"]=false;
+          nbtn.html(_("page_enable"));
+        } else {
+          window.localStorage["skyrss.useNotifications"]=true;
+          nbtn.html(_("page_disable"));
+        }
+      } else {
+        n.requestPermission(function(np) {
+          if(np=="granted") {
+            nbtn.html(_("page_disable"));
+            window.localStorage["skyrss.useNotifications"]=true;
+          } else {
+            nbtn.attr("disabled","disabled").html(_("page_notifyreenable"));
+          }
+        });
+      }
+    });
+  }
 });
 
 $(document).on("skyrss_view_settings",function() {
