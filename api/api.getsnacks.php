@@ -22,7 +22,7 @@ $q=new DB_Query("SELECT f.id,
                 LEFT JOIN user_feeds AS uf on uf.feed_id=f.id
                 WHERE uf.user_id=?
                 ORDER BY f.mostrecent_ts DESC
-                LIMIT 0,5",$uid,$uid);
+                LIMIT 0,10",$uid,$uid);
 
 $ret["feeds"]=array();
 while($r=$q->fetch()) {
@@ -42,6 +42,9 @@ while($r=$q->fetch()) {
   while($r2=$q2->fetch())
     $r["items"][]=$r2;
   $r["unread"]=$r["total"]-$r["read"];
-  $ret["feeds"][]=$r;
+  if(sizeof($r["items"])>0) //dont include feeds where there are no unread items
+    $ret["feeds"][]=$r;
+  if(sizeof($ret["feeds"])>=5) //max output 5 feeds
+    break;
 }
 $ret["ts"]=time();
