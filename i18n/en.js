@@ -131,5 +131,6 @@ and storage of the full content is a very time- and memory-intensive effort.</p>
   page_enable:"Enable",
   page_disable:"Disable",
   page_notifyreenable:"Re-enable in browser privacy settings",
+  page_notifyfeedloaded:"New feed content loaded",
   page_loadingfeed:"Loading feed %s...",
 });

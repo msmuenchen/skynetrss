@@ -133,5 +133,6 @@ des vollständigen Inhalts ist ein sehr zeit- und ressourcenintensiver Prozess.<
   page_enable:"Aktivieren",
   page_disable:"Deaktivieren",
   page_notifyreenable:"In Browser-Seiteneinstellungen aktivieren",
+  page_notifyfeedloaded:"Neue Inhalte geladen",
   page_loadingfeed:"Lade Feed %s...",
 });

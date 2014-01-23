@@ -265,6 +265,12 @@ $(document).on("skyrss_feed_data_done",function(ev,data) {
   $("#feedentries").scroll();
   if(appstate.feed.pos!=0)
     openFeedItem(appstate.feed.pos);
+  
+  if(Modernizr.localstorage && Modernizr.html5notification && localStorage["skyrss.useNotifications"]=="true") {
+    var n=new Notification(data.feed.title,{tag:"skyrss_feed_loaded_"+data.feed.id,body:_("page_notifyfeedloaded"),icon:data.feed.icon});
+    n.onclick=function() { window.focus(); };
+    n.onshow=function() { setTimeout(function(){ n.close(); },10000); }
+  }
 });
 
 //open a feed item in the list (pos: db id of the item)
