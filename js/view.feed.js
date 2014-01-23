@@ -86,7 +86,15 @@ $(document).on("skyrss_view_feed",function(ev,args) {
     console.glog("view.feed","feed change from",cf,"to",nf,":",np);
     $("#feedmore").removeClass().addClass("loading"); //prevent infinite-scroll from loading
     $("#feed_href").removeAttr("href");
-    $("#feed_title").html(_("page_loading"));
+    var fn="";
+    if(appstate.feedlist && appstate.feedlist.loaded) {
+      var o=appstate.feedlist.object.items;
+      o.forEach(function(e) {
+        if(e.id==nf)
+          fn=e.title;
+      });
+    }
+    $("#feed_title").html(sprintf(_("page_loadingfeed"),fn));
     $("#feedentries").scrollTop(0); //scroll to top
     $("#feedentries li.feedline").remove();
     $("#feedmenu, #feedentries, #feedfooter").hide();
