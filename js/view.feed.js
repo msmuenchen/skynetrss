@@ -24,7 +24,9 @@ $(document).ready(function() {
     if(!$("#feedmore").hasClass("more"))
       return;
     $("#feedmore").removeClass().addClass("loading");
-    $(document).trigger("skyrss_feed_data_request",{feed:appstate.feed.id,start:appstate.feed.next,len:0,order:$("#feed_sort").val(),ignoreread:!$("#feed_showread").is(":checked")});
+    var h=$("#feedentries").height();
+    var rl=parseInt(h/27)*1.5;//todo use proper height, reference to css?
+    $(document).trigger("skyrss_feed_data_request",{feed:appstate.feed.id,start:appstate.feed.next,len:rl,order:$("#feed_sort").val(),ignoreread:!$("#feed_showread").is(":checked")});
   });
   $("#feedentries").scroll(function() {
     if(appstate.settings.user.infinitescroll && appstate.settings.user.infinitescroll!=1)
@@ -100,7 +102,9 @@ $(document).on("skyrss_view_feed",function(ev,args) {
     $("#feedmenu, #feedentries, #feedfooter").hide();
     appstate.feed.selected=0;
     appstate.feed.next=0;
-    $(document).trigger("skyrss_feed_data_request",{feed:nf,start:appstate.feed.next,len:0,order:$("#feed_sort").val(),ignoreread:!$("#feed_showread").is(":checked")});
+    var h=$("#feedentries").height();
+    var rl=parseInt(h/27)*1.5;//todo use proper height, reference to css? anyway we're loading one and a half screen to cover for preloads
+    $(document).trigger("skyrss_feed_data_request",{feed:nf,start:appstate.feed.next,len:rl,order:$("#feed_sort").val(),ignoreread:!$("#feed_showread").is(":checked")});
   } else {
     console.glog("view.feed","feed still",cf);
     if(cp!=np) {
