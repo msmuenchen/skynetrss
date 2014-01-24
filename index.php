@@ -53,6 +53,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/rusha.js/rusha.js"></script>
     <script type="text/javascript" src="js/jquery.ajax-progress.js/js/jquery.ajax-progress.js"></script>
     <script type="text/javascript" src="js/lz-string.js/libs/lz-string-1.3.3.js"></script>
+    <script type="text/javascript" src="js/utf16_8.js"></script>
     
     <!-- application components -->
     <script type="text/javascript" src="js/component.network.js"></script>
