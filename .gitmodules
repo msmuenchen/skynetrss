@@ -25,3 +25,6 @@
 [submodule "js/jquery.ajax-progress.js"]
 	path = js/jquery.ajax-progress.js
 	url = https://github.com/englercj/jquery-ajax-progress.git
+[submodule "js/lz-string.js"]
+	path = js/lz-string.js
+	url = https://github.com/pieroxy/lz-string.git

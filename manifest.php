@@ -23,6 +23,7 @@ $v[]="js/IndexedDBShim/dist/IndexedDBShim.js";
 $v[]="js/jquery-indexeddb/src/jquery.indexeddb.js";
 $v[]="js/rusha.js/rusha.js";
 $v[]="js/jquery.ajax-progress.js/js/jquery.ajax-progress.js";
+$v[]="js/lz-string.js/libs/lz-string-1.3.3.js";
 foreach($v as $f) {
   if(!is_file($f))
     continue;
