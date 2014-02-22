@@ -133,6 +133,7 @@ CREATE TABLE `users` (
   `name` text NOT NULL,
   `password` text NOT NULL,
   `is_active` int(11) NOT NULL DEFAULT '1',
+  `lastlogin` int(11) NOT NULL DEFAULT '0',
   `source` varchar(30) NOT NULL,
   `ext_uid` varchar(255) NOT NULL COMMENT 'oauth/fb/openid external UID',
   `ext_data` text NOT NULL COMMENT 'external auth tokens etc',

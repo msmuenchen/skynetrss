@@ -38,6 +38,10 @@ if($p!=$row["password"]) {
   $u->commit();
 }
 
+//set last-login time
+$ts=time();
+$q=new DB_Query("update users set lastlogin=? where id=?",$ts,$row["id"]);
+
 $ret["user"]=$row;
 $ret["sid"]=session_id();
 $ret["login"]="ok";
