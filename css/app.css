@@ -559,3 +559,19 @@ left:10px;
 padding:5px 10px;
 z-index:9999;
 }
+.feedline .topRow .star {
+	padding: 0px 2px;
+	width:12px;
+}
+.feedline .topRow .star:after {
+	content:"\2606";
+}
+.feedline .topRow .star.checked:after {
+	content:"\2605";
+}
+.feedline .topRow .star:hover:after {
+	content:"\2605";
+}
+.feedline .topRow .star.checked:hover:after {
+	content:"\2606";
+}

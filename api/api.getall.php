@@ -31,7 +31,7 @@ if(isset($_GET["nocontent"])) //replace content with sha1 hash
 $ret["feed"]=$fdata;
 $sql="SELECT
 	fi_o.id AS item_id,
-	fi_o.feed_id AS feed_id,
+	fi_o.feed_id AS id,
 	fi_o.guid,
 	fi_o.title,
 	fi_o.time,
@@ -46,7 +46,13 @@ $sql="SELECT
 	        WHERE fr.feed_id=fi_o.feed_id
         	AND fr.item_id=fi_o.id
 	        AND fr.user_id=?
-	) AS `timestamp`
+	) AS `timestamp`,
+	(SELECT fs.timestamp
+		FROM feed_stars AS fs
+		WHERE fs.feed_id=fi_o.feed_id
+		AND fs.item_id=fi_o.id
+		AND fs.user_id=?
+	) AS `star_timestamp`
 FROM feed_items AS fi_o
 JOIN
 	(SELECT
@@ -60,7 +66,7 @@ JOIN
 	LIMIT $start,$len) AS fi_i ON fi_i.feed_id_i=fi_o.feed_id AND fi_i.item_id_i=fi_o.id
 INNER JOIN feeds ON feeds.id=fi_o.feed_id";
 
-$q=new DB_Query($sql,$uid,$uid);
+$q=new DB_Query($sql,$uid,$uid,$uid);
 $ret["items"]=array();
 while($r=$q->fetch()) {
 // $r["timestamp"]=null;

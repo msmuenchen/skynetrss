@@ -40,12 +40,18 @@ $sql="SELECT	fi.*,
                  WHERE fr.feed_id=fi.feed_id
                        AND fr.item_id=fi.id
                        AND fr.user_id=?
-                ) AS `timestamp`
+                ) AS `timestamp`,
+                (SELECT fs.timestamp
+                 FROM feed_stars AS fs
+                 WHERE fs.feed_id=fi.feed_id
+                       AND fs.item_id=fi.id
+                       AND fs.user_id=?
+                ) AS `star_timestamp`
     FROM `feed_items` as fi
     WHERE fi.feed_id=? ";
 $sql.="ORDER BY `time` $order LIMIT $start,$len;";
-$ret["msg"]=$sql;
-$q=new DB_Query($sql,$uid,$feed);
+
+$q=new DB_Query($sql,$uid,$uid,$feed);
 $ret["items"]=array();
 while($r=$q->fetch()) {
   if(isset($_GET["ignoreread"]) && $_GET["ignoreread"]=="true" && $r["timestamp"]!==null)

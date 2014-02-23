@@ -99,6 +99,27 @@ function setItemReadstateServer(a) {
   }
 }
 
+$(document).on("skyrss_item_starstate_requestcommit",function(e,a) {
+  console.glog("component.feeditem","got a starstate commit for",a);
+  if(appstate.online==true)
+    setItemStarstateServer(a);
+  else
+    setItemStarstateDB(a);
+});
+
+function setItemStarstateDB(a) {
+  return;
+}
+function setItemStarstateServer(a) {
+  var state=(a.read==true)?"read":"unread";
+  console.glog("component.feeditem","setting starstate of",a.feed,"/",a.item,"to",state,"on server");
+  doAPIRequest("setstarstate",{feed:a.feed,item:a.item,state:state},function(data) {
+    console.glog("component.feeditem","set starstate of",a.feed,"/",a.item,"to",state,"on server");
+    if(data.affected==1)
+      $(document).trigger("skyrss_item_starstate_updated",a);
+  });
+}
+
 $(document).on("skyrss_feed_data_request",function(e,a) {
   console.glog("component.feed","got a data request for",a);
   if(appstate.online==true) {

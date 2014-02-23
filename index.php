@@ -108,6 +108,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
   <table class="topRow">
   <tr>
     <td class="title <%= this.titleclass %>"><%! this.title %></td>
+    <td class="star"></td>
     <td class="date"><%= this.date %></td>
   </tr>
   </table>

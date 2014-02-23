@@ -49,6 +49,17 @@ CREATE TABLE `feed_runs` (
   PRIMARY KEY (`feed_id`,`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `feed_stars`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `feed_stars` (
+  `user_id` int(11) NOT NULL,
+  `feed_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `timestamp` int(11) NOT NULL,
+  PRIMARY KEY (`feed_id`,`item_id`,`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `feed_tags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

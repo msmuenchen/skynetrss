@@ -210,10 +210,21 @@ $(document).on("skyrss_feed_data_done",function(ev,data) {
       $(".itemRead",el).prop("checked",true);
     else
       $(".itemRead",el).prop("checked",false);
+    
+    if(e.star_timestamp!=null)
+      $(".star",el).addClass("checked");
 
     $(".itemRead",el).change(function() {
       var v=$(this).is(":checked");
       $(document).trigger("skyrss_item_readstate_requestcommit",{feed:data.feed.id,item:e.id,read:!v});
+    });
+    
+    $(".star",el).click(function(ev) {
+      //stop propagation so that the feed item doesnt close (click on top bar!)
+      ev.preventDefault();
+      ev.stopPropagation();
+      var v=$(this).hasClass("checked");
+      $(document).trigger("skyrss_item_starstate_requestcommit",{feed:data.feed.id,item:e.id,read:!v});
     });
     
     //Insert the element before the "Read more..." list entry
@@ -370,6 +381,20 @@ $(document).on("skyrss_item_readstate_updated",function(e,a) {
   if(old==0)
     $("#fi-"+a.feed).removeClass("hasunread");
 });
+
+$(document).on("skyrss_item_starstate_updated",function(e,a) {
+  console.glog("view.feed","got a starstate_update event for",a);
+  if(appstate.feed.id!=a.feed) {
+    console.glog("view.feed","discarding due to feed id mismatch",appstate.feed.id,a.feed);
+    return;
+  }
+  var el=$("#fl-"+a.item+" .star");
+  if(a.read)
+    el.addClass("checked");
+  else
+    el.removeClass("checked");
+});
+
 
 //event listener for messages from the feeditem-iframes
 window.addEventListener('message', function(event) {
