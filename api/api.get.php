@@ -32,6 +32,7 @@ $q=new DB_Query("select * from feeds where id=?",$feed);
 if($q->numRows!=1)
   throw new Exception("Feed ID invalid");
 $fdata=$q->fetch();
+$fdata["icon"]=""; //save bandwidth
 
 $q=new DB_Query("select * from user_feeds where user_id=? and feed_id=?",$uid,$feed);
 if($q->numRows!=1 && false)
