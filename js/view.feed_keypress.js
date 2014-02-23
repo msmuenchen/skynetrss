@@ -52,7 +52,7 @@ $(window).keydown(function(e) {
         if($("#feedmore").hasClass("more")) //more items available => click
           $("#feedmore").click();
       } else {
-        var r=/fl-([0-9]*)/.exec(nId);
+        var r=/fl-(.*)/.exec(nId);
         location.hash="feed/"+appstate.feed.id+"/"+r[1];
       }
       return;
@@ -121,7 +121,7 @@ $(window).keypress(function(e) {
       var nId=n.attr("id");
       if(nId=="feedmore")
         return;
-      var r=/fl-([0-9]*)/.exec(nId);
+      var r=/fl-(.*)/.exec(nId);
       appstate.feed.selected=r[1];
       c.removeClass("selected");
       n.addClass("selected");
@@ -138,7 +138,7 @@ $(window).keypress(function(e) {
       if(n.length!=1)
         return;
       var nId=n.attr("id");
-      var r=/fl-([0-9]*)/.exec(nId);
+      var r=/fl-(.*)/.exec(nId);
       appstate.feed.selected=r[1];
       c.removeClass("selected");
       n.addClass("selected");
@@ -153,7 +153,7 @@ $(window).keypress(function(e) {
       } else
         var c=$("#fl-"+appstate.feed.selected);
       var cId=c.attr("id");
-      var r=/fl-([0-9]*)/.exec(cId);
+      var r=/fl-(.*)/.exec(cId);
       if(c.hasClass("open")) //collapse
         location.hash="feed/"+appstate.feed.id+"/";
       else
@@ -162,7 +162,7 @@ $(window).keypress(function(e) {
     case 49: //1
       $(".feedline").each(function(e) {
         var cId=$(this).attr("id");
-        var r=/fl-([0-9]*)/.exec(cId);
+        var r=/fl-(.*)/.exec(cId);
         openFeedItem(r[1],true);
       });
     break;
@@ -183,7 +183,7 @@ $(window).keypress(function(e) {
       var nId=n.attr("id");
       if(nId=="feedmore")
         return;
-      var r=/fl-([0-9]*)/.exec(nId);
+      var r=/fl-(.*)/.exec(nId);
       location.hash="feed/"+appstate.feed.id+"/"+r[1];
     break;
     case 107: //k
@@ -198,7 +198,7 @@ $(window).keypress(function(e) {
       if(n.length!=1)
         return;
       var nId=n.attr("id");
-      var r=/fl-([0-9]*)/.exec(nId);
+      var r=/fl-(.*)/.exec(nId);
       location.hash="feed/"+appstate.feed.id+"/"+r[1];
     break;
     case 102: //f
