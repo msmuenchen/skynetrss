@@ -1,4 +1,5 @@
 <?
+$ts_start=microtime(true);
 ini_set("zlib.output_compression","on");
 header("Content-Type:application/json; charset=utf-8");
 
@@ -63,4 +64,6 @@ header('Content-Type: text/cache-manifest');
   $ret["message"]=$e->getMessage();
   $ret["type"]=get_class($e);
 }
+$ts_end=microtime(true);
+$ret["rt"]=$ts_end-$ts_start;
 echo pretty_json(json_encode($ret,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
