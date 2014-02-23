@@ -21,6 +21,9 @@ $len=25;
 if(isset($_GET["len"])) {
   $len=(int)$_GET["len"];
 }
+if($len<10)
+ $len=10;
+ 
 
 $q=new DB_Query("select * from feeds where id=?",$feed);
 if($q->numRows!=1)
