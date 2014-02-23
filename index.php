@@ -78,6 +78,7 @@ if(isset($_GET["debug"]) && $config["debugurl"]!="")
     <script type="text/javascript" src="js/view.feed.js"></script>
     <script type="text/javascript" src="js/view.feed_keypress.js"></script>
     <script type="text/javascript" src="js/view.modal.js"></script>
+    <script type="text/javascript" src="js/view.community.js"></script>
     
     <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="js/i18n.js"></script>
@@ -281,10 +282,12 @@ window.onkeydown=function(e) {
   <div id="offline-box" class="i18n" data-key="page_offline"></div>
   <div id="menu" role="menu">
     <ul>
+<!--      <li role="menuitem"><a onclick="applicationCache.update();return false;">Reload AC</a></li>-->
       <li role="menuitem" class="groupheader"><a href="#index" class="i18n" data-key="page_home"></a></li>
       <li role="menuitem" class="groupheader loginshow i18n" data-key="page_headeradd"></li>
       <li role="menuitem" class="loginshow groupitem connectedshow"><a href="#addnew"><span class="i18n" data-key="page_addfeed"></span></a></li>
       <li role="menuitem" class="loginshow groupitem connectedshow"><a href="#addgr"><span class="i18n" data-key="page_addgr"></span></a></li>
+      <li role="menuitem" class="loginshow groupitem connectedshow"><a href="#community"><span class="i18n" data-key="page_community"></span></a></li>
       <li role="menuitem" class="loginshow groupitem"><a href="#library"><span class="i18n" data-key="page_library"></span></a></li>
       <li role="menuitem" class="groupheader i18n connectedshow" data-key="page_headeraccount"></li>
       <li role="menuitem" class="logoutshow groupitem connectedshow"><a href="#login"><span class="i18n" data-key="page_login"></span></a></li>
@@ -495,8 +498,13 @@ window.onkeydown=function(e) {
         <li class="i18n" data-key="page_firststeps_6"></li>
       </ol>
     </div>  
+    <div class="view" id="community">
+      <h1 class="i18n" data-key="page_community"></h1>
+      <h2 class="i18n" data-key="page_add"></h2>
+    </div>
     <div id="mobile_menu"><a href="#menu">Menü</a></div>
   </div>
+
   <div id="modal-container">
     <div id="share-content" class="modal-box">
       <div id="share-close" class="modal-close">
