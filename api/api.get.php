@@ -24,6 +24,9 @@ if(isset($_GET["len"])) {
 if($len<10)
  $len=10;
  
+$noContent=false;
+if(isset($_GET["nocontent"])) //replace content with sha1 hash
+ $noContent=true;
 
 $q=new DB_Query("select * from feeds where id=?",$feed);
 if($q->numRows!=1)
@@ -59,6 +62,12 @@ $ret["items"]=array();
 while($r=$q->fetch()) {
   if(isset($_GET["ignoreread"]) && $_GET["ignoreread"]=="true" && $r["timestamp"]!==null)
     continue;
+  if($noContent) {
+   $r["fulltext"]=sha1($r["fulltext"]);
+   $r["scrape_fulltext"]=sha1($r["scrape_fulltext"]);
+   $r["excerpt_copy"]=$r["excerpt"];
+   $r["excerpt"]=sha1($r["excerpt"]);
+  }
   $ret["items"][]=$r;
 }
 
