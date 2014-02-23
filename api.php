@@ -43,6 +43,7 @@ try {
     case "getnews":
     case "getsnacks":
     case "geticons":
+    case "getall":
       require("api/api.$action.php");
     break;
     case "onlinecheck":
